@@ -2,4 +2,5 @@
 - project:
     name: ansible-network/zuul-config
     check:
-      - noop
+      jobs:
+        - noop
