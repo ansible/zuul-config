@@ -1,6 +1,8 @@
 ---
 - project:
-    name: ansible-network/zuul-config
     check:
       jobs:
-        - noop
+        - linters
+    gate:
+      jobs:
+        - linters
