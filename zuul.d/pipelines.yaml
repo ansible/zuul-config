@@ -74,6 +74,17 @@
     window-increase-factor: 2
 
 - pipeline:
+    name: merge-check
+    description: >
+      Each time a change merges, this pipeline verifies that all open changes
+      on the same project are still mergeable.
+    failure-message: Build failed (merge-check pipeline).
+    manager: independent
+    ignore-dependencies: true
+    precedence: low
+    trigger: {}
+
+- pipeline:
     name: post
     post-review: true
     description: This pipeline runs jobs that operate after each change is merged.
