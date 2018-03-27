@@ -59,7 +59,7 @@
     start:
       github.com:
         status: 'pending'
-        status-url: "https://softwarefactory-project.io/zuul/status.html"
+        status-url: 'https://ansible.softwarefactory-project.io/zuul/status.html'
         comment: false
     success:
       github.com:
