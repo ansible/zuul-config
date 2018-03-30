@@ -45,6 +45,9 @@
       github.com:
         review:
           - permission: write
+            type: approved
+#        label:
+#          - shipit
         status: "softwarefactory-project-zuul[bot]:ansible-network/check:success"
         open: True
         current-patchset: True
