@@ -46,8 +46,8 @@
         review:
           - permission: write
             type: approved
-#        label:
-#          - shipit
+        label:
+          - mergeit
         status: "softwarefactory-project-zuul[bot]:ansible-network/check:success"
         open: True
         current-patchset: True
@@ -67,7 +67,7 @@
     success:
       github.com:
         status: 'success'
-        merge: false
+        merge: true
       sqlreporter:
     failure:
       github.com:
