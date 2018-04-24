@@ -64,7 +64,7 @@
     success:
       github.com:
         status: 'success'
-        merge: true
+        merge: false
       sqlreporter:
     failure:
       github.com:
