@@ -15,3 +15,4 @@
   synchronize:
     dest: "{{ zuul_workspace_root }}"
     src: "{{ zuul.executor.src_root }}"
+  no_log: true
