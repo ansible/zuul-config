@@ -5,6 +5,11 @@
     # Avoid "no action detected in task" linter error
     - skip_ansible_lint
 
+- name: HACK install rsync - move to image
+  package:
+    name: rsync
+    state: present
+
 - name: Synchronize src repos to workspace directory.
   synchronize:
     dest: "{{ zuul_workspace_root }}"
