@@ -9,6 +9,7 @@
   package:
     name: rsync
     state: present
+  become: true
 
 - name: Synchronize src repos to workspace directory.
   synchronize:
