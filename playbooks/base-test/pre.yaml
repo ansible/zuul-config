@@ -1,5 +1,0 @@
----
-- hosts: all
-  roles:
-    - test-prepare-workspace
-    - role: validate-host
