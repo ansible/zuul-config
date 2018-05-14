@@ -6,3 +6,7 @@
     gate:
       jobs:
         - linters
+
+- project:
+    name: ansible/ansible
+    default-branch: devel
