@@ -49,7 +49,6 @@
     post-run:
       - playbooks/base-test/post.yaml
     roles:
-      - zuul: ansible-network/ansible-zuul-jobs
       - zuul: sf-jobs
       - zuul: openstack-infra/zuul-jobs
     timeout: 1800
