@@ -7,17 +7,13 @@
         name: git+https://github.com/ansible/ansible.git@devel
         extra_args: --user
         state: forcereinstall
-        executable: /usr/bin/pip3
+        executable: /usr/bin/pip
 
     - pip:
-        name: "{{ item }}"
+        requirements: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}/requirements.txt"
         extra_args: --user
         state: forcereinstall
-        executable: /usr/bin/pip3
-      with_items:
-        - boto
-        - boto3
-        - lxml
+        executable: /usr/bin/pip
 
     - lineinfile:
         dest: /tmp/secrets.yaml
