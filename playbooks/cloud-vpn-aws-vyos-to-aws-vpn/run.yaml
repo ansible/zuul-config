@@ -26,6 +26,6 @@
         - "cloud_vpn_responder_aws_access_key: {{ aws.access_key }}"
         - "cloud_vpn_responder_aws_secret_key: {{ aws.secret_key }}"
 
-    - command: "/home/zuul-worker/.local/bin/ansible-playbook test_aws_vyos_to_aws_vpn.yaml -e @/tmp/secrets.yaml"
+    - shell: "/home/zuul-worker/.local/bin/ansible-playbook test_aws_vyos_to_aws_vpn.yaml -e @/tmp/secrets.yaml"
       args:
         chdir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}/tests/"
