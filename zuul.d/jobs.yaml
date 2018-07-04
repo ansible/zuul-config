@@ -64,7 +64,6 @@
     name: cloud-vpn-aws-vyos-to-aws-vpn
     description: Run AWS cloud-vpn tests
     run: playbooks/cloud-vpn-aws-vyos-to-aws-vpn/run.yaml
-    post-run: playbooks/cloud-vpn-aws-vyos-to-aws-vpn/post.yaml
     secrets:
       - aws
     nodeset:

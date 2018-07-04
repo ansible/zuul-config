@@ -21,13 +21,16 @@
         state: forcereinstall
         executable: /usr/bin/pip3
 
-    - set_fact:
-        extra_vars: >
-          "-e cloud_vpn_initiator_aws_access_key={{ aws.access_key }} -e cloud_vpn_initiator_aws_secret_key={{ aws.secret_key }}
-           -e cloud_vpn_responder_aws_access_key={{ aws.access_key }} -e cloud_vpn_responder_aws_secret_key={{ aws.secret_key }}"
+    - lineinfile:
+        dest: /tmp/secrets.yaml
+        line: "{{ item }}"
       no_log: True
+      with_items:
+        - "cloud_vpn_initiator_aws_access_key: {{ cloud_vpn_initiator_aws_access_key }}"
+        - "cloud_vpn_initiator_aws_secret_key: {{ cloud_vpn_initiator_aws_secret_key }}"
+        - "cloud_vpn_responder_aws_access_key: {{ cloud_vpn_responder_aws_access_key }}"
+        - "cloud_vpn_responder_aws_secret_key: {{ cloud_vpn_responder_aws_secret_key }}"
 
-    - command: "/home/zuul-worker/.local/bin/ansible-playbook test_aws_vyos_to_aws_vpn.yaml {{ extra_vars }}"
+    - command: "/home/zuul-worker/.local/bin/ansible-playbook test_aws_vyos_to_aws_vpn.yaml -e @/tmp/secrets.yaml"
       args:
         chdir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}/tests/"
-      no_log: True
