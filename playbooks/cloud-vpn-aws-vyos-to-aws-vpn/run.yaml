@@ -10,16 +10,14 @@
         executable: /usr/bin/pip3
 
     - pip:
-        name: boto
+        name: "{{ item }}"
         extra_args: --user
         state: forcereinstall
         executable: /usr/bin/pip3
-
-    - pip:
-        name: boto3
-        extra_args: --user
-        state: forcereinstall
-        executable: /usr/bin/pip3
+      with_items:
+        - boto
+        - boto3
+        - lxml
 
     - lineinfile:
         dest: /tmp/secrets.yaml
