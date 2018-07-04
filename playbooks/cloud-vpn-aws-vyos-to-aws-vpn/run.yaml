@@ -24,6 +24,7 @@
     - lineinfile:
         dest: /tmp/secrets.yaml
         line: "{{ item }}"
+        create: True
       no_log: True
       with_items:
         - "cloud_vpn_initiator_aws_access_key: {{ aws.access_key }}"
