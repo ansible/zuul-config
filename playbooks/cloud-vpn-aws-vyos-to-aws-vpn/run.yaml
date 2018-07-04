@@ -4,7 +4,7 @@
   tasks:
 
     - pip:
-        name: git+https://github.com/ansible/ansible.git@devel
+        name: ansible
         extra_args: --user
         state: forcereinstall
         executable: /usr/bin/pip
