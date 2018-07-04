@@ -1,0 +1,22 @@
+---
+- hosts: all
+
+  tasks:
+
+    - pip:
+        name: git+https://github.com/ansible/ansible.git@devel
+        extra_args: --user
+        state: forcereinstall
+        executable: /usr/bin/pip3
+
+    - set_fact:
+        extra_vars: >
+          "-e cloud_vpn_initiator_aws_access_key={{ aws.access_key }} -e cloud_vpn_initiator_aws_secret_key={{ aws.secret_key }}
+           -e cloud_vpn_responder_aws_access_key={{ aws.access_key }} -e cloud_vpn_responder_aws_secret_key={{ aws.secret_key }}"
+      no_log: True
+
+
+    - command: "/home/zuul-worker/.local/bin/ansible-playbook test.yml {{ extra_vars }}"
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}/tests/"
+      no_log: True
