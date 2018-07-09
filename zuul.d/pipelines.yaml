@@ -48,7 +48,7 @@
             type: approved
         label:
           - mergeit
-        status: "softwarefactory-project-zuul\\[bot\\]:ansible-network/check:success"
+        status: "softwarefactory-project-zuul\\[bot\\]:ansible/check:success"
         open: True
         current-patchset: True
     trigger:
@@ -58,7 +58,7 @@
           state: approved
         - event: pull_request
           action: status
-          status: "softwarefactory-project-zuul\\[bot\\]:ansible-network/check:success"
+          status: "softwarefactory-project-zuul\\[bot\\]:ansible/check:success"
     start:
       github.com:
         status: 'pending'
