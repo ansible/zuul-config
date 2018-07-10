@@ -5,6 +5,7 @@
       Newly uploaded patchsets enter this pipeline to receive an
       initial +/-1 Verified vote.
     manager: independent
+    debug: true
     trigger:
       github.com:
         - event: pull_request
@@ -127,6 +128,7 @@
       OpenStack. For information on how to proceed, see
       http://docs.openstack.org/infra/manual/developers.html#automated-testing
     manager: independent
+    debug: true
     trigger:
       github.com:
         - event: pull_request
@@ -152,4 +154,4 @@
       sqlreporter:
     # Don't report merge-failures to github
     merge-failure:
-        sqlreporter:
+      sqlreporter:
