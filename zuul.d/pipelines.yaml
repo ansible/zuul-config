@@ -128,7 +128,7 @@
       http://docs.openstack.org/infra/manual/developers.html#automated-testing
     manager: independent
     trigger:
-      github:
+      github.com:
         - event: pull_request
           action:
             - opened
@@ -143,11 +143,11 @@
         status-url: 'https://ansible.softwarefactory-project.io/zuul/status.html'
         comment: false
     success:
-      github:
+      github.com:
         status: 'success'
       sqlreporter:
     failure:
-      github:
+      github.com:
         status: 'failure'
       sqlreporter:
     # Don't report merge-failures to github
