@@ -31,6 +31,8 @@
       - zuul: openstack-infra/zuul-jobs
     timeout: 1800
     attempts: 3
+    secrets:
+      - site_ansiblelogs
     nodeset:
       nodes:
         - name: container
@@ -50,6 +52,8 @@
       - zuul: openstack-infra/zuul-jobs
     timeout: 1800
     attempts: 3
+    secrets:
+      - site_ansiblelogs
     nodeset:
       nodes:
         - name: container
