@@ -27,17 +27,14 @@
     post-run:
       - playbooks/base/post.yaml
     roles:
-      - zuul: ansible/zuul-test-repo
       - zuul: sf-jobs
       - zuul: openstack-infra/zuul-jobs
     timeout: 1800
     attempts: 3
-    secrets:
-      - site_ansiblelogs
     nodeset:
       nodes:
         - name: container
-          label: centos-oci
+          label: runc-fedora
 
 - job:
     name: base-test
@@ -53,9 +50,7 @@
       - zuul: openstack-infra/zuul-jobs
     timeout: 1800
     attempts: 3
-    secrets:
-      - site_ansiblelogs
     nodeset:
       nodes:
         - name: container
-          label: centos-oci
+          label: runc-fedora
