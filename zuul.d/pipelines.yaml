@@ -59,6 +59,10 @@
         - event: pull_request
           action: status
           status: "softwarefactory-project-zuul\\[bot\\]:ansible/check:success"
+        - event: pull_request
+          action: labeled
+          label:
+            - mergeit
     start:
       github.com:
         status: 'pending'

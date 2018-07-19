@@ -1,5 +1,9 @@
 ---
 - project:
+    name: ansible/ansible
+    default-branch: devel
+
+- project:
     check:
       jobs:
         - linters
