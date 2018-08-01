@@ -149,10 +149,12 @@
     success:
       github.com:
         status: 'success'
+        comment: false
       sqlreporter:
     failure:
       github.com:
         status: 'failure'
+        comment: false
       sqlreporter:
     # Don't report merge-failures to github
     merge-failure:
