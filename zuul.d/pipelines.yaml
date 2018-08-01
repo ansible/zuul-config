@@ -23,6 +23,7 @@
     success:
       github.com:
         status: 'success'
+        status-url: 'https://ansible.softwarefactory-project.io/'
         comment: false
       sqlreporter:
     failure:
