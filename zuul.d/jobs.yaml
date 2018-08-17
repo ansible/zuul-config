@@ -72,9 +72,9 @@
     description: |
       A job to test changes to the base-controller-appliance-minimal job without
       disturbing the main job in production.  Not for general use.
-    pre-run: playbooks/base-minimal-test/pre.yaml
+    pre-run: playbooks/base-controller-appliance-minimal-test/pre.yaml
     post-run:
-      - playbooks/base-minimal-test/post.yaml
+      - playbooks/base-controller-appliance-minimal-test/post.yaml
     roles:
       - zuul: sf-jobs
       - zuul: openstack-infra/zuul-jobs
