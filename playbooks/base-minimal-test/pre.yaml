@@ -11,6 +11,7 @@
         name: log-inventory
 
 - hosts: all
+  gather_facts: no
   tasks:
     - name: Run prepare-workspace role
       include_role:
