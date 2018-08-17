@@ -10,7 +10,8 @@
       include_role:
         name: log-inventory
 
-- hosts: all
+- hosts: controller
+  gather_facts: no
   tasks:
     - name: Run prepare-workspace role
       include_role:
