@@ -1,0 +1,6 @@
+---
+- name: Wait for changes ahead
+  wait_for_changes_ahead:
+    zuul_status_url: "{{ zuul_web_url }}/api/tenant/{{ zuul.tenant }}/status"
+    zuul_change: "{{ zuul.change }},{{ zuul.patchset }}"
+    wait_timeout: "{{ wait_timeout|default(120) }}"

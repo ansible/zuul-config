@@ -1,0 +1,30 @@
+# This file is managed by ansible, do not edit directly
+---
+resources:
+  tenants:
+    ansible:
+      description: "The ansible tenant."
+      url: "https://ansible.softwarefactory-project.io/manage"
+      default-connection: github.com
+
+  projects:
+    internal:
+      tenant: ansible
+      description: Internal configuration project
+      source-repositories:
+        - sf-jobs:
+            connection: gerrit
+            zuul/shadow:
+              # Ansible objects always take precendence
+              - ansible/zuul-config
+              - ansible/zuul-jobs
+        - openstack-infra/zuul-jobs:
+            connection: openstack.org
+            zuul/exclude:
+              - project
+              - project-template
+              - pipeline
+            zuul/shadow:
+              - ansible/zuul-config
+              - ansible/zuul-jobs
+              - sf-jobs

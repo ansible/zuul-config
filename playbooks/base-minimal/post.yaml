@@ -2,17 +2,30 @@
 - hosts: localhost
   roles:
     - role: add-fileserver
-      fileserver: "{{ site_ansiblelogs }}"
-    - emit-ara-html
+      fileserver: "{{ site_sflogs }}"
+    - role: ara-report
+      # This depends-on https://review.openstack.org/577675
+      ara_report_run: True
+      ara_report_type: database
+      ara_report_path: ara-report
+    - role: log-classify
+      logclassify_model_store_url: https://ansible.softwarefactory-project.io/logs/classifiers
+      logclassify_zuul_web: https://ansible.softwarefactory-project.io/zuul/api
+      logclassify_model_dir: /var/lib/log-classify
+      logclassify_local_dir: "{{ zuul.executor.log_root }}"
 
-- hosts: "{{ site_ansiblelogs.fqdn }}"
+- hosts: "{{ site_sflogs.fqdn }}"
+  gather_facts: false
   tasks:
     # Use a block because play vars doesn't take precedence on roles vars
     - block:
+        - import_role: name=upload-log-classify-model
         - import_role: name=upload-logs
+        - import_role: name=emit-job-report
+        - import_role: name=buildset-artifacts-location
       vars:
-        zuul_log_url: "{{ site_ansiblelogs.url }}"
-        zuul_logserver_root: "{{ site_ansiblelogs.path }}"
+        zuul_log_url: "https://ansible.softwarefactory-project.io/logs"
+        zuul_logserver_root: /var/www/logs
 
 - hosts: localhost
   ignore_errors: yes
