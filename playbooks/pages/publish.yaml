@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  roles:
+    - role: add-fileserver
+      fileserver: "{{ site_pages }}"
+
+- hosts: "{{ site_pages.fqdn }}"
+  roles:
+    - role: upload-pages

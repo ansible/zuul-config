@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  tasks:
+    - include_tasks: update_local.yaml
+    - include_tasks: update_tenant.yaml
