@@ -1,0 +1,162 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Set speculative config path
+      set_fact:
+        config_root: "{{ zuul.executor.src_root }}/{{ zuul.project.canonical_name }}"
+
+    - name: Fetch default config
+      get_url:
+        url: "{{ gateway_url }}/_defconf.tgz"
+        dest: "{{ config_root }}/"
+      retries: 30
+      delay: 1
+
+    - name: Create defconf directory
+      file:
+        path: "{{ config_root }}/defconf"
+        state: directory
+
+    - name: Extract default config
+      unarchive:
+        src: "{{ config_root }}/_defconf.tgz"
+        dest: "{{ config_root }}/defconf/"
+
+    - name: include arch.yaml
+      include_vars:
+        file: "{{ config_root }}/defconf/arch.yaml"
+        name: arch
+
+    - name: Create build directory to merge configuration
+      file:
+        path: "{{ config_root }}/build"
+        state: directory
+
+    - name: Tenant env config-check preparation
+      block:
+        - set_fact:
+            remote_gateway: "{{ gateway_url }}"
+
+        - name: Create defconf-master directory
+          file:
+            path: "{{ config_root }}/defconf-master"
+            state: directory
+
+        - name: Fetch master SF default config
+          get_url:
+            url: "{{ master_sf_url }}/_defconf.tgz"
+            dest: "{{ config_root }}/_defconf-master.tgz"
+          retries: 30
+          delay: 1
+
+        - name: Extract master SF default config
+          unarchive:
+            src: "{{ config_root }}/_defconf-master.tgz"
+            dest: "{{ config_root }}/defconf-master/"
+
+        - name: Overwrite with master SF fake zuul.conf
+          copy:
+            remote_src: true
+            src: "{{ config_root }}/defconf-master/defconf-zuul.conf"
+            dest: "{{ config_root }}/defconf/defconf-zuul.conf"
+
+        - set_fact:
+            tenant_options: "--tenant --master-sf-url {{ master_sf_url }}"
+
+        - name: Copy service_user password in workspace
+          copy:
+            content: "{{ service_user.password }}"
+            dest: "{{ config_root }}/.service_user_password"
+          no_log: true
+      when: tenant_config is defined and tenant_config
+
+    - name: Check resources changes
+      command: env - /usr/local/bin/resources.sh validate {{ remote_gateway | default('') }}
+      args:
+        chdir: "{{ config_root }}"
+
+    - name: Check gerrit replication
+      command: git config -f gerrit/replication.config -l
+      args:
+        chdir: "{{ config_root }}"
+      when: '"gerrit" in arch.roles'
+
+    # Use "env -" to remove zuul-executor environment that modifies python runtime (e.g. defines a 'zuul' python module)
+    - name: Check gerrit commentlinks
+      command: env - python -c "import yaml; 'commentlinks' in yaml.safe_load(open('gerrit/commentlinks.yaml'))"
+      args:
+        chdir: "{{ config_root }}"
+      when: '"gerrit" in arch.roles'
+
+    - name: Check dashboards
+      command: env - python2 /usr/libexec/software-factory/sf-update-dashboard --check --input dashboards/
+      args:
+        chdir: "{{ config_root }}"
+      when: '"gerrit" in arch.roles'
+
+    - name: Check policy file
+      command: env - python -c "import yaml; yaml.safe_load(open('policies/policy.yaml'))"
+      args:
+        chdir: "{{ config_root }}"
+
+    - name: Validate repoxplorer configuration
+      block:
+        - name: Check syntax errors in repoxplorer definition files
+          command: >
+            env - repoxplorer-config-validate --config {{ config_root }}/defconf/defconf-repoxplorer.py
+          args:
+            chdir: "{{ config_root }}"
+      when: '"repoxplorer" in arch.roles'
+
+    - name: Validate nodepool configuration
+      block:
+        - name: Install fake _nodepool.yaml
+          copy:
+            remote_src: true
+            src: "{{ config_root }}/defconf/defconf-nodepool.yaml"
+            dest: "{{ config_root }}/build/_nodepool.yaml"
+
+        - name: Merge nodepool config repo files
+          command: >
+            env - /usr/share/sf-config/scripts/sf-nodepool-conf-merger.py
+                nodepool/ build/nodepool.yaml
+          args:
+            chdir: "{{ config_root }}"
+
+        - name: Run nodepool config-validate
+          command: >
+            env - /opt/rh/rh-python35/root/bin/nodepool -c build/nodepool.yaml
+                config-validate
+          args:
+            chdir: "{{ config_root }}"
+      when: '"nodepool-launcher" in arch.roles'
+
+    - name: Validate zuul configuration
+      block:
+        - name: Install fake zuul.conf
+          copy:
+            remote_src: true
+            src: "{{ config_root }}/defconf/defconf-zuul.conf"
+            dest: "{{ config_root }}/build/zuul.conf"
+
+        - name: Merge zuul tenant config
+          command: >
+            env - /bin/managesf-configuration zuul
+               --cache-dir {{ config_root }}/../.cache --config-dir {{ config_root }} --gateway-url {{ gateway_url }} {{ tenant_options | default('') }} --output build/main.yaml
+          args:
+            chdir: "{{ config_root }}"
+
+        - name: Validate zuul config syntax
+          command: >
+            env - /opt/rh/rh-python35/root/bin/zuul -c zuul.conf tenant-conf-check
+          args:
+            chdir: "{{ config_root }}/build"
+
+    - name: Validate metrics dashboards
+      block:
+        - name: Check syntax errors in metrics dashboards
+          shell: |
+           find . -regextype posix-egrep -regex '.*.(yaml|yml)$' | xargs -I yaml grafana-dashboard validate yaml
+          args:
+            chdir: "{{ config_root }}/metrics"
+      when: '"grafana" in arch.roles'

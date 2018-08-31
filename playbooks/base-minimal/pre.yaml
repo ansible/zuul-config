@@ -1,4 +1,13 @@
 ---
+- hosts: localhost
+  tasks:
+    - block:
+        - import_role: name=emit-job-header
+        # This depends-on https://review.openstack.org/578234
+        - import_role: name=log-inventory
+      vars:
+        zuul_log_url: "https://ansible.softwarefactory-project.io/logs"
+
 - hosts: all
   roles:
     - prepare-workspace
