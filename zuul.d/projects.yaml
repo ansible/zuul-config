@@ -2,11 +2,3 @@
 - project:
     name: ansible/ansible
     default-branch: devel
-
-- project:
-    check:
-      jobs:
-        - linters
-    gate:
-      jobs:
-        - linters
