@@ -48,3 +48,92 @@
 - job:
     name: base
     parent: base-minimal
+
+
+# Software Factory management job
+- semaphore:
+    name: semaphore-config-update
+    max: 1
+
+- job:
+    name: config-check
+    parent: base
+    final: true
+    allowed-projects:
+      - ansible/zuul-config
+    description: Validate the config repo.
+    run: playbooks/config/check.yaml
+    post-run: playbooks/config/check-fetch-artifacts.yaml
+    secrets:
+      - service_user
+    vars:
+      zuul_log_url: "https://ansible.softwarefactory-project.io/logs"
+      gateway_url: "https://ansible.softwarefactory-project.io"
+      tenant_config: True
+      master_sf_url: https://softwarefactory-project.io
+    nodeset:
+      nodes: []
+
+- job:
+    name: config-update
+    parent: base
+    final: true
+    allowed-projects:
+      - ansible/zuul-config
+    description: Deploy config repo update.
+    run: playbooks/config/update.yaml
+    secrets:
+      - site_install_server
+      - site_tenant_update
+    semaphore: semaphore-config-update
+    nodeset:
+      nodes: []
+
+- project:
+    name: ansible/zuul-config
+    check:
+      jobs:
+        - linters
+        - config-check
+    gate:
+      jobs:
+        - linters
+        - config-check
+    post:
+      jobs:
+        - config-update
+
+
+- project:
+    name: ansible/zuul-jobs
+    check:
+      jobs:
+        - linters
+    gate:
+      jobs:
+        - linters
+
+
+- job:
+    name: wait-for-changes-ahead
+    parent: null
+    timeout: 7200
+    nodeset:
+      nodes: []
+    vars:
+      zuul_web_url: "https://ansible.softwarefactory-project.io/zuul"
+    description: |
+      This job wait for the queue ahead to be empty.
+
+      Responds to these variables:
+
+      .. zuul:jobvar:: zuul_web_url
+
+         The zuul web api url.
+
+      .. zuul:jobvar:: wait_timeout
+         :default: 120
+
+         Wait timeout in minutes.
+
+    run: playbooks/wait-for-changes-ahead.yaml
