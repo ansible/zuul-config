@@ -1,0 +1,39 @@
+---
+- name: Discover path of config repository
+  command: git rev-parse --show-toplevel
+  register: config_path
+
+- name: Get last change sha
+  command: "git --git-dir={{ config_path.stdout }}/.git log -n1 --pretty=format:'%h' --no-merges"
+  register: git_log
+
+- name: Get last change on resources sha
+  command: "git --git-dir={{ config_path.stdout }}/.git log -n1 --pretty=format:'%h' --no-merges -- resources zuul"
+  register: git_log_resources
+
+- block:
+    - name: Create SSH private key tempfile
+      tempfile:
+        state: file
+      register: ssh_private_key_tmp
+
+    - name: Create SSH private key from secret
+      copy:
+        content: "{{ site_tenant_update.ssh_private_key }}"
+        dest: "{{ ssh_private_key_tmp.path }}"
+        mode: 0600
+
+    - name: Add zuul ssh key
+      command: "ssh-add {{ ssh_private_key_tmp.path }}"
+
+    - name: Remove SSH private key from disk
+      command: "shred {{ ssh_private_key_tmp.path }}"
+
+    - name: Add site_tenant_update server to known hosts
+      known_hosts:
+        name: "{{ site_tenant_update.fqdn }}"
+        key: "{{ site_tenant_update.ssh_known_hosts }}"
+
+    - name: Run tenant_update
+      command: "ssh root@{{ site_tenant_update.fqdn }} sf_tenant_update"
+  when: git_log_resources.stdout == git_log.stdout

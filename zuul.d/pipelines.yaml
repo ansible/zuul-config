@@ -1,3 +1,4 @@
+# This file is managed by ansible, do not edit directly
 ---
 - pipeline:
     name: check
@@ -18,16 +19,22 @@
     start:
       github.com:
         status: 'pending'
-        status-url: 'https://ansible.softwarefactory-project.io/zuul/status.html'
+        status-url: "https://ansible.softwarefactory-project.io/zuul/status.html"
         comment: false
+      mqtt:
+        topic: "zuul/{pipeline}/start/{project}/{branch}"
     success:
       github.com:
         status: 'success'
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       github.com:
         status: 'failure'
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: gate
@@ -44,10 +51,11 @@
     require:
       github.com:
         review:
+          # Require an approval from user with write access (e.g. core-reviewer)
           - permission: write
             type: approved
-        label:
-          - mergeit
+        # Require label
+        label: mergeit
         status: "softwarefactory-project-zuul\\[bot\\]:ansible/check:success"
         open: True
         current-patchset: True
@@ -56,6 +64,15 @@
         - event: pull_request_review
           action: submitted
           state: approved
+        - event: pull_request
+          action: comment
+          comment: (?i)^\s*regate\s*$
+        - event: pull_request_review
+          action: submitted
+          state: approved
+        - event: pull_request_review
+          action: dismissed
+          state: request_changes
         - event: pull_request
           action: status
           status: "softwarefactory-project-zuul\\[bot\\]:ansible/check:success"
@@ -66,19 +83,127 @@
     start:
       github.com:
         status: 'pending'
-        status-url: 'https://ansible.softwarefactory-project.io/zuul/status.html'
+        status-url: "https://ansible.softwarefactory-project.io/zuul/status.html"
         comment: false
+      mqtt:
+        topic: "zuul/{pipeline}/start/{project}/{branch}"
     success:
       github.com:
         status: 'success'
         merge: true
+        comment: true
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       github.com:
         status: 'failure'
+        comment: true
       sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     window-floor: 20
     window-increase-factor: 2
+
+- pipeline:
+    name: post
+    post-review: true
+    description: This pipeline runs jobs that operate after each change is merged.
+    manager: independent
+    precedence: low
+    trigger:
+      github.com:
+        - event: push
+          ref: ^refs/heads/.*$
+    start:
+      mqtt:
+        topic: "zuul/{pipeline}/start/{project}/{branch}"
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      smtp:
+        from: "zuul@ansible.softwarefactory-project.io"
+        to: "softwarefactory-operations-team@redhat.com"
+        subject: '[Zuul] Job failed in post pipeline: {change.project}'
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: pre-release
+    description: When a commit is tagged with a pre-release tag, this pipeline runs jobs that publish archives and documentation.
+    manager: independent
+    precedence: high
+    post-review: True
+    trigger:
+      github.com:
+        - event: push
+          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9alpha|beta|rc.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      sqlreporter:
+      smtp:
+        from: "zuul@ansible.softwarefactory-project.io"
+        to: "softwarefactory-operations-team@redhat.com"
+        subject: '[Zuul] Job failed in pre-release pipeline: {change.project}'
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: release
+    post-review: true
+    description: When a commit is tagged as a release, this pipeline runs jobs that publish archives and documentation.
+    manager: independent
+    precedence: high
+    trigger:
+      github.com:
+        - event: push
+          ref: ^refs/tags/([0-9]+)\.([0-9]+)\.([0-9]+)(?:-([0-9a-zA-Z.-]+))?(?:\+([0-9a-zA-Z.-]+))?$
+    start:
+      mqtt:
+        topic: "zuul/{pipeline}/start/{project}/{branch}"
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      smtp:
+        from: "zuul@ansible.softwarefactory-project.io"
+        to: "softwarefactory-operations-team@redhat.com"
+        subject: '[Zuul] Job failed in release pipeline: {change.project}'
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: periodic
+    post-review: true
+    description: Jobs in this queue are triggered daily.
+    manager: independent
+    precedence: low
+    trigger:
+      timer:
+        - time: '0 0 * * *'
+    start:
+      mqtt:
+        topic: "zuul/{pipeline}/start/{project}/{branch}"
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      smtp:
+        from: "zuul@ansible.softwarefactory-project.io"
+        to: "softwarefactory-operations-team@redhat.com"
+        subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: merge-check
@@ -90,34 +215,6 @@
     ignore-dependencies: true
     precedence: low
     trigger: {}
-
-- pipeline:
-    name: post
-    post-review: true
-    description: This pipeline runs jobs that operate after each change is merged.
-    manager: independent
-    precedence: low
-    trigger:
-      github.com:
-        - event: push
-    success:
-      sqlreporter:
-    failure:
-      sqlreporter:
-
-- pipeline:
-    name: periodic
-    post-review: true
-    description: Jobs in this queue are triggered daily.
-    manager: independent
-    precedence: low
-    trigger:
-      timer:
-        - time: '0 0 * * *'
-    success:
-      sqlreporter:
-    failure:
-      sqlreporter:
 
 - pipeline:
     name: third-party-check

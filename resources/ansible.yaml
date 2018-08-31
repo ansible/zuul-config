@@ -1,0 +1,19 @@
+resources:
+  projects:
+    ansible:
+      description: Ansible is an IT automation tool.
+      tenant: ansible
+      source-repositories:
+        # The config projects
+        - ansible/zuul-config:
+            zuul/config-project: True
+
+        # Shared jobs
+        - ansible/zuul-jobs
+
+        # Ansible projects
+        - ansible/ansible:
+            zuul/include: []
+        - ansible/zuul-test-repo:
+            zuul/exclude-unprotected-branches: true
+        - ansible/ansible-runner

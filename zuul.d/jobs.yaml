@@ -46,26 +46,5 @@
           label: runc-fedora
 
 - job:
-    name: base-minimal-test
-    parent: null
-    description: |
-      A job to test changes to the base-minimal job without disturbing the
-      main job in production.  Not for general use.
-    pre-run: playbooks/base-minimal-test/pre.yaml
-    post-run:
-      - playbooks/base-minimal-test/post.yaml
-    roles:
-      - zuul: sf-jobs
-      - zuul: openstack-infra/zuul-jobs
-    timeout: 1800
-    attempts: 3
-    secrets:
-      - site_ansiblelogs
-    nodeset:
-      nodes:
-        - name: container
-          label: runc-fedora
-
-- job:
     name: base
     parent: base-minimal
