@@ -26,12 +26,15 @@
     success:
       github.com:
         status: 'success'
+        status-url: 'https://ansible.softwarefactory-project.io/'
+        comment: false
       sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       github.com:
         status: 'failure'
+        comment: false
       sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
@@ -246,10 +249,12 @@
     success:
       github.com:
         status: 'success'
+        comment: false
       sqlreporter:
     failure:
       github.com:
         status: 'failure'
+        comment: false
       sqlreporter:
     # Don't report merge-failures to github
     merge-failure:
