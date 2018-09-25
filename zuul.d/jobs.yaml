@@ -49,6 +49,27 @@
     name: base
     parent: base-minimal
 
+- job:
+    name: base-pod
+    parent: null
+    description: |
+      A base job to run with a container nodeset.
+    pre-run: playbooks/openshift/unprivileged-machine.yaml
+    post-run:
+      - playbooks/base-minimal/post.yaml
+    roles:
+      - zuul: sf-jobs
+      - zuul: openstack-infra/zuul-jobs
+    # Set attempts to 1 until it's working well
+    attempts: 1
+    secrets:
+      - site_ansiblelogs
+    timeout: 1800
+    nodeset:
+      nodes:
+        - name: pod
+          # TODO: add k8s provider and define the label name in nodepool.
+          label: awx-test-image
 
 # Software Factory management job
 - semaphore:
