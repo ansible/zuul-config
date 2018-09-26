@@ -1,0 +1,12 @@
+- project-template:
+    name: python
+    check:
+      jobs:
+        - tox:
+            vars:
+              tox_envlist: ALL
+    gate:
+      jobs:
+        - tox:
+            vars:
+              tox_envlist: ALL

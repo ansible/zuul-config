@@ -2,3 +2,14 @@
 - project:
     name: ansible/ansible
     default-branch: devel
+
+- project:
+    name: ansible/awx
+    default-branch: devel
+    templates:
+      - python
+
+- project:
+    name: ansible/ansible-runner
+    templates:
+      - python
