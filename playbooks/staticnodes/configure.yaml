@@ -1,0 +1,83 @@
+---
+
+- hosts: all
+  tasks:
+    - name: Add Docker GPG key.
+      rpm_key:
+        key: https://download.docker.com/linux/centos/gpg
+        state: present
+
+    - name: Fetch Docker CentOS Repository
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Install IUS repository
+      yum:
+        name: https://centos7.iuscommunity.org/ius-release.rpm
+        state: present
+
+    - name: Add Nodesource repositories for Node.js (CentOS 7+).
+      yum:
+        name: https://rpm.nodesource.com/pub_10.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
+        state: present
+
+    - name: Install Docker, python, and toolchain packages
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items: ['docker-ce', 'python-pip', 'python-devel',
+                   'python36u', 'python36u-pip', 'python36u-devel',
+                   'gcc', 'gcc-c++', 'make', 'python-devel', 'openldap-devel',
+                   'git', 'bzip2', 'fontconfig', 'fontconfig-devel']
+
+    - name: Install NodeJS and temporarily disable epel
+      yum:
+        name: nodejs
+        disablerepo: epel
+
+    - name: Install Grunt from npm
+      npm:
+        name: grunt
+        global: yes
+        state: present
+
+    - name: Ensure Docker is started and enabled at boot.
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Ensure docker users are added to the docker group.
+      user:
+        name: "{{ item }}"
+        groups: docker
+        append: true
+      with_items: ['zuul']
+
+    - name: Install some python packages
+      pip:
+        name: "{{ item }}"
+      with_items: ['docker-compose', 'tox', 'pipenv']
+
+    - name: Install some python3 packages
+      pip:
+        name: "{{ item }}"
+        executable: "pip3.6"
+      with_items: ["flake8", "virtualenv"]
+
+    - name: Symlink python 3.6 to python3
+      file:
+        src: /usr/bin/python3.6
+        dest: /usr/bin/python3
+        owner: root
+        group: root
+        state: link
+
+    - name: Remove sudo-group access on GCE host from the Zuul user
+      command: "gpasswd -d zuul {{ item }}"
+      with_items: ['google-sudoers', 'adm']
+      ignore_errors: yes
