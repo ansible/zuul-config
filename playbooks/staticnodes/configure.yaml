@@ -22,7 +22,7 @@
 
     - name: Add Nodesource repositories for Node.js (CentOS 7+).
       yum:
-        name: https://rpm.nodesource.com/pub_10.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
+        name: https://rpm.nodesource.com/pub_8.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
         state: present
 
     - name: Install Docker, python, and toolchain packages
@@ -33,6 +33,15 @@
                    'python36u', 'python36u-pip', 'python36u-devel',
                    'gcc', 'gcc-c++', 'make', 'python-devel', 'openldap-devel',
                    'git', 'bzip2', 'fontconfig', 'fontconfig-devel']
+
+    - name: Install libs for headless ui testing
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items: ['pango', 'libXcomposite', 'libXcursor', 'libXdamage', 'libXext', 'libXi', 'libXtst',
+                   'cups-libs', 'libXScrnSaver', 'libXrandr', 'GConf2', 'alsa-lib', 'atk', 'gtk3',
+                   'ipa-gothic-fonts', 'xorg-x11-fonts-100dpi', 'xorg-x11-fonts-75dpi', 'xorg-x11-utils',
+                   'xorg-x11-fonts-cyrillic', 'xorg-x11-fonts-Type1', 'xorg-x11-fonts-misc']
 
     - name: Install NodeJS and temporarily disable epel
       yum:
