@@ -137,3 +137,9 @@
          Wait timeout in minutes.
 
     run: playbooks/wait-for-changes-ahead.yaml
+
+- job:
+    name: clean-static-node
+    run: playbooks/clean-static-node.yaml
+    description: |
+      Cleans up a pre-existing source tree from a static node
