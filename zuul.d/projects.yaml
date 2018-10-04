@@ -8,7 +8,7 @@
     name: ansible/awx
     default-branch: devel
     templates:
-      - python
+      - python-awx
 
 - project:
     name: ansible/ansible-runner
