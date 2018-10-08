@@ -12,3 +12,6 @@
   roles:
     - prepare-workspace
     - role: validate-host
+
+- hosts: static
+    - clean-awx-environment

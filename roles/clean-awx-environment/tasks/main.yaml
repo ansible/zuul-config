@@ -1,0 +1,4 @@
+- name: Remove {{ ansible_user_dir }}/{{ zuul.project.src_dir }}
+  file:
+    path: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
+    state: absent
