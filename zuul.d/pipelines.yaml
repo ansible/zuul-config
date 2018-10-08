@@ -50,6 +50,10 @@
     precedence: high
     require:
       github.com:
+        review:
+          # Require an approval from user with write access (e.g. core-reviewer)
+          - permission: write
+            type: approved
         # Require label
         label: mergeit
         status: "softwarefactory-project-zuul\\[bot\\]:ansible/check:success"
