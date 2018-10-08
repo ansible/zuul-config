@@ -137,33 +137,3 @@
          Wait timeout in minutes.
 
     run: playbooks/wait-for-changes-ahead.yaml
-
-- job:
-    name: clean-static-node
-    run: playbooks/clean-static-node.yaml
-    description: |
-      Cleans up a pre-existing source tree from a static node
-
-- job:
-    name: tox-api-lint
-    parent: tox
-    vars:
-      tox_envlist: api-lint
-
-- job:
-    name: tox-ui-lint
-    parent: tox
-    vars:
-      tox_envlist: ui-lint
-
-- job:
-    name: tox-api
-    parent: tox
-    vars:
-      tox_envlist: api
-
-- job:
-    name: tox-ui
-    parent: tox
-    vars:
-      tox_envlist: ui
