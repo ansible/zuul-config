@@ -9,6 +9,11 @@
         zuul_log_url: "https://ansible.softwarefactory-project.io/logs"
 
 - hosts: all
+  pre_tasks:
+    - name: Clean workspace
+      file:
+        path: "{{ ansible_user_dir }}/src"
+        state: absent
   roles:
     - prepare-workspace
     - role: validate-host
