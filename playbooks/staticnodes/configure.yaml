@@ -89,4 +89,6 @@
     - name: Remove sudo-group access on GCE host from the Zuul user
       command: "gpasswd -d zuul {{ item }}"
       with_items: ['google-sudoers', 'adm']
-      ignore_errors: yes
+      register: remove_sudo
+      failed_when: |
+        remove_sudo is not success and 'not a member' not in remove_sudo.stderr
