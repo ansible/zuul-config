@@ -17,3 +17,4 @@
   roles:
     - prepare-workspace
     - role: validate-host
+      zuul_site_traceroute_host: git.openstack.org
