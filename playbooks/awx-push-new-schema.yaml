@@ -1,0 +1,27 @@
+---
+- hosts: static
+  tasks:
+    - name: Clean out old project artifacts
+      shell: make docker-compose-clean && make clean && make docker-clean
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
+        removes: "awx.egg-info"
+
+    - name: Generate new schema
+      command: make docker-compose-genschema
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
+
+    - name: Upload new schema
+      aws_s3:
+        bucket: awx-public-ci-files
+        object: schema.json
+        src: schema.json
+        mode: put
+        permission: public-read
+      args:
+        chdir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
+      environment:
+        AWS_ACCESS_KEY: '{{ amazon.access_key_id }}'
+        AWS_SECRET_KEY: '{{ amazon.secret_access_key }}'
+        AWS_REGION: 'us-east-1'
