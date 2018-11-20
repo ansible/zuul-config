@@ -19,8 +19,6 @@
         src: schema.json
         mode: put
         permission: public-read
-      args:
-        chdir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
       environment:
         AWS_ACCESS_KEY: '{{ amazon.access_key_id }}'
         AWS_SECRET_KEY: '{{ amazon.secret_access_key }}'
