@@ -1,7 +1,7 @@
 ---
 - job:
     name: awx-push-new-schema
-    run: playbooks/awx-push-new-schema.yml
+    run: playbooks/awx-push-new-schema.yaml
     allowed-projects:
       - ansible/awx
     secrets:
