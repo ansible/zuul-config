@@ -1,0 +1,9 @@
+---
+- job:
+    name: awx-push-new-schema
+    run: playbooks/awx-push-new-schema.yml
+    allowed-projects:
+      - ansible/awx
+    secrets:
+      - amazon
+    nodeset: static-node
