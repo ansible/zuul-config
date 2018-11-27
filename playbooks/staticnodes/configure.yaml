@@ -70,7 +70,7 @@
     - name: Install some python packages
       pip:
         name: "{{ item }}"
-      with_items: ['docker-compose', 'tox', 'pipenv']
+      with_items: ['docker-compose', 'tox', 'pipenv', 'boto', 'boto3']
 
     - name: Install some python3 packages
       pip:
