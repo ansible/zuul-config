@@ -19,7 +19,6 @@
               - tox-awx-api
               - tox-awx-ui
               - tox-awx-swagger
-              - tox-awx-detect-schema-change
 
 - project:
     name: ansible/ansible-runner
