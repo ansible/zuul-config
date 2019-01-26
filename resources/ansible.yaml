@@ -6,7 +6,8 @@ resources:
       source-repositories:
         # The config projects
         - ansible/zuul-config:
-            zuul/config-project: True
+            zuul/config-project: true
+            zuul/exclude-unprotected-branches: true
 
         # Shared jobs
         - ansible/zuul-jobs
