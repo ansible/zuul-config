@@ -7,6 +7,7 @@ resources:
         # The config projects
         - ansible/zuul-config:
             zuul/config-project: True
+            zuul/exclude-unprotected-branches: true
 
         # Shared jobs
         - ansible/zuul-jobs
