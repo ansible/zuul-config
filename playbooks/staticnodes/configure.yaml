@@ -32,7 +32,8 @@
       with_items: ['docker-ce', 'python-pip', 'python-devel',
                    'python36u', 'python36u-pip', 'python36u-devel',
                    'gcc', 'gcc-c++', 'make', 'python-devel', 'openldap-devel',
-                   'git', 'bzip2', 'fontconfig', 'fontconfig-devel', 'curl', 'curl-devel']
+                   'git', 'bzip2', 'fontconfig', 'fontconfig-devel', 'curl', 'curl-devel',
+                   'openssl-devel']
 
     - name: Install libs for headless ui testing
       package:
