@@ -87,6 +87,25 @@
         group: root
         state: link
 
+      # https://success.docker.com/article/ipv4-forwarding
+      # PR's that invoked Zuul were failing on tox command.
+      # sshed to the GCE static node and ran the tox command manually.
+      # On the docker build step, the below error was seen. This caused the yum
+      # install to fail. The below command fixes this.
+      # Step 4/40 : RUN mkdir /tmp/requirements
+      #  ---> [Warning] IPv4 forwarding is disabled. Networking will not work.
+      #  ---> Running in 0ff7a77d106d
+      # Removing intermediate container 0ff7a77d106d
+      #  ---> 725155375db4
+      # Step 5/40 : RUN yum -y update && yum -y install curl epel-release && yum -y install https://centos7.iuscommunity.org/ius-release.rpm
+      #  ---> [Warning] IPv4 forwarding is disabled. Networking will not work.
+    - name: UCP requires IPv4 IP Forwarding
+      sysctl:
+        name: "net.ipv4.conf.all.forwarding"
+        value: 1
+        sysctl_set: yes
+        state: present
+
     - name: Remove sudo-group access on GCE host from the Zuul user
       command: "gpasswd -d zuul {{ item }}"
       with_items: ['google-sudoers', 'adm']
