@@ -19,8 +19,3 @@
               - tox-awx-api
               - tox-awx-ui
               - tox-awx-swagger
-
-- project:
-    name: ansible/ansible-runner
-    templates:
-      - python
