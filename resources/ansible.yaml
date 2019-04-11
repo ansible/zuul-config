@@ -17,5 +17,4 @@ resources:
             zuul/include: []
         - ansible/zuul-test-repo:
             zuul/exclude-unprotected-branches: true
-        - ansible/ansible-runner
         - ansible/awx
