@@ -93,16 +93,10 @@
     name: ansible/zuul-config
     check:
       jobs:
-        - linters
-        - config-check
+        - noop
     gate:
       jobs:
-        - linters
-        - config-check
-    post:
-      jobs:
-        - config-update
-
+        - noop
 
 - project:
     name: ansible/zuul-jobs
