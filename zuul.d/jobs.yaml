@@ -35,7 +35,7 @@
       - playbooks/base-minimal/post.yaml
     roles:
       - zuul: sf-jobs
-      - zuul: openstack-infra/zuul-jobs
+      - zuul: zuul/zuul-jobs
     timeout: 1800
     attempts: 3
     secrets:

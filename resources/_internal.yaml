@@ -18,8 +18,8 @@ resources:
               # Ansible objects always take precendence
               - ansible/zuul-config
               - ansible/zuul-jobs
-        - openstack-infra/zuul-jobs:
-            connection: openstack.org
+        - zuul/zuul-jobs:
+            connection: opendev.org
             zuul/exclude:
               - project
               - project-template
