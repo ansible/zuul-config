@@ -1,0 +1,16 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        docker pull gcr.io/ansible-tower-engineering/awx_devel:{{ zuul.branch }} || exit 0
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+            'build',
+            '-f', './tools/docker-compose/Dockerfile',
+            '-t', 'gcr.io/ansible-tower-engineering/awx_devel:{{ pod_name }}',
+            '--cache-from', 'gcr.io/ansible-tower-engineering/awx_devel:{{ zuul.branch }}',
+            '.'
+          ]
+images: ['gcr.io/ansible-tower-engineering/awx_devel:{{ pod_name }}']
