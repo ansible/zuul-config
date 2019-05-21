@@ -1,5 +1,11 @@
 ---
 - job:
+    name: awx-tests
+    run: playbooks/run_awx_tests.yml
+    nodeset: static-node
+    abstract: true
+
+- job:
     name: awx-push-new-schema
     run: playbooks/awx-push-new-schema.yaml
     allowed-projects:
