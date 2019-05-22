@@ -1,17 +1,11 @@
 ---
 - hosts: static
+  roles:
+    - role: run_awx_tests
+      command: /start_tests.sh genschema
+      artifacts:
+        - /awx_devel/schema.json
   tasks:
-    - name: Clean out old project artifacts
-      shell: make docker-compose-clean && make clean && make docker-clean
-      args:
-        chdir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
-        removes: "awx.egg-info"
-
-    - name: Generate new schema
-      command: make docker-compose-genschema
-      args:
-        chdir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
-
     - name: Upload new schema
       aws_s3:
         bucket: awx-public-ci-files
