@@ -70,7 +70,7 @@
     - name: Copy artifacts to host
       shell: |
         kubectl cp {{ pod_name }}:{{ item }} {{ ansible_user_dir }}/{{ zuul.project.src_dir }}/
-      with_items: "{{ artifacts }}"
+      with_items: "{{ artifacts | default([]) }}"
 
   always:
     - name: Delete pod after run
