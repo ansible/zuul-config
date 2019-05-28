@@ -14,8 +14,8 @@
         - awx-push-new-schema:
             voting: false
             dependencies:
-              - tox-awx-api-lint
-              - tox-awx-ui-lint
-              - tox-awx-api
-              - tox-awx-ui
-              - tox-awx-swagger
+              - awx-api-lint
+              - awx-ui-lint
+              - awx-api
+              - awx-ui
+              - awx-swagger
