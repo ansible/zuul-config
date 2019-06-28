@@ -16,6 +16,8 @@
             dependencies:
               - awx-api-lint
               - awx-ui-lint
+              - awx-ui-next-lint
               - awx-api
               - awx-ui
+              - awx-ui-next
               - awx-swagger
