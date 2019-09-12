@@ -34,8 +34,9 @@ spec:
       imagePullPolicy: Always
       image: gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }}
       workingDir: /awx_devel
-      args:
+      command:
         - sleep
+      args:
         - infinity
       volumeMounts:
         - name: git-repo
