@@ -65,7 +65,7 @@
 
     - name: Run the specified command
       shell: |
-        kubectl exec {{ pod_name }} -- {{ command | quote }}
+        kubectl exec {{ pod_name }} -- {{ command }}
 
     - name: Copy artifacts to host
       shell: |
