@@ -35,6 +35,7 @@ spec:
       image: gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }}
       workingDir: /awx_devel
       args:
+        - --
         - sleep
         - infinity
       volumeMounts:
