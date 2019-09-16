@@ -50,7 +50,7 @@
       register: result
       until: result.stdout | regex_search('running|terminated')
       delay: 5
-      retries: 25
+      retries: 50
 
     - name: Tail logs for repo clone
       shell: |
