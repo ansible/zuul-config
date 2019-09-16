@@ -61,7 +61,7 @@
       register: result
       until: result.stdout in ['Running', 'Succeeded']
       delay: 5
-      retries: 25
+      retries: 50
 
     - name: Run the specified command
       shell: |
