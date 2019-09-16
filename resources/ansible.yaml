@@ -15,4 +15,5 @@ resources:
         # Ansible projects
         - ansible/ansible:
             zuul/include: []
-        - ansible/awx
+        - ansible/awx:
+            zuul/exclude-unprotected-branches: true
