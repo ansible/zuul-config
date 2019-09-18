@@ -65,7 +65,7 @@
 
     - name: Run the specified command
       shell: |
-        kubectl exec {{ pod_name }} -- bash -c "{{ "/entrypoint.sh " + (command | quote) }}"
+        kubectl exec {{ pod_name }} -- bash -c '{{ "/entrypoint.sh " + (command | quote) }}'
 
     - name: Copy artifacts to host
       shell: |
