@@ -21,3 +21,4 @@
               - awx-ui
               - awx-ui-next
               - awx-swagger
+              - awx-ansible-modules
