@@ -6,6 +6,7 @@ resources:
       description: "The ansible tenant."
       url: "https://ansible.softwarefactory-project.io/manage"
       default-connection: github.com
+
   projects:
     internal:
       tenant: ansible
