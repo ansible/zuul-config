@@ -21,9 +21,9 @@
     - block:
         - import_role: name=upload-log-classify-model
         - import_role: name=upload-logs
-        - import_role: name=emit-job-report
         - import_role: name=buildset-artifacts-location
       vars:
+        zuul_log_compress: true
         zuul_log_url: "https://ansible.softwarefactory-project.io/logs"
         zuul_logserver_root: /var/www/logs
 
