@@ -48,6 +48,7 @@
       http://docs.openstack.org/infra/manual/developers.html#automated-testing
     manager: dependent
     precedence: high
+    supercedes: check
     require:
       github.com:
         review:
@@ -56,7 +57,6 @@
             type: approved
         # Require label
         label: mergeit
-        status: "softwarefactory-project-zuul\\[bot\\]:ansible/check:success"
         open: True
         current-patchset: True
     trigger:
