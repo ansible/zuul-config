@@ -1,7 +1,5 @@
 # Set optin to False to disable log-classify
 logclassify_optin: True
-# Set report to True to hijack the reported log url
-logclassify_report: False
 
 # How many job logs to use for building the model
 logclassify_model_job_count: 2
@@ -27,6 +25,8 @@ logclassify_model_dir: "{{ logclassify_tmp_dir }}"
 
 # Process console-log
 logclassify_console: true
+# Process ara ansible.sqlite
+logclassify_ara_database: false
 
 # Include paths from baseline logs
 logclassify_logserver_dir: ""
