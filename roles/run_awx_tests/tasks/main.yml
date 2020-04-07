@@ -10,8 +10,8 @@
 
 - name: Pre-pull images
   shell: |
-    docker pull gcr.io/ansible-tower-engineering/awx_devel:{{ zuul.branch }} | cat
-    docker pull gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }} | cat
+    docker pull gcr.io/ansible-tower-engineering/awx_devel:{{ zuul.branch }}
+    docker pull gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }}
   ignore_errors: yes
 
 - name: Build image
@@ -25,7 +25,7 @@
 
 - name: Push image
   shell: |
-    docker push gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }} | cat
+    docker push gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }}
 
 - name: Create tmpfile for pod
   tempfile:
