@@ -60,7 +60,7 @@
       shell: kubectl -n default get pod {{ pod_name }} -o jsonpath="{.status.phase}"
       register: result
       until: result.stdout in ['Running', 'Succeeded']
-      delay: 5
+      delay: 10
       retries: 50
 
     - name: Run the specified command
