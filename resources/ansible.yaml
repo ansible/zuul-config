@@ -10,7 +10,8 @@ resources:
             zuul/exclude-unprotected-branches: true
 
         # Shared jobs
-        - ansible/zuul-jobs
+        - ansible/zuul-jobs:
+            zuul/exclude-unprotected-branches: true
 
         # Ansible projects
         - ansible/ansible:
