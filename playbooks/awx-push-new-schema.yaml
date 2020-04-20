@@ -10,7 +10,7 @@
       aws_s3:
         bucket: awx-public-ci-files
         object: schema.json
-        src: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}/schema.json"
+        src: "/awx_devel/schema.json"
         mode: put
         permission: public-read
       environment:
