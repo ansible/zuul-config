@@ -68,6 +68,10 @@
         append: true
       with_items: ['zuul']
 
+    - name: Install wheel first
+      pip:
+        name: 'wheel'
+
     - name: Install some python packages
       pip:
         name: "{{ item }}"
