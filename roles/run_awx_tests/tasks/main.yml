@@ -67,9 +67,9 @@
       shell: |
         kubectl exec {{ pod_name }} -- bash -c "{{ '/entrypoint.sh ' + (command | quote) }}"
 
+    # ansible > 2.7 seems to add a '\n' when shell: | is used in conjunction with kubectl cp
     - name: Copy artifacts to host
-      shell: |
-        kubectl cp {{ pod_name }}:{{ item }} {{ ansible_user_dir }}/{{ zuul.project.src_dir }}/{{ item }}
+      shell: kubectl cp {{ pod_name }}:{{ item }} {{ ansible_user_dir }}/{{ zuul.project.src_dir }}/{{ item | basename }}
       with_items: "{{ artifacts | default([]) }}"
 
   always:
