@@ -69,7 +69,7 @@
 
     - name: Copy artifacts to host
       shell: |
-        kubectl cp {{ pod_name }}:{{ item }} {{ ansible_user_dir }}/{{ zuul.project.src_dir }}/
+        kubectl cp {{ pod_name }}:{{ item }} {{ ansible_user_dir }}/{{ zuul.project.src_dir }}/{{ item }}
       with_items: "{{ artifacts | default([]) }}"
 
   always:
