@@ -1,79 +1,33 @@
 ---
 - set_fact:
-    pod_name: "{{ zuul.job }}-{{ zuul.change }}"
     image_tag: "awx-pr-{{ zuul.change }}"
-  when: pod_name is not defined
+  when: image_tag is not defined
 
-- name: Clean up orphaned pods
-  shell: |
-    kubectl delete pod {{ pod_name }} --grace-period=1 --ignore-not-found
+- set_fact:
+    source_dir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
+  when: source_dir is not defined
+
+- set_fact:
+    target_branch: "{{ zuul.branch }}"
+  when: target_branch is not defined
 
 - name: Pre-pull images
   shell: |
-    docker pull gcr.io/ansible-tower-engineering/awx_devel:{{ zuul.branch }}
+    docker pull gcr.io/ansible-tower-engineering/awx_devel:{{ target_branch }}
     docker pull gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }}
   ignore_errors: yes
 
 - name: Build image
   shell: |
     docker build -f tools/docker-compose/Dockerfile \
-      -t gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }} \
+      -t {{ image_tag }} \
       --cache-from gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }} \
-      --cache-from gcr.io/ansible-tower-engineering/awx_devel:{{ zuul.branch }} .
+      --cache-from gcr.io/ansible-tower-engineering/awx_devel:{{ target_branch }} .
   args:
-    chdir: "{{ ansible_env.HOME }}/{{ zuul.project.src_dir }}"
+    chdir: "{{ source_dir }}"
 
-- name: Push image
+- name: Run {{ command }}
   shell: |
-    docker push gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }}
-
-- name: Create tmpfile for pod
-  tempfile:
-    suffix: ".pod.yml"
-  register: podtmpfile
-
-- name: Render podtmpfile
-  template:
-    src: pod.yml.j2
-    dest: "{{ podtmpfile.path }}"
-
-- name: Run and clean up the thing
-  block:
-    - name: Apply api objects
-      shell: |
-        kubectl apply -f {{ podtmpfile.path }}
-
-    - name: Wait for first init container to start
-      shell: |
-        kubectl -n default get pod {{ pod_name }} \
-          -o jsonpath="{.status.initContainerStatuses[0].state}"
-      register: result
-      until: result.stdout | regex_search('running|terminated')
-      delay: 5
-      retries: 50
-
-    - name: Tail logs for repo clone
-      shell: |
-        kubectl logs -f {{ pod_name }} -c clone-repo
-
-    - name: Wait for test runner to start
-      shell: kubectl -n default get pod {{ pod_name }} -o jsonpath="{.status.phase}"
-      register: result
-      until: result.stdout in ['Running', 'Succeeded']
-      delay: 10
-      retries: 100
-
-    - name: Run the specified command
-      shell: |
-        kubectl exec {{ pod_name }} -- bash -c "{{ '/entrypoint.sh ' + (command | quote) }}"
-
-    # ansible > 2.7 seems to add a '\n' when shell: | is used in conjunction with kubectl cp
-    - name: Copy artifacts to host
-      shell: kubectl cp {{ pod_name }}:{{ item }} {{ ansible_user_dir }}/{{ zuul.project.src_dir }}/{{ item | basename }}
-      with_items: "{{ artifacts | default([]) }}"
-
-  always:
-    - name: Delete pod after run
-      shell: |
-        kubectl delete pod {{ pod_name }}
-
+    docker run -u$(id -u) --rm \
+      -v {{ source_dir }}:/awx_devel/:Z --workdir=/awx_devel \
+      {{ image_tag }} {{ command | quote }}
