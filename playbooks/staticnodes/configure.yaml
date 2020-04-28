@@ -1,91 +1,55 @@
 ---
-
 - hosts: all
+  become: yes
   tasks:
-    - name: Add Docker GPG key.
-      rpm_key:
-        key: https://download.docker.com/linux/centos/gpg
-        state: present
-
-    - name: Fetch Docker CentOS Repository
+    - name: Install Docker repo
       get_url:
         url: https://download.docker.com/linux/centos/docker-ce.repo
         dest: /etc/yum.repos.d/docker-ce.repo
-        owner: root
-        group: root
-        mode: 0644
 
-    - name: Install IUS repository
+    - name: Install required libs
       yum:
-        name: https://centos7.iuscommunity.org/ius-release.rpm
-        state: present
+        name:
+          - "docker-ce"
+          - "kubectl"
 
-    - name: Add Nodesource repositories for Node.js (CentOS 7+).
-      yum:
-        name: https://rpm.nodesource.com/pub_8.x/el/7/x86_64/nodesource-release-el7-1.noarch.rpm
-        state: present
+    - name: Create zuul users
+      user:
+        name: "zuul{{ item }}"
+        groups: "docker"
+      with_sequence: start=1 end=4
+      register: users
 
-    - name: Install Docker, python, and toolchain packages
-      package:
-        name: "{{ item }}"
-        state: present
-      with_items: ['docker-ce', 'python-pip', 'python-devel',
-                   'python36u', 'python36u-pip', 'python36u-devel',
-                   'gcc', 'gcc-c++', 'make', 'python-devel', 'openldap-devel',
-                   'git', 'bzip2', 'fontconfig', 'fontconfig-devel', 'curl', 'curl-devel',
-                   'openssl-devel']
+    - name: Configure authorized_keys for SoftwareFactory
+      authorized_key:
+        user: "{{ item.name }}"
+        key: "https://softwarefactory-project.io/keys/zuul_rsa.pub"
+      with_items: "{{ users.results }}"
 
-    - name: Install libs for headless ui testing
-      package:
-        name: "{{ item }}"
-        state: present
-      with_items: ['pango', 'libXcomposite', 'libXcursor', 'libXdamage', 'libXext', 'libXi', 'libXtst',
-                   'cups-libs', 'libXScrnSaver', 'libXrandr', 'GConf2', 'alsa-lib', 'atk', 'gtk3',
-                   'ipa-gothic-fonts', 'xorg-x11-fonts-100dpi', 'xorg-x11-fonts-75dpi', 'xorg-x11-utils',
-                   'xorg-x11-fonts-cyrillic', 'xorg-x11-fonts-Type1', 'xorg-x11-fonts-misc']
+    - name: Create sudoers file
+      copy:
+        content: |
+          %wheel  ALL=(ALL)  NOPASSWD: ALL
+        dest: /etc/sudoers.d/wheel
 
-    - name: Install NodeJS and temporarily disable epel
-      yum:
-        name: nodejs
-        disablerepo: epel
+    # This user SSHs to the nodes and performs various management / cleanup tasks
+    - name: Create user for internal tower
+      user:
+        name: "tower"
+        groups: "wheel"
 
-    - name: Install Grunt from npm
-      npm:
-        name: grunt
-        global: yes
-        state: present
+    # The public part of the "GCE Zuul Nodes" key in our Tower.
+    - name: Configure authorized_keys for internal Tower
+      authorized_key:
+        user: "tower"
+        key: |
+          ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCu5KjdqyJBVFcjRFuNP5vWEkZEGRnBHLNs0M4HlJJMnrX9ZQ2LAStLSWb3w5ldAkN+A2nRBIYhMNCk6/5r4RW37b/XFQdZwbe83hSoD0zb+OBlPpYzlGa5VCUlvxkl4yKDLat4Sn2CmnB8x5N/jPxyzwVFRI1T6oDLjQhUxkS+72rIayCMDRmPXBrwXtNbW53PTJG5hQ1Os4CVH/4cy0vlqXGAyjt2fTlJIsM6FcVP5XTaXF9Eudzz7xCJErygYU1EnIwbjRJlQKkxR7C97vTwEkm8bvjxSRWdJvAjoosY69xQpfqb7lqCl4UB5Ux9ClIvu9s7yG/tkkWej8h7+7A6/IDj9KfC2L2XNAOBzRA/aVKfxcA4aeWVgipVh19L484LvgiiAwhZpvsYRCFLWszVLete2BEdIkhNVa/vVs3nF65VLumGveW1Nixs1oWj/mciyHQDm14LeqidwOpPpeUjIXxzf/1Uybvye4SyK+oMPsUQTSJd3r8CoREHMMnqjlh0ed8qYdq4l9ZE6PAkygzSTj8WAgE7fH6kzHfRkUiQJzDGcxVVaDF21tCK4gFP+PJtuysx2XeWNL/t3kVzKMzEeyfGDmTe6vWwNAn3HcUlZVOvqKqY6yXkTikbhI5fYDfj41orx9Sok/4YQn7OYjsGFs9+AmeklkehNjpZwtPlRw== jenkins@ansible.com
 
-    - name: Ensure Docker is started and enabled at boot.
+    - name: Start and enable docker
       service:
         name: docker
-        state: started
         enabled: yes
-
-    - name: Ensure docker users are added to the docker group.
-      user:
-        name: "{{ item }}"
-        groups: docker
-        append: true
-      with_items: ['zuul']
-
-    - name: Install some python packages
-      pip:
-        name: "{{ item }}"
-      with_items: ['docker-compose', 'tox', 'pipenv', 'boto', 'boto3']
-
-    - name: Install some python3 packages
-      pip:
-        name: "{{ item }}"
-        executable: "pip3.6"
-      with_items: ["flake8", "virtualenv"]
-
-    - name: Symlink python 3.6 to python3
-      file:
-        src: /usr/bin/python3.6
-        dest: /usr/bin/python3
-        owner: root
-        group: root
-        state: link
+        state: started
 
       # https://success.docker.com/article/ipv4-forwarding
       # PR's that invoked Zuul were failing on tox command.
@@ -102,13 +66,6 @@
     - name: UCP requires IPv4 IP Forwarding
       sysctl:
         name: "net.ipv4.conf.all.forwarding"
-        value: 1
+        value: "1"
         sysctl_set: yes
         state: present
-
-    - name: Remove sudo-group access on GCE host from the Zuul user
-      command: "gpasswd -d zuul {{ item }}"
-      with_items: ['google-sudoers', 'adm']
-      register: remove_sudo
-      failed_when: |
-        remove_sudo is not success and 'not a member' not in remove_sudo.stderr
