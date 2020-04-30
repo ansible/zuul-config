@@ -14,14 +14,13 @@
 - name: Pre-pull images
   shell: |
     docker pull gcr.io/ansible-tower-engineering/awx_devel:{{ target_branch }}
-    docker pull gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }}
   ignore_errors: yes
 
 - name: Build image
   shell: |
     docker build -f tools/docker-compose/Dockerfile \
       -t {{ image_tag }} \
-      --cache-from gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }} \
+      --cache-from {{ image_tag }} \
       --cache-from gcr.io/ansible-tower-engineering/awx_devel:{{ target_branch }} .
   args:
     chdir: "{{ source_dir }}"

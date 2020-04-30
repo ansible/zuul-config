@@ -55,7 +55,7 @@ data:
         git init /awx_devel && cd /awx_devel
         git fetch --tags --quiet https://github.com/ansible/awx.git +refs/heads/*:refs/remotes/origin/* +refs/pull/*:refs/remotes/origin/pr/*
         git -c advice.detachedHead=false checkout -f ${GIT_REF}
-      ) && break  # substitute your command here
+      ) && break
       n=$[$n+1]
       sleep 15
     done
