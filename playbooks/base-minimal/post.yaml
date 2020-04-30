@@ -27,9 +27,9 @@
         zuul_log_url: "https://ansible.softwarefactory-project.io/logs"
         zuul_logserver_root: /var/www/logs
 
-- hosts: localhost
-  ignore_errors: yes
-  roles:
-    - role: submit-logstash-jobs
-      logstash_gearman_server: "ansible.softwarefactory-project.io"
-      logstash_gearman_server_port: 4731
+# - hosts: localhost
+#   ignore_errors: yes
+#   roles:
+#     - role: submit-logstash-jobs
+#       logstash_gearman_server: "ansible.softwarefactory-project.io"
+#       logstash_gearman_server_port: 4731
