@@ -23,7 +23,7 @@
 - name: Create docker file if necessary
   template:
     src: "{{ job_source_dir }}/installer/roles/image_build/templates/Dockerfile.j2"
-    dest: "{{ job_source_dir }}/tools/docker-compose/Dockerfile"
+    dest: "{{ source_dir }}/tools/docker-compose/Dockerfile"
     mode: 0644
     force: no
   ignore_errors: yes # Will revert this soon
