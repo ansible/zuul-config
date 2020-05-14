@@ -43,7 +43,7 @@
     nodeset:
       nodes:
         - name: container
-          label: runc-fedora
+          label: pod-fedora-31
 
 - job:
     name: base
