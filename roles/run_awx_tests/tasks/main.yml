@@ -8,6 +8,10 @@
   when: source_dir is not defined
 
 - set_fact:
+    job_source_dir: "{{ zuul.executor.src_root }}/{{ zuul.project.canonical_name }}"
+  when: job_source_dir is not defined
+
+- set_fact:
     target_branch: "{{ zuul.branch }}"
   when: target_branch is not defined
 
@@ -18,8 +22,8 @@
 
 - name: Create docker file if necessary
   template:
-    src: "{{ source_dir }}/installer/roles/image_build/templates/Dockerfile.j2"
-    dest: "{{ source_dir }}/tools/docker-compose/Dockerfile"
+    src: "{{ job_source_dir }}/installer/roles/image_build/templates/Dockerfile.j2"
+    dest: "{{ job_source_dir }}/tools/docker-compose/Dockerfile"
     mode: 0644
     force: no
   ignore_errors: yes # Will revert this soon
