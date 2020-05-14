@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  tasks:
+    - block:
+        - import_role: name=emit-job-header
+        # This depends-on https://review.openstack.org/578234
+        - import_role: name=log-inventory
+      vars:
+        zuul_log_url: "https://ansible.softwarefactory-project.io/logs"
+
+- hosts: all
+  tasks:
+    - block:
+        - include_role: name=validate-host
+        - include_role: name=prepare-workspace
+        - include_role: name=add-build-sshkey
+      when: "ansible_connection != 'kubectl'"
+    - block:
+        - include_role: name=prepare-workspace-openshift
+        - include_role: name=remove-zuul-sshkey
+      run_once: true
+      when: "ansible_connection == 'kubectl'"
+    - import_role: name=ensure-output-dirs
+      when: ansible_user_dir is defined
