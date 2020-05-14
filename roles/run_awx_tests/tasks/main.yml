@@ -16,6 +16,14 @@
     docker pull gcr.io/ansible-tower-engineering/awx_devel:{{ target_branch }}
   ignore_errors: yes
 
+- name: Create docker file if necessary
+  template:
+    src: "{{ source_dir }}/installer/roles/image_build/templates/Dockerfile.j2"
+    dest: "{{ source_dir }}/tools/docker-compose/Dockerfile"
+    mode: 0644
+    force: no
+  ignore_errors: yes # Will revert this soon
+
 - name: Build image
   shell: |
     docker build -f tools/docker-compose/Dockerfile \
