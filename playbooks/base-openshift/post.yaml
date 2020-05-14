@@ -18,7 +18,7 @@
 - hosts: localhost
   roles:
     - role: add-fileserver
-      fileserver: "{{ site_sflogs }}"
+      fileserver: "{{ site_ansiblelogs }}"
     - role: generate-zuul-manifest
     - role: ara-report
       # This depends-on https://review.openstack.org/577675
@@ -31,7 +31,7 @@
       logclassify_model_dir: /var/lib/log-classify
       logclassify_local_dir: "{{ zuul.executor.log_root }}"
 
-- hosts: "{{ site_sflogs.fqdn }}"
+- hosts: "{{ site_ansiblelogs.fqdn }}"
   gather_facts: false
   tasks:
     # Use a block because play vars doesn't take precedence on roles vars
