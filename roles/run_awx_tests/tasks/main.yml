@@ -22,6 +22,7 @@
     dest: "{{ source_dir }}/tools/docker-compose/Dockerfile"
     mode: 0644
     force: no
+  ignore_errors: yes # Will revert this soon
 
 - name: Build image
   shell: |
