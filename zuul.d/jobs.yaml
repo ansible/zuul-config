@@ -109,17 +109,20 @@
     nodeset:
       nodes: []
 
+- job:
+    name: config-linters
+    parent: base-openshift
+    run: playbooks/linters.yaml
+
 - project:
     name: ansible/zuul-config
     check:
       jobs:
-        - linters:
-            parent: base-openshift
+        - config-linters
         - config-check
     gate:
       jobs:
-        - linters:
-            parent: base-openshift
+        - config-linters
         - config-check
     post:
       jobs:
