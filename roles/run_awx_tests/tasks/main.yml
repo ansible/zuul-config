@@ -28,17 +28,26 @@
     force: no
   ignore_errors: yes # Will revert this soon
 
+- set_fact:
+    command_to_run: |
+      docker build -f tools/docker-compose/Dockerfile \
+        -t {{ image_tag }} \
+        --build-arg BUILDKIT_INLINE_CACHE=1 \
+        --cache-from {{ image_tag }} \
+        --cache-from gcr.io/ansible-tower-engineering/awx_devel:{{ target_branch }} .
+
 - name: Build image
-  shell: |
-    docker build -f tools/docker-compose/Dockerfile \
-      -t {{ image_tag }} \
-      --cache-from {{ image_tag }} \
-      --cache-from gcr.io/ansible-tower-engineering/awx_devel:{{ target_branch }} .
+  shell: "{{ command_to_run }}"
   args:
     chdir: "{{ source_dir }}"
+  environment:
+    DOCKER_BUILDKIT: '1'
+
+- set_fact:
+    command_to_run: |
+      docker run -u$(id -u) --rm \
+        -v {{ source_dir }}:/awx_devel/:Z --workdir=/awx_devel \
+        {{ image_tag }} {{ command | quote }}
 
 - name: Run {{ command }}
-  shell: |
-    docker run -u$(id -u) --rm \
-      -v {{ source_dir }}:/awx_devel/:Z --workdir=/awx_devel \
-      {{ image_tag }} {{ command | quote }}
+  shell: "{{ command_to_run }}"
