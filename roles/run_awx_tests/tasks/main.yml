@@ -18,8 +18,8 @@
 
 - name: Create docker file if necessary
   template:
-    src: installer/roles/image_build/templates/Dockerfile.j2
-    dest: tools/docker-compose/Dockerfile
+    src: "{{ source_dir }}/installer/roles/image_build/templates/Dockerfile.j2"
+    dest: "{{ source_dir }}/tools/docker-compose/Dockerfile"
     mode: 0644
     force: no
 
