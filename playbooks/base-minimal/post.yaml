@@ -7,7 +7,7 @@
       # This depends-on https://review.openstack.org/577675
       ara_report_run: True
       ara_report_type: database
-      ara_report_path: ara-report
+      ara_report_path: "{{ zuul.executor.log_root }}/ara-report"
     - role: log-classify
       logclassify_model_store_url: https://ansible.softwarefactory-project.io/logs/classifiers
       logclassify_zuul_web: https://ansible.softwarefactory-project.io/zuul/api
