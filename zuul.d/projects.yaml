@@ -17,6 +17,5 @@
               - awx-api-lint
               - awx-api
               - awx-ui
-              - awx-ui-next
               - awx-swagger
               - awx-ansible-modules
