@@ -128,15 +128,6 @@
       jobs:
         - config-update
 
-- project:
-    name: ansible/zuul-jobs
-    check:
-      jobs:
-        - config-linters
-    gate:
-      jobs:
-        - config-linters
-
 - job:
     name: wait-for-changes-ahead
     parent: null
