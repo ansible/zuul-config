@@ -32,6 +32,7 @@
         name: "{{ job_source_dir }}/installer/roles/dockerfile"
       vars:
         dockerfile_dest: "{{ source_dir }}"
+        build_dev: yes
 
     - set_fact:
         command_to_run: |
