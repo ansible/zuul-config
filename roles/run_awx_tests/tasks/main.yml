@@ -51,7 +51,6 @@
         dest: "{{ source_dir }}/tools/docker-compose/Dockerfile"
         mode: 0644
         force: no
-        ignore_errors: yes
 
     - set_fact:
         command_to_run: |
