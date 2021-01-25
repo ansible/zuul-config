@@ -22,7 +22,7 @@
 
 - name: Determine where Dockerfile is
   stat:
-    path: "{{ job_source_dir }}/installer/roles/dockerfile/templates/Dockerfile.j2"
+    path: "{{ source_dir }}/installer/roles/dockerfile/templates/Dockerfile.j2"
   register: new_dockerfile_location
 
 - name: Use new dockerfile role
