@@ -22,11 +22,21 @@
 
 - name: Determine where Dockerfile is
   stat:
-    path: "{{ source_dir }}/installer/roles/dockerfile/templates/Dockerfile.j2"
+    path: "{{ source_dir }}/tools/ansible/roles/dockerfile/templates/Dockerfile.j2"
   register: new_dockerfile_location
 
 - name: Use new dockerfile role
   when: new_dockerfile_location.stat.exists
+  block:
+    - include_role:
+        name: "{{ job_source_dir }}/tools/ansible/roles/dockerfile"
+      vars:
+        dockerfile_dest: "{{ source_dir }}"
+        build_dev: yes
+
+# Delete this in near future.
+- name: Use old dockerfile role
+  when: not new_dockerfile_location.stat.exists
   block:
     - include_role:
         name: "{{ job_source_dir }}/installer/roles/dockerfile"
@@ -34,32 +44,13 @@
         dockerfile_dest: "{{ source_dir }}"
         build_dev: yes
 
-    - set_fact:
-        command_to_run: |
-          docker build \
-            -t {{ image_tag }} \
-            --build-arg BUILDKIT_INLINE_CACHE=1 \
-            --cache-from {{ image_tag }} \
-            --cache-from gcr.io/ansible-tower-engineering/awx_devel:{{ target_branch }} .
-
-# Delete this in near future.
-- name: Use old dockerfile template
-  when: not new_dockerfile_location.stat.exists
-  block:
-    - name: Create Dockerfile if necessary
-      template:
-        src: "{{ job_source_dir }}/installer/roles/image_build/templates/Dockerfile.j2"
-        dest: "{{ source_dir }}/tools/docker-compose/Dockerfile"
-        mode: 0644
-        force: no
-
-    - set_fact:
-        command_to_run: |
-          docker build -f tools/docker-compose/Dockerfile \
-            -t {{ image_tag }} \
-            --build-arg BUILDKIT_INLINE_CACHE=1 \
-            --cache-from {{ image_tag }} \
-            --cache-from gcr.io/ansible-tower-engineering/awx_devel:{{ target_branch }} .
+- set_fact:
+    command_to_run: |
+      docker build \
+        -t {{ image_tag }} \
+        --build-arg BUILDKIT_INLINE_CACHE=1 \
+        --cache-from {{ image_tag }} \
+        --cache-from gcr.io/ansible-tower-engineering/awx_devel:{{ target_branch }} .
 
 - name: Build image
   shell: "{{ command_to_run }}"
