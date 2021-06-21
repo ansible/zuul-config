@@ -17,7 +17,7 @@
 
 - name: Pre-pull images
   shell: |
-    docker pull gcr.io/ansible-tower-engineering/awx_devel:{{ target_branch }}
+    docker pull quay.io/awx/awx_devel:{{ target_branch }}
   ignore_errors: yes
 
 - name: Determine where Dockerfile is
@@ -50,7 +50,7 @@
         -t {{ image_tag }} \
         --build-arg BUILDKIT_INLINE_CACHE=1 \
         --cache-from {{ image_tag }} \
-        --cache-from gcr.io/ansible-tower-engineering/awx_devel:{{ target_branch }} .
+        --cache-from quay.io/awx/awx_devel:{{ target_branch }} .
 
 - name: Build image
   shell: "{{ command_to_run }}"
