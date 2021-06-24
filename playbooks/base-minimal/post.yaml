@@ -14,7 +14,7 @@
       logclassify_model_dir: /var/lib/log-classify
       logclassify_local_dir: "{{ zuul.executor.log_root }}"
 
-- hosts: "{{ site_ansiblelogs.fqdn }}"
+- hosts: "ansible.softwarefactory-project.io"
   gather_facts: false
   tasks:
     # Use a block because play vars doesn't take precedence on roles vars
