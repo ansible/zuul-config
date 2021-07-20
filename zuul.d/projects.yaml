@@ -3,19 +3,3 @@
 - project:
     name: ansible/ansible
     default-branch: devel
-
-- project:
-    name: ansible/awx
-    default-branch: devel
-    templates:
-      - python-awx
-    gate:
-      jobs:
-        - awx-push-new-schema:
-            voting: false
-            dependencies:
-              - awx-api-lint
-              - awx-api
-              - awx-ui
-              - awx-swagger
-              - awx-ansible-modules
