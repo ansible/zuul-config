@@ -43,7 +43,7 @@
     nodeset:
       nodes:
         - name: container
-          label: pod-fedora-33
+          label: pod-fedora-31
 
 - job:
     name: base-minimal
