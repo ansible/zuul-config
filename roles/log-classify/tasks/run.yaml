@@ -15,7 +15,6 @@
 - name: Create directories
   file:
     path: "{{ item }}"
-    owner: "{{ ansible_user }}"
     mode: 0700
     state: directory
   with_items:
