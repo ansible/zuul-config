@@ -3,3 +3,7 @@
 - project:
     name: ansible/ansible
     default-branch: devel
+
+- project:
+    name: ansible-collections/cloud.common
+    default-branch: main
