@@ -51,8 +51,8 @@
     description: |
       The base-minimal job for Ansible's installation of Zuul.
     pre-run: playbooks/base-minimal/pre.yaml
-    post-run:
-      - playbooks/base-minimal/post.yaml
+#    post-run:
+#      - playbooks/base-minimal/post.yaml
     roles:
       - zuul: sf-jobs
       - zuul: zuul/zuul-jobs
