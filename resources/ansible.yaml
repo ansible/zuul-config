@@ -18,3 +18,6 @@ resources:
             zuul/include: []
         - ansible/awx:
             zuul/exclude-unprotected-branches: true
+
+        - ansible-collections/cloud.common:
+            zuul/exclude-unprotected-branches: true
