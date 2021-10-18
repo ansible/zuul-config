@@ -1,0 +1,35 @@
+---
+- name: Ensure local directory exists
+  file:
+    path: "{{ output }}"
+    state: directory
+    recurse: true
+  loop:
+    - "{{ log_path }}"
+    - "{{ log_path }}/npm"
+    - "{{ zuul.executor.work_root }}/artifacts"
+    - "{{ zuul.executor.work_root }}/docs"
+  loop_control:
+    loop_var: output
+
+- name: Copy zuul-output from the pod to the executor
+  command: >
+    oc --context "{{ item.1.context }}"
+       --namespace "{{ item.1.namespace }}"
+        rsync -q --progress=false
+          {{ item.1.pod }}:{{ output.src }}/
+          {{ output.dst }}/
+  no_log: true
+  delegate_to: localhost
+  loop:
+    - src: "{{ zuul_output_dir }}/logs"
+      dst: "{{ log_path }}"
+# This need: https://review.opendev.org/#/c/681748/10/roles/ensure-output-dirs/tasks/main.yaml
+#    - src: "{{ zuul_output_dir }}/npm"
+#      dst: "{{ log_path }}/npm"
+    - src: "{{ zuul_output_dir }}/artifacts"
+      dst: "{{ zuul.executor.work_root }}/artifacts"
+    - src: "{{ zuul_output_dir }}/docs"
+      dst: "{{ zuul.executor.work_root }}/docs"
+  loop_control:
+    loop_var: output

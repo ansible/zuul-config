@@ -9,11 +9,17 @@
         zuul_log_url: "https://ansible.softwarefactory-project.io/logs"
 
 - hosts: all
-  pre_tasks:
-    - name: Clean workspace
-      file:
-        path: "{{ ansible_user_dir }}/src"
-        state: absent
-  roles:
-    - prepare-workspace
-    - role: validate-host
+  tasks:
+    - include_role: name=start-zuul-console
+    - block:
+        - include_role: name=validate-host
+        - include_role: name=prepare-workspace
+        - include_role: name=add-build-sshkey
+      when: "ansible_connection != 'kubectl'"
+    - block:
+        - include_role: name=prepare-workspace-openshift
+        - include_role: name=remove-zuul-sshkey
+      run_once: true
+      when: "ansible_connection == 'kubectl'"
+    - import_role: name=ensure-output-dirs
+      when: ansible_user_dir is defined
