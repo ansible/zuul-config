@@ -51,10 +51,7 @@
     supercedes: check
     require:
       github.com:
-        review:
-          # Require an approval from user with write access (e.g. core-reviewer)
-          - permission: write
-            type: approved
+        review: []
         # Require label
         label: mergeit
         open: True
