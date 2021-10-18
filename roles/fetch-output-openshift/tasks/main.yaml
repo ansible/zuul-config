@@ -1,0 +1,29 @@
+- name: Set log path for multiple nodes
+  set_fact:
+    log_path: "{{ zuul.executor.log_root }}/{{ inventory_hostname }}"
+  when: groups['all'] | length > 1
+
+- name: Set log path for single node
+  set_fact:
+    log_path: "{{ zuul.executor.log_root }}"
+  when: log_path is not defined
+
+- name: Ensure local output dirs
+  delegate_to: localhost
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - "{{ log_path }}"
+    - "{{ log_path }}/npm"
+    - "{{ zuul.executor.work_root }}/artifacts"
+    - "{{ zuul.executor.work_root }}/docs"
+
+- include_tasks: rsync.yaml
+  when: item.1.pod is defined
+  loop: "{{ openshift_pods.items()|list }}"
+  run_once: true
+
+- name: Remove empty directory
+  command: find "{{ zuul.executor.work_root }}" -empty -type d -delete
+  delegate_to: localhost

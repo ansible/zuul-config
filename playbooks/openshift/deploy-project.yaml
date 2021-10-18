@@ -1,8 +1,10 @@
+# This file is managed by ansible, do not edit directly
 ---
 - name: start the project
   openshift_raw:
     state: present
-    namespace: "{{ zuul_resources['project'].namespace }}"
+    namespace: "{{ zuul.resources['project'].namespace }}"
+    context: "{{ zuul.resources['project'].context }}"
     definition:
       apiVersion: v1
       kind: DeploymentConfig
@@ -25,7 +27,7 @@
               deploymentconfig: "{{ zuul.project.short_name }}"
           spec:
             containers:
-              - image: "{{ _image_stream.result.status.docker_image_repository }}"
+              - image: "{{ _image_stream.result.status.dockerImageRepository }}"
                 name: "{{ zuul.project.short_name }}"
                 command: [ "/bin/bash", "-c", "--" ]
                 args: [ "while true; do sleep 30; done;" ]
@@ -43,7 +45,9 @@
         test: false
 
 - name: get project pod name
-  command: oc get pods --field-selector=status.phase=Running -o "jsonpath={.items[?(@.metadata.labels.app=='{{ zuul.project.short_name }}')].metadata.name}"
+  command: >
+    {{ oc_command }} get pods --field-selector=status.phase=Running
+    -o "jsonpath={.items[?(@.metadata.labels.app=='{{ zuul.project.short_name }}')].metadata.name}"
   register: _pod_name
   retries: 600
   delay: 1

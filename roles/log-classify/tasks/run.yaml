@@ -15,7 +15,6 @@
 - name: Create directories
   file:
     path: "{{ item }}"
-    owner: "{{ ansible_user }}"
     mode: 0700
     state: directory
   with_items:
@@ -46,7 +45,6 @@
       --count {{ logclassify_model_job_count }}
       --zuul-web {{ logclassify_zuul_web }}
       {% if logclassify_ara_database %}--ara-database {% endif %}
-      {% if logclassify_logserver_dir %}--include-path {{ logclassify_logserver_dir }}{% endif %}
       {% for _path in logclassify_exclude_paths %}--exclude-path {{ _path }}{% endfor %}
       {% for _path in logclassify_exclude_files %}--exclude-file {{ _path }}{% endfor %}
   register: _model_build
@@ -89,9 +87,7 @@
         {% endif %}
       {% endif %}
       --html {{ logclassify_tmp_dir }}/log-classify.html
-      --json {{ logclassify_tmp_dir }}/log-classify.json
       {% if logclassify_static_location %}--static-location {{ logclassify_static_location }}{% endif %}
-      {% if logclassify_logserver_dir %}--include-path {{ logclassify_logserver_dir }}{% endif %}
       {% for _path in logclassify_exclude_paths %}--exclude-path {{ _path }}{% endfor %}
       {% for _path in logclassify_exclude_files %}--exclude-file {{ _path }}{% endfor %}
   register: _model_run

@@ -1,8 +1,10 @@
+# This file is managed by ansible, do not edit directly
 ---
 - name: create staging-http DeploymentConfig
   openshift_raw:
     state: present
-    namespace: "{{ zuul_resources['project'].namespace }}"
+    namespace: "{{ zuul.resources['project'].namespace }}"
+    context: "{{ zuul.resources['project'].context }}"
     definition:
       apiVersion: v1
       kind: DeploymentConfig
@@ -42,7 +44,8 @@
 - name: create staging-http Service spec
   openshift_raw:
     state: present
-    namespace: "{{ zuul_resources['project'].namespace }}"
+    namespace: "{{ zuul.resources['project'].namespace }}"
+    context: "{{ zuul.resources['project'].context }}"
     definition:
       apiVersion: v1
       kind: Service
@@ -64,7 +67,9 @@
         loadBalancer: {}
 
 - name: get staging-http-server pod name
-  command: oc get pods --field-selector=status.phase=Running -o "jsonpath={.items[?(@.metadata.labels.app=='staging-http-server')].metadata.name}"
+  command: >
+    {{ oc_command }} get pods --field-selector=status.phase=Running
+    -o "jsonpath={.items[?(@.metadata.labels.app=='staging-http-server')].metadata.name}"
   register: _zm_name
   retries: 600
   delay: 1

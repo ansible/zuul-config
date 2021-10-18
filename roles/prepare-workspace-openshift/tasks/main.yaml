@@ -1,0 +1,4 @@
+---
+- include_tasks: rsync.yaml
+  when: item.1.pod is defined
+  loop: "{{ openshift_pods.items()|list }}"

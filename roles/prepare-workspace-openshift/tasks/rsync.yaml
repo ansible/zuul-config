@@ -1,0 +1,17 @@
+---
+- name: Create src directory
+  command: >
+    oc --context "{{ item.1.context }}"
+       --namespace "{{ item.1.namespace }}"
+       exec {{ item.1.pod }} mkdir src
+  delegate_to: localhost
+
+- name: Copy src repos to the pod
+  command: >
+    oc --context "{{ item.1.context }}"
+       --namespace "{{ item.1.namespace }}"
+        rsync -q --progress=false
+          {{ zuul.executor.src_root }}/
+          {{ item.1.pod }}:src/
+  no_log: true
+  delegate_to: localhost
