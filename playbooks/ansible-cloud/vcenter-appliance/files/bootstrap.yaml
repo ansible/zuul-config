@@ -1,0 +1,32 @@
+---
+- hosts: appliance
+  gather_facts: false
+  vars:
+    ansible_password: zuul
+    ansible_user: zuul
+    authorized_keys_file:
+      esxi1: /etc/ssh/keys-zuul/authorized_keys
+      esxi2: /etc/ssh/keys-zuul/authorized_keys
+  tasks:
+
+    - name: Ensure remote SSH host keys are known
+      shell: "ssh-keyscan -v {{hostvars[item].ansible_host }} >> ~/.ssh/known_hosts"
+      with_inventory_hostnames: appliance
+      delegate_to: localhost
+
+    - name: Setup zuul user (RSA)
+      authorized_key:
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+        state: present
+        user: zuul
+        path: "{{ authorized_keys_file[inventory_hostname] }}"
+
+    - name: Setup zuul user (ECDSA)
+      authorized_key:
+        key: "{{ lookup('file', '~/.ssh/id_ecdsa.pub') }}"
+        state: present
+        user: zuul
+        path: "{{ authorized_keys_file[inventory_hostname] }}"
+
+    - name: reset ssh connection
+      meta: reset_connection

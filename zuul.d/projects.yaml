@@ -7,6 +7,14 @@
 - project:
     name: ansible-collections/cloud.common
     default-branch: main
+    check:
+      jobs:
+        - tox-linters
+        - build-ansible-collection
+    gate:
+      jobs:
+        - tox-linters
+        - build-ansible-collection
 
 - project:
     name: ansible-network/releases
