@@ -23,5 +23,5 @@ resources:
         - ansible-collections/cloud.common:
             zuul/exclude-unprotected-branches: true
 
-        - ansible-network/release:
+        - ansible-network/releases:
             zuul/exclude-unprotected-branches: true
