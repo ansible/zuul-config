@@ -7,3 +7,7 @@
 - project:
     name: ansible-collections/cloud.common
     default-branch: main
+
+- project:
+    name: ansible-network/releases
+    default-branch: main
