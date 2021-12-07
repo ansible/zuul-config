@@ -1,0 +1,13 @@
+---
+- name: Install Ubuntu repository files
+  become: true
+  template:
+    dest: "/{{ item }}"
+    group: root
+    mode: 0644
+    owner: root
+    src: "apt/{{ item }}.j2"
+  with_items:
+    - etc/apt/sources.list
+  notify:
+    - Update apt cache

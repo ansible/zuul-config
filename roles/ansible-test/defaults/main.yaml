@@ -1,0 +1,29 @@
+---
+ansible_test_collections: false
+# Need to be defined of ansible_test_collections is true
+ansible_test_collection_namespace: ''
+# Need to be defined of ansible_test_collections is true
+ansible_test_collection_name: ''
+ansible_test_integration_targets: ''
+ansible_test_test_command: 'integration'
+ansible_test_continue_on_error: true
+ansible_test_retry_on_error: false
+ansible_test_skip_tags: false
+ansible_test_location: "{{ ~/ansible-test | expanduser }}"
+ansible_test_docker: false
+# Default ansible-test options
+ansible_test_git_branch: 'devel'
+ansible_test_python: "{{ ansible_python_version.split('.')[:2]|join('.') }}"
+ansible_test_venv_path: ~/venv
+ansible_test_inventory_path: ~/inventory
+ansible_test_collection_dir: ~/.ansible/collections/ansible_collections
+ansible_test_enable_ara: true
+ansible_test_split_in: 1
+ansible_test_do_number: 1
+ansible_test_sanity_skiptests: []
+ansible_test_network_cli_ssh_type: paramiko
+ansible_test_changed: false
+ansible_test_base_branch: main
+ansible_test_verbosity: "-vvvv"
+ansible_test_requirement_files: ['requirements.txt', 'test-requirements.txt']
+ansible_test_constraint_files: []

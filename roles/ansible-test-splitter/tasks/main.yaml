@@ -1,0 +1,17 @@
+---
+- name: Identify the targets associated with the changed files
+  include_tasks: ansible_test_changed.yaml
+  when: ansible_test_splitter__test_changed|bool
+
+- debug:
+    msg: "Build a list of all the targets"
+- name: Build a list of all the targets
+  include_tasks: list_all.yaml
+  when: not(ansible_test_splitter__test_changed|bool)
+
+- name: Print all available facts
+  debug:
+    var: ansible_facts
+
+- name: Split targets
+  include_tasks: split_targets.yaml

@@ -1,0 +1,30 @@
+---
+- name: Publish content to Ansible Galaxy
+  block:
+    - name: Create ansible.cfg configuration file tempfile
+      tempfile:
+        state: file
+        suffix: .cfg
+      register: _ansiblecfg_tmp
+
+    - name: Create ansible.cfg configuration file
+      template:
+        dest: "{{ _ansiblecfg_tmp.path }}"
+        mode: 0600
+        src: "{{ ansible_galaxy_type }}.cfg.j2"
+
+    - name: Find tarballs to upload
+      find:
+        paths: "{{ ansible_galaxy_collection_path }}"
+        patterns: "*.tar.gz"
+      register: found_tarballs
+
+    - name: Publish collection to Ansible Galaxy / Automation Hub
+      environment:
+        ANSIBLE_CONFIG: "{{ _ansiblecfg_tmp.path }}"
+      shell: "{{ ansible_galaxy_executable }} -vvv collection publish {{ item.path }}"
+      with_items: "{{ found_tarballs.files }}"
+
+  always:
+    - name: Shred ansible-galaxy credentials
+      shell: "shred {{ _ansiblecfg_tmp.path }}"
