@@ -94,11 +94,11 @@
     name: ansible/zuul-config
     check:
       jobs:
-        - config-linters
+#        - config-linters
         - config-check
     gate:
       jobs:
-        - config-linters
+#        - config-linters
         - config-check
     post:
       jobs:
