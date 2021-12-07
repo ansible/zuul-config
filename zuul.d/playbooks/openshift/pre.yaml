@@ -1,0 +1,34 @@
+---
+- hosts: localhost
+  tasks:
+    - block:
+        - import_role: name=emit-job-header
+        # We need those tasks to use log-inventory, see: https://review.openstack.org/577674
+        - name: Define zuul_info_dir fact
+          set_fact:
+            zuul_info_dir: "{{ zuul.executor.log_root }}/zuul-info"
+
+        - name: Ensure Zuul Ansible directory exists
+          delegate_to: localhost
+          run_once: true
+          file:
+            path: "{{ zuul_info_dir }}"
+            state: directory
+
+        - name: Define inventory_file fact
+          set_fact:
+            inventory_file: "/tmp/{{ zuul.build }}/ansible/inventory.yaml"
+
+        - import_role: name=log-inventory
+      vars:
+        zuul_log_url: "https://ansible.softwarefactory-project.io/logs"
+
+    - name: Set oc_command fact
+      set_fact:
+        oc_command: >
+          oc --context "{{ zuul.resources['project'].context }}"
+             --namespace "{{ zuul.resources['project'].namespace }}"
+
+    - include_tasks: prepare-namespace.yaml
+    - include_tasks: build-project.yaml
+    - include_tasks: deploy-project.yaml

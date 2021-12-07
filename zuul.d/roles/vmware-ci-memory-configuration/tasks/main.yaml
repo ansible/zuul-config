@@ -1,0 +1,23 @@
+---
+- name: Disable vSphere-UI and reuse its memory
+  shell: |
+    cloudvm-ram-size -C 1000 vmware-sps
+    cloudvm-ram-size -C 3000 vmware-vpxd
+    cloudvm-ram-size -C 1024 vmware-stsd
+    cloudvm-ram-size -C 200 observability
+    cloudvm-ram-size -C 200 observability-vapi
+    analytics
+    cloudvm-ram-size -C 1 vsphere-ui
+    systemctl disable vsphere-ui
+    service-control --stop vsphere-ui
+    service-control --restart vmware-sps
+    service-control --restart vmware-vpxd
+    service-control --restart vmware-stsd
+    service-control --restart observability
+    service-control --restart observability-vapi
+  become: true
+- name: Ensure SPS is running, VMware KB:2118557
+  # https://kb.vmware.com/s/article/2118557
+  shell: |
+    service-control --restart vmware-sps
+  become: true

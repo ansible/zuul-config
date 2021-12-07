@@ -1,0 +1,69 @@
+---
+- set_fact:
+    image_tag: "awx-pr-{{ zuul.change }}"
+  when: image_tag is not defined
+
+- set_fact:
+    source_dir: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}"
+  when: source_dir is not defined
+
+- set_fact:
+    job_source_dir: "{{ zuul.executor.src_root }}/{{ zuul.project.canonical_name }}"
+  when: job_source_dir is not defined
+
+- set_fact:
+    target_branch: "{{ zuul.branch }}"
+  when: target_branch is not defined
+
+- name: Pre-pull images
+  shell: |
+    docker pull quay.io/awx/awx_devel:{{ target_branch }}
+  ignore_errors: yes
+
+- name: Determine where Dockerfile is
+  stat:
+    path: "{{ source_dir }}/tools/ansible/roles/dockerfile/templates/Dockerfile.j2"
+  register: new_dockerfile_location
+
+- name: Use new dockerfile role
+  when: new_dockerfile_location.stat.exists
+  block:
+    - include_role:
+        name: "{{ job_source_dir }}/tools/ansible/roles/dockerfile"
+      vars:
+        dockerfile_dest: "{{ source_dir }}"
+        build_dev: yes
+
+# Delete this in near future.
+- name: Use old dockerfile role
+  when: not new_dockerfile_location.stat.exists
+  block:
+    - include_role:
+        name: "{{ job_source_dir }}/installer/roles/dockerfile"
+      vars:
+        dockerfile_dest: "{{ source_dir }}"
+        build_dev: yes
+
+- set_fact:
+    command_to_run: |
+      docker build \
+        -t {{ image_tag }} \
+        --build-arg BUILDKIT_INLINE_CACHE=1 \
+        --cache-from {{ image_tag }} \
+        --cache-from quay.io/awx/awx_devel:{{ target_branch }} .
+
+- name: Build image
+  shell: "{{ command_to_run }}"
+  args:
+    chdir: "{{ source_dir }}"
+  environment:
+    DOCKER_BUILDKIT: '1'
+
+- set_fact:
+    command_to_run: |
+      docker run -u$(id -u) --rm \
+        -v {{ source_dir }}:/awx_devel/:Z --workdir=/awx_devel \
+        {{ image_tag }} {{ command | quote }}
+
+- name: Run {{ command }}
+  shell: "{{ command_to_run }}"

@@ -1,0 +1,61 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ pod_name }}"
+spec:
+  restartPolicy: Never
+  volumes:
+    - name: git-repo
+      emptyDir:
+        medium: Memory
+    - name: git-clone
+      configMap:
+        name: git-clone
+        defaultMode: 0755
+    - name: kaniko-secret
+      secret:
+        secretName: kaniko-secret
+  initContainers:
+    - name: clone-repo
+      image: alpine/git
+      command:
+        - /usr/local/git/git-clone.sh
+      volumeMounts:
+        - name: git-repo
+          mountPath: /awx_devel
+        - name: git-clone
+          mountPath: /usr/local/git
+      env:
+        - name: GIT_REF
+          value: {{ zuul.patchset | default('devel') }}
+  containers:
+    - name: api-tests
+      imagePullPolicy: Always
+      image: gcr.io/ansible-tower-engineering/awx_devel:{{ image_tag }}
+      workingDir: /awx_devel
+      args:
+        - sleep
+        - infinity
+      volumeMounts:
+        - name: git-repo
+          mountPath: /awx_devel
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: git-clone
+data:
+  git-clone.sh: |
+    #!/bin/sh -xe
+    n=0
+    until [ $n -ge 5 ]; do
+      (
+        git init /awx_devel && cd /awx_devel
+        git fetch --tags --quiet https://github.com/ansible/awx.git +refs/heads/*:refs/remotes/origin/* +refs/pull/*:refs/remotes/origin/pr/*
+        git -c advice.detachedHead=false checkout -f ${GIT_REF}
+      ) && break
+      n=$[$n+1]
+      sleep 15
+    done

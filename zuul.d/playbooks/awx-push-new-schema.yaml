@@ -1,0 +1,17 @@
+---
+- hosts: static
+  roles:
+    - role: run_awx_tests
+      command: /start_tests.sh genschema
+  tasks:
+    - name: Upload new schema
+      aws_s3:
+        bucket: awx-public-ci-files
+        object: schema.json
+        src: "{{ ansible_user_dir }}/{{ zuul.project.src_dir }}/schema.json"
+        mode: put
+        permission: public-read
+      environment:
+        AWS_ACCESS_KEY: '{{ amazon.access_key_id }}'
+        AWS_SECRET_KEY: '{{ amazon.secret_access_key }}'
+        AWS_REGION: 'us-east-1'

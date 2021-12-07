@@ -1,0 +1,14 @@
+# This file is managed by ansible, do not edit directly
+---
+- hosts: localhost
+  tasks:
+    - name: Set speculative config path
+      set_fact:
+        config_root: "{{ zuul.executor.src_root }}/{{ zuul.project.canonical_name }}"
+
+    - name: Fetch artifacts
+      synchronize:
+        src: "{{ config_root }}/build"
+        dest: "{{ zuul.executor.log_root }}/logs"
+        mode: pull
+      no_log: True

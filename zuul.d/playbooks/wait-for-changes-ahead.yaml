@@ -1,0 +1,4 @@
+---
+- hosts: localhost
+  roles:
+    - wait-for-changes-ahead

@@ -1,0 +1,66 @@
+# This file is managed by ansible, do not edit directly
+---
+- name: start the project
+  openshift_raw:
+    state: present
+    namespace: "{{ zuul.resources['project'].namespace }}"
+    context: "{{ zuul.resources['project'].context }}"
+    definition:
+      apiVersion: v1
+      kind: DeploymentConfig
+      metadata:
+        generation: 2
+        labels:
+          app: "{{ zuul.project.short_name }}"
+        name: "{{ zuul.project.short_name }}"
+      spec:
+        replicas: 1
+        selector:
+          deploymentconfig: "{{ zuul.project.short_name }}"
+        strategy:
+          resources: {}
+          type: Rolling
+        template:
+          metadata:
+            labels:
+              app: "{{ zuul.project.short_name }}"
+              deploymentconfig: "{{ zuul.project.short_name }}"
+          spec:
+            containers:
+              - image: "{{ _image_stream.result.status.dockerImageRepository }}"
+                name: "{{ zuul.project.short_name }}"
+                command: [ "/bin/bash", "-c", "--" ]
+                args: [ "while true; do sleep 30; done;" ]
+                ports:
+                  - containerPort: 8080
+                    protocol: TCP
+                  - containerPort: 8443
+                    protocol: TCP
+                resources: {}
+            dnsPolicy: ClusterFirst
+            restartPolicy: Always
+            schedulerName: default-scheduler
+            securityContext: {}
+            terminationGracePeriodSeconds: 30
+        test: false
+
+- name: get project pod name
+  command: >
+    {{ oc_command }} get pods --field-selector=status.phase=Running
+    -o "jsonpath={.items[?(@.metadata.labels.app=='{{ zuul.project.short_name }}')].metadata.name}"
+  register: _pod_name
+  retries: 600
+  delay: 1
+  until: "zuul.project.short_name in _pod_name.stdout"
+
+- name: create pods list
+  set_fact:
+    pods_data:
+      pods:
+        - name: "{{ zuul.project.short_name }}"
+          pod: "{{ _pod_name.stdout }}"
+
+- name: store pods list in work_root
+  copy:
+    content: "{{ pods_data | to_yaml }}"
+    dest: "{{ zuul.executor.work_root }}/pods.yaml"

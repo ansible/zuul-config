@@ -1,0 +1,66 @@
+---
+- name: Include branch specific variables.
+  include_vars: "{{ item }}"
+  with_first_found:
+    - '{{ ansible_test_git_branch }}.yaml'
+    - default.yaml
+
+- name: Prepare ansible-test parameters
+  import_tasks: init_test_options.yaml
+
+- name: Single ansible mode
+  import_tasks: init_single_mode.yaml
+  when: not ansible_test_collections
+
+- name: Ansible with collections
+  import_tasks: init_collection.yaml
+  when: ansible_test_collections
+
+- name: Enable persistent connection logging
+  ini_file:
+    path: "{{ _test_cfg_location }}"
+    section: persistent_connection
+    option: log_messages
+    value: true
+
+- name: Set persistent ssh_type value
+  ini_file:
+    path: "{{ _test_cfg_location }}"
+    section: persistent_connection
+    option: ssh_type
+    value: "{{ ansible_test_network_cli_ssh_type }}"
+
+- name: Set ansible log path
+  ini_file:
+    path: "{{ _test_cfg_location }}"
+    section: defaults
+    option: log_path
+    value: ~/ansible-debug.txt
+
+# - name: Enable ara
+#  import_tasks: enable_ara.yaml
+#  when: ansible_test_enable_ara
+
+
+- name: Identiy the targets associated with the changed files
+  import_tasks: ansible_test_changed.yaml
+  when: ansible_test_changed|bool
+
+- name: Set the targets
+  set_fact:
+    _integration_targets: "{{ ansible_test_integration_targets }}"
+
+- name: Split targets
+  import_tasks: split_targets.yaml
+  when: ansible_test_split_in > 1
+
+- debug:
+    msg: "About to run: {{ ansible_test_executable }} {{ ansible_test_test_command }} {{ ansible_test_options }} {{ ansible_test_verbosity }} {{ _integration_targets }}"
+
+- name: Run the test suite
+  args:
+    chdir: "{{ _test_location }}"
+    executable: /bin/bash
+  environment: "{{ ansible_test_environment | default({}) }}"
+  shell: "source {{ ansible_test_venv_path }}/bin/activate; {{ ansible_test_executable }} {{ ansible_test_test_command }} {{ ansible_test_options }} {{ ansible_test_verbosity }} {{ _integration_targets }}"
+  when: (ansible_test_changed|bool == False) or (ansible_test_changed|bool and _integration_targets|length > 0)

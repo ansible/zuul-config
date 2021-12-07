@@ -1,0 +1,80 @@
+# This file is managed by ansible, do not edit directly
+---
+- name: create staging-http DeploymentConfig
+  openshift_raw:
+    state: present
+    namespace: "{{ zuul.resources['project'].namespace }}"
+    context: "{{ zuul.resources['project'].context }}"
+    definition:
+      apiVersion: v1
+      kind: DeploymentConfig
+      metadata:
+        generation: 2
+        labels:
+          app: staging-http-server
+        name: staging-http-server
+      spec:
+        replicas: 1
+        selector:
+          deploymentconfig: staging-http-server
+        strategy:
+          resources: {}
+          type: Rolling
+        template:
+          metadata:
+            labels:
+              app: staging-http-server
+              deploymentconfig: staging-http-server
+          spec:
+            containers:
+              - image: "docker.io/softwarefactoryproject/staging-http-server"
+                # imagePullPolicy: Always
+                name: staging-http-server
+                ports:
+                  - containerPort: 8080
+                    protocol: TCP
+                  - containerPort: 8443
+                    protocol: TCP
+                resources: {}
+            dnsPolicy: ClusterFirst
+            restartPolicy: Always
+            schedulerName: default-scheduler
+            terminationGracePeriodSeconds: 30
+
+- name: create staging-http Service spec
+  openshift_raw:
+    state: present
+    namespace: "{{ zuul.resources['project'].namespace }}"
+    context: "{{ zuul.resources['project'].context }}"
+    definition:
+      apiVersion: v1
+      kind: Service
+      metadata:
+        labels:
+          app: staging-http-server
+        name: staging-http-server
+      spec:
+        ports:
+          - name: 8080-tcp
+            port: 8080
+            protocol: TCP
+            targetPort: 8080
+        selector:
+          deploymentconfig: staging-http-server
+        sessionAffinity: None
+        type: ClusterIP
+      status:
+        loadBalancer: {}
+
+- name: get staging-http-server pod name
+  command: >
+    {{ oc_command }} get pods --field-selector=status.phase=Running
+    -o "jsonpath={.items[?(@.metadata.labels.app=='staging-http-server')].metadata.name}"
+  register: _zm_name
+  retries: 600
+  delay: 1
+  until: "'staging-http' in _zm_name.stdout"
+
+- name: register staging-http-server pod name
+  set_fact:
+    zm_name: "{{ _zm_name.stdout }}"

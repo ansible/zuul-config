@@ -1,0 +1,84 @@
+# This file is managed by ansible, do not edit directly
+---
+- name: prepare dumb bare clone of future state
+  git:
+    repo: "{{ zuul.executor.work_root }}/{{ zuul.project.src_dir }}"
+    dest: "{{ zuul.executor.work_root }}/{{ zuul.project.src_dir }}.git"
+    bare: yes
+
+- name: update server info for dumb http transport
+  command: git update-server-info
+  args:
+    chdir: "{{ zuul.executor.work_root }}/{{ zuul.project.src_dir }}.git"
+
+- name: create project dir on http server
+  command: >
+    {{ oc_command }} exec {{ zm_name }} -- mkdir -p {{ zuul.project.src_dir }}.git
+
+- name: copy project to http server
+  command: >
+    {{ oc_command }} rsync -q --progress=false
+      {{ zuul.executor.work_root }}/{{ zuul.project.src_dir }}.git/
+      {{ zm_name }}:/opt/app-root/src/{{ zuul.project.src_dir }}.git/
+  no_log: true
+
+- name: create project ImageStream spec
+  openshift_raw:
+    state: present
+    namespace: "{{ zuul.resources['project'].namespace }}"
+    context: "{{ zuul.resources['project'].context }}"
+    definition:
+      apiVersion: v1
+      kind: ImageStream
+      metadata:
+        generation: 1
+        labels:
+          app: "{{ zuul.project.short_name }}"
+        name: "{{ zuul.project.short_name }}"
+      spec:
+        lookupPolicy:
+          local: false
+  register: _image_stream
+
+- name: create project BuildConfig spec
+  openshift_raw:
+    state: present
+    namespace: "{{ zuul.resources['project'].namespace }}"
+    context: "{{ zuul.resources['project'].context }}"
+    definition:
+      apiVersion: v1
+      kind: BuildConfig
+      metadata:
+        labels:
+          app: "{{ zuul.project.short_name }}"
+        name: "{{ zuul.project.short_name }}"
+      spec:
+        output:
+          to:
+            kind: ImageStreamTag
+            name: '{{ zuul.project.short_name }}:latest'
+        runPolicy: Serial
+        source:
+          git:
+            ref: master
+            uri: 'http://staging-http-server:8080/{{ zuul.project.src_dir }}.git'
+          type: Git
+        strategy:
+          sourceStrategy:
+            from:
+              kind: ImageStreamTag
+              name: '{{ base_image }}'
+              namespace: openshift
+          type: Source
+        triggers:
+          - type: ImageChange
+          - type: ConfigChange
+
+- name: wait for project image built
+  command: >
+    {{ oc_command }} get builds
+      -o "jsonpath={.items[?(@.metadata.labels.buildconfig!='staging-http-server')].status.phase}"
+  register: _project_build
+  retries: 600
+  delay: 1
+  until: "'Complete' in _project_build.stdout"

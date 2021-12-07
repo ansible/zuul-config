@@ -1,0 +1,39 @@
+resources:
+  projects:
+    ansible:
+      description: Ansible is an IT automation tool.
+      tenant: ansible
+      source-repositories:
+        # The config projects
+        - ansible/zuul-config:
+            zuul/config-project: True
+            zuul/exclude-unprotected-branches: true
+
+        # Shared jobs
+        - ansible/zuul-jobs:
+            zuul/exclude-unprotected-branches: true
+
+        # Ansible projects
+        - ansible/ansible:
+            zuul/include: []
+
+        - ansible-collections/amazon.aws:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/cloud.common:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/community.aws:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/community.kubernetes:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/community.vmware:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/kubernetes.core:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/vmware.vmware_rest:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/vmware_rest_code_generator:
+            zuul/exclude-unprotected-branches: true
+        - ansible-network/releases:
+            zuul/exclude-unprotected-branches: true
+        - ansible/awx:
+            zuul/exclude-unprotected-branches: true

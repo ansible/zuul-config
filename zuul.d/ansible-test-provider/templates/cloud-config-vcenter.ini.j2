@@ -1,0 +1,29 @@
+[DEFAULT]
+{% if ansible_test_provider_test_with_vcsim %}
+vcenter_username: user
+vcenter_password: pass
+vcenter_hostname: localhost
+vcenter_port: 443
+vmware_user: user
+vmware_password: pass
+vmware_host: localhost
+vmware_port: 443
+vmware_validate_certs: false
+vcsim: true
+vcsim_with: systemd
+{% else %}
+vcenter_username: administrator@vsphere.local
+vcenter_password: {{ lookup('file', ansible_test_provider_passwords_secret_dir + '/vcenter/tmp/vcenter_password.txt') }}
+vcenter_hostname: vcenter.test
+vmware_validate_certs: false
+{% if 'esxi1' in hostvars %}
+esxi1_username: root
+esxi1_hostname: esxi1.test
+esxi1_password: {{ lookup('file', ansible_test_provider_passwords_secret_dir + '/vcenter/tmp/esxi_password_root.txt') }}
+{% endif %}
+{% if 'esxi2' in hostvars %}
+esxi2_username: root
+esxi2_hostname: esxi2.test
+esxi2_password: {{ lookup('file', ansible_test_provider_passwords_secret_dir + '/vcenter/tmp/esxi_password_root.txt') }}
+{% endif %}
+{% endif %}
