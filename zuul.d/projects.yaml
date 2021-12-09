@@ -19,3 +19,10 @@
 - project:
     name: ansible-network/releases
     default-branch: master
+
+- project:
+    name: ansible-collections/vmware.vmware_rest
+    default-branch: main
+    check:
+      jobs:
+        - ansible-test-cloud-integration-vmware-rest-python38

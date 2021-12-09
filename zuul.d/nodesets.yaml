@@ -1,0 +1,56 @@
+---
+- nodeset:
+    name: vmware-vcsa-7.0.3-python36
+    nodes:
+      - name: controller
+        label: fedora-35-1vcpu
+      - name: vcenter
+        label: vmware-vcsa-7.0.3
+    groups:
+      - name: appliance-ssh
+        nodes:
+          - vcenter
+
+- nodeset:
+    name: vmware-vcsa_1esxi-7.0.3-python36
+    nodes:
+      - name: controller
+        label: ansible-fedora-35-1vcpu
+      - name: vcenter
+        label: ansible-vmware-vcsa-7.0.3
+      - name: esxi1
+        label: ansible-esxi-7.0.3
+    groups:
+      - name: appliance-ssh
+        nodes:
+          - vcenter
+      - name: appliance
+        nodes:
+          - esxi1
+      - name: esxis
+        nodes:
+          - esxi1
+
+- nodeset:
+    name: vmware-vcsa_2esxi-7.0.3-python36
+    nodes:
+      - name: controller
+        label: ansible-fedora-35-1vcpu
+      - name: vcenter
+        label: ansible-vmware-vcsa-7.0.3
+      - name: esxi1
+        label: ansible-esxi-7.0.3
+      - name: esxi2
+        label: ansible-esxi-7.0.3
+    groups:
+      - name: appliance-ssh
+        nodes:
+          - vcenter
+      - name: appliance
+        nodes:
+          - esxi1
+          - esxi2
+      - name: esxis
+        nodes:
+          - esxi1
+          - esxi2
