@@ -33,4 +33,4 @@
     name: ansible-collections/vmware.vmware_rest
     default-branch: main
     templates:
-      - ansible-collections-community-vmware-rest
+      - sfa-collections-community-vmware-rest
