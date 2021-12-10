@@ -5,10 +5,6 @@
       - main
 
 - project:
-    name: ansible/ansible-zuul-jobs
-    default-branch: main
-
-- project:
     name: ansible/ansible
     default-branch: devel
 
