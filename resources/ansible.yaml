@@ -9,6 +9,7 @@ resources:
             zuul/config-project: True
             zuul/exclude-unprotected-branches: true
         - ansible/ansible-zuul-jobs:
+            zuul/untrusted-project: True
             zuul/exclude-unprotected-branches: false
         # Ansible projects
         - ansible/ansible:
