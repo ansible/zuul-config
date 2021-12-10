@@ -12,10 +12,6 @@ resources:
             zuul/config-project: True
             zuul/exclude-unprotected-branches: true
 
-        # Shared jobs
-        - ansible/zuul-jobs:
-            zuul/exclude-unprotected-branches: true
-
         # Ansible projects
         - ansible/ansible:
             zuul/include: []
