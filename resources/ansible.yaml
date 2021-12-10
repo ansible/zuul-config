@@ -10,6 +10,7 @@ resources:
             zuul/exclude-unprotected-branches: true
         - ansible/ansible-zuul-jobs:
             zuul/exclude-unprotected-branches: false
+            zuul/include: ['sf-zuul.d/']
         # Ansible projects
         - ansible/ansible:
             zuul/include: []
