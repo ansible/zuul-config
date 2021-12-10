@@ -8,10 +8,7 @@ resources:
         - ansible/zuul-config:
             zuul/config-project: True
             zuul/exclude-unprotected-branches: true
-        - ansible/ansible-zuul-jobs:
-            zuul/config-project: True
-            zuul/load-branch: main
-
+        - ansible/ansible-zuul-jobs
         # Ansible projects
         - ansible/ansible:
             zuul/include: []
