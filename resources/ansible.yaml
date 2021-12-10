@@ -10,6 +10,8 @@ resources:
             zuul/exclude-unprotected-branches: true
         - ansible/ansible-zuul-jobs:
             zuul/exclude-unprotected-branches: false
+        - goneri/ansible-zuul-jobs:
+            zuul/exclude-unprotected-branches: false
         # Ansible projects
         - ansible/ansible:
             zuul/include: []
