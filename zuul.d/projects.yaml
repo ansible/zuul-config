@@ -22,3 +22,10 @@
 - project:
     name: ansible-network/releases
     default-branch: master
+
+
+- project:
+    name: ansible-collections/vmware.vmware_rest
+    default-branch: main
+    templates:
+      - ansible-collections-community-vmware-rest
