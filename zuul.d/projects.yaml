@@ -1,6 +1,6 @@
 ---
 - pragma:
-    implied-branch-matchers: False
+    implied-branch-matchers: True
     implied-branches:
       - main
 
