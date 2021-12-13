@@ -3,6 +3,7 @@ resources:
     ansible:
       description: Ansible is an IT automation tool.
       tenant: ansible
+      zuul/exclude-unprotected-branches: true
       source-repositories:
         # The config projects
         - ansible/zuul-config:
