@@ -8,3 +8,5 @@ resources:
         - ansible/zuul-config:
             zuul/config-project: True
             zuul/exclude-unprotected-branches: true
+        - goneri/ansible-zuul-jobs:
+            zuul/exclude-unprotected-branches: false
