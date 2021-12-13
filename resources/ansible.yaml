@@ -10,3 +10,22 @@ resources:
             zuul/exclude-unprotected-branches: true
         - goneri/ansible-zuul-jobs:
             zuul/exclude-unprotected-branches: true
+
+        - ansible-collections/amazon.aws:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/cloud.common:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/community.aws:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/community.kubernetes:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/community.vmware:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/kubernetes.core:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/vmware.vmware_rest:
+            zuul/exclude-unprotected-branches: true
+        - ansible-collections/vmware_rest_code_generator:
+            zuul/exclude-unprotected-branches: true
+        - ansible-network/releases:
+            zuul/exclude-unprotected-branches: true
