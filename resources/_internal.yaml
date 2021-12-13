@@ -11,12 +11,6 @@ resources:
       tenant: ansible
       description: Internal configuration project
       source-repositories:
-        - sf-jobs:
-            connection: gerrit
-            zuul/shadow:
-              # Ansible objects always take precendence
-              - ansible/zuul-config
-              - ansible/zuul-jobs
         - zuul/zuul-jobs:
             connection: opendev.org
             zuul/exclude:
@@ -24,6 +18,4 @@ resources:
               - project-template
               - pipeline
             zuul/shadow:
-              - ansible/zuul-config
-              - ansible/zuul-jobs
-              - sf-jobs
+              - github.com/ansible/zuul-config
