@@ -142,3 +142,18 @@
       nodes:
         - name: controller
           label: ansible-fedora-35-1vcpu
+
+- job:
+    name: build-ansible-collection
+    description: |
+      Build ansible collections and return artifacts to zuul
+    pre-run: playbooks/build-ansible-collection/pre.yaml
+    run: playbooks/build-ansible-collection/run.yaml
+    post-run:
+      - playbooks/build-ansible-collection/post.yaml
+    required-projects:
+      - github.com/ansible-network/releases
+    nodeset:
+      nodes:
+        - name: controller
+          label: ansible-fedora-35-1vcpu
