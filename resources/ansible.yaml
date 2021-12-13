@@ -30,3 +30,50 @@ resources:
             zuul/exclude-unprotected-branches: true
         - ansible-network/releases:
             zuul/exclude-unprotected-branches: true
+
+        # Don't load any configuration from these projects because we
+        # don't gate them, so they could wedge our config.
+        - include: []
+          projects:
+            - ansible/ansible
+            - ansible-community/collection_migration
+            - ansible-collections/ansible.windows
+            - ansible-collections/community.azure
+            - ansible-collections/community.cassandra
+            - ansible-collections/community.ciscosmb
+            - ansible-collections/community.cockroachdb
+            - ansible-collections/community.crypto
+            - ansible-collections/community.digitalocean
+            - ansible-collections/community.dns
+            - ansible-collections/community.docker
+            - ansible-collections/community.fortios
+            - ansible-collections/community.general
+            - ansible-collections/community.google
+            - ansible-collections/community.grafana
+            - ansible-collections/community.hashi_vault
+            - ansible-collections/community.healthchecksio
+            - ansible-collections/community.hrobot
+            - ansible-collections/community.internal_test_tools
+            - ansible-collections/community.kubernetes
+            - ansible-collections/community.kubevirt
+            - ansible-collections/community.libvirt
+            - ansible-collections/community.molecule
+            - ansible-collections/community.mongodb
+            - ansible-collections/community.mysql
+            - ansible-collections/community.network
+            - ansible-collections/community.postgresql
+            - ansible-collections/community.proxysql
+            - ansible-collections/community.rabbitmq
+            - ansible-collections/community.routeros
+            - ansible-collections/community.sops
+            - ansible-collections/community.windows
+            - ansible-collections/community.zabbix
+            - ansible-collections/hetzner.hcloud
+            - ansible/awx
+            - ansible/galaxy
+            - ansible/galaxy_ng
+            - ansible/galaxy-importer
+            - ansible/pylibssh
+            - ansible/workshops
+            - vmware/govmomi
+            - vmware/vsphere-automation-sdk-python
