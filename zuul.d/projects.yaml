@@ -5,7 +5,7 @@
       - main
 
 - project:
-    name: ansible/ansible-zuul-jobs
+    name: goneri/ansible-zuul-jobs
     default-branch: main
 
 - project:
@@ -33,4 +33,4 @@
     name: ansible-collections/vmware.vmware_rest
     default-branch: main
     templates:
-      - ansible-collections-community-vmware-rest
+      - sfa-collections-community-vmware-rest
