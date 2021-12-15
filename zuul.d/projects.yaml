@@ -7,6 +7,8 @@
 - project:
     name: goneri/ansible-zuul-jobs
     default-branch: main
+    extra-config-paths:
+      - zuul.sf.d/nodesets.yaml
 
 - project:
     name: ansible/ansible
