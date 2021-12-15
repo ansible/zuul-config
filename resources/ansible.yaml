@@ -13,7 +13,7 @@ resources:
             include: []
         - ansible/ansible-zuul-jobs:
             zuul/exclude-unprotected-branches: true
-            zuul/extra-config-paths: [zuul.sf.d/*]
+            zuul/extra-config-paths: [zuul.sf.d/]
         - ansible-collections/amazon.aws:
             zuul/exclude-unprotected-branches: true
         - ansible-collections/cloud.common:
