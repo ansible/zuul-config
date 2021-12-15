@@ -10,6 +10,9 @@ resources:
             zuul/exclude-unprotected-branches: true
         - goneri/ansible-zuul-jobs:
             zuul/exclude-unprotected-branches: true
+            include: []
+        - ansible/ansible-zuul-jobs:
+            zuul/exclude-unprotected-branches: true
             zuul/extra-config-paths: [zuul.sf.d/*]
         - ansible-collections/amazon.aws:
             zuul/exclude-unprotected-branches: true
