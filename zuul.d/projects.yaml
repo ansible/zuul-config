@@ -1,13 +1,4 @@
 ---
-- pragma:
-    implied-branch-matchers: True
-    implied-branches:
-      - main
-
-- project:
-    name: goneri/ansible-zuul-jobs
-    default-branch: main
-
 - project:
     name: ansible/ansible-zuul-jobs
     default-branch: main
