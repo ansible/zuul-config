@@ -39,6 +39,10 @@ resources:
             include: []
         - ansible-community/collection_migration:
             include: []
+        - ansible-collections/ansible.netcommon:
+            include: []
+        - ansible-collections/ansible.utils:
+            include: []
         - ansible-collections/ansible.windows:
             include: []
         - ansible-collections/community.azure:
