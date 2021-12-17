@@ -42,3 +42,12 @@
       - ansible-collections-community-vmware
 #      - integrated-vmware-queue
 #      - publish-to-galaxy
+
+- project:
+    name: github.com/ansible-collections/community.aws
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+#       - publish-to-galaxy
+      - ansible-collections-community-aws
