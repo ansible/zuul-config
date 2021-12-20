@@ -242,3 +242,16 @@
       nodes:
         - name: controller
           label: ansible-fedora-35-1vcpu
+
+- job:
+    name: release-ansible-collection-announcement
+    description: |
+      Release announcement to twitter for automation hub and galaxy
+    final: true
+    run: playbooks/ansible-collection/twitter.yaml
+    required-projects:
+      - github.com/ansible-network/releases
+    nodeset:
+      nodes: []
+    secrets:
+      - twitter_ansible_content
