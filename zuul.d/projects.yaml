@@ -51,3 +51,12 @@
       - system-required
 #       - publish-to-galaxy
       - ansible-collections-community-aws
+
+- project:
+    name: github.com/ansible/zuul-config
+    check:
+       jobs:
+        - refresh-automation-hub-token
+    periodic:
+      jobs:
+        - refresh-automation-hub-token
