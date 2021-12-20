@@ -212,7 +212,7 @@
       A job that validate the status of the Galaxy token
     final: true
     run:
-      - playbook/validate-ansible-galaxy-token/run.yaml
+      - playbooks/validate-ansible-galaxy-token/run.yaml
     secrets:
       - secret: galaxy_secret
         name: ansible_galaxy_info
