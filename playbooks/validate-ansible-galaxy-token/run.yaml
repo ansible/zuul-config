@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Validate the token
+      no_log: true
+      shell: 'curl --header "Authorization: Token {{ ansible_galaxy_info.token }}" https://galaxy.ansible.com/api/internal/me/preferences/|grep notify_survey'

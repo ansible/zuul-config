@@ -205,3 +205,40 @@
         - name: controller
           label: ansible-fedora-35-1vcpu
     semaphore: ansible-automation-hub
+
+- job:
+    name: validate-ansible-galaxy-token
+    description: |
+      A job that validate the status of the Galaxy token
+    final: true
+    run:
+      - playbook/validate-ansible-galaxy-token/run.yaml
+    secrets:
+      - secret: galaxy_secret
+        name: ansible_galaxy_info
+    nodeset:
+      nodes: []
+
+- job:
+    name: release-ansible-collection-galaxy
+    description: |
+      Release ansible collection to https://galaxy.ansible.com
+    final: true
+    pre-run: playbooks/ansible-collection/pre.yaml
+    run:
+      - playbooks/ansible-collection/run-pre.yaml
+      - playbooks/ansible-collection/run.yaml
+    post-run:
+      - playbooks/ansible-collection/post.yaml
+      - playbooks/publish/ansible-galaxy.yaml
+    required-projects:
+      - github.com/ansible-network/releases
+    vars:
+      ansible_galaxy_executable: "/opt/venv/zuul-ansible/{{ ansible_version.full }}/bin/ansible-galaxy"
+    secrets:
+      - secret: galaxy_secret
+        name: ansible_galaxy_info
+    nodeset:
+      nodes:
+        - name: controller
+          label: ansible-fedora-35-1vcpu

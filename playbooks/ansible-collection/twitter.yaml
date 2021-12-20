@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Create virtualenv for ansible-network/releases
+      shell: virtualenv --python python3 ~/venv
+
+    - name: Bootstrap ansible-network/releases
+      args:
+        chdir: "{{ zuul.executor.work_root }}/{{ zuul.projects['github.com/ansible-network/releases'].src_dir }}"
+      shell: ~/venv/bin/pip install -r requirements.txt -r test-requirements.txt
+
+    - name: Setup tweetrc credentials
+      copy:
+        content: "{{ twitter_ansible_content.credentials }}"
+        dest: ~/.tweetrc
+
+    - name: Send twitter announcement
+      args:
+        chdir: "{{ zuul.executor.work_root }}/{{ zuul.projects['github.com/ansible-network/releases'].src_dir }}"
+      shell: "~/venv/bin/python tools/twitter-announcement.py 'Version {{ zuul.tag }} of the @ansible {{ zuul.project.short_name }} collection has been released to Ansible Automation Hub (https://cloud.redhat.com/ansible/automation-hub/{{ zuul.project.short_name|replace('.', '/') }}) and Ansible Galaxy (https://galaxy.ansible.com/{{ zuul.project.short_name|replace('.','/') }}). See the release notes here: https://{{ zuul.project.canonical_name }}/blob/{{ zuul.tag }}/CHANGELOG.rst'"
