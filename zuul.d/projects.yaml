@@ -1,7 +1,7 @@
 ---
 - project:
     name: ansible/ansible-zuul-jobs
-    default-branch: main
+    default-branch: master
 
 - project:
     name: ansible/ansible
