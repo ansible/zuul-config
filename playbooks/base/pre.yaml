@@ -13,6 +13,13 @@
     - include_role: name=start-zuul-console
     - block:
         - include_role: name=validate-host
+      when: "ansible_connection != 'kubectl'"
+
+
+- hosts: all:!appliance
+  tasks:
+    - include_role: name=start-zuul-console
+    - block:
         - include_role: name=prepare-workspace
         - name: Run add-build-sshkey role (RSA)
           include_role:
