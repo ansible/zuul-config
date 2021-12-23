@@ -11,16 +11,13 @@
 - hosts: all:!appliance*
   tasks:
     - include_role: name=start-zuul-console
-    - block:
-        - include_role: name=validate-host
-      when: "ansible_connection != 'kubectl'"
+    - include_role: name=prepare-workspace
 
 
 - hosts: all:!appliance
   tasks:
     - include_role: name=start-zuul-console
     - block:
-        - include_role: name=prepare-workspace
         - name: Run add-build-sshkey role (RSA)
           include_role:
             name: add-build-sshkey
@@ -34,7 +31,6 @@
             zuul_ssh_key_size: 521
       when: "ansible_connection != 'kubectl'"
     - block:
-        - include_role: name=prepare-workspace-openshift
         - include_role: name=remove-zuul-sshkey
       run_once: true
       when: "ansible_connection == 'kubectl'"
