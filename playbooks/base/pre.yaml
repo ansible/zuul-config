@@ -8,7 +8,7 @@
       vars:
         zuul_log_url: "https://ansible.softwarefactory-project.io/logs"
 
-- hosts: all
+- hosts: all:!appliance*
   tasks:
     - include_role: name=start-zuul-console
     - block:
