@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: all:!appliance*
   tasks:
     - block:
         - include_role: name=fetch-output
