@@ -2,6 +2,9 @@
 - project:
     name: ansible/ansible-zuul-jobs
     default-branch: master
+    merge-mode: squash-merge
+    templates:
+      - system-required
 
 - project:
     name: ansible/ansible
