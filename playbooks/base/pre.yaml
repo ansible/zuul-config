@@ -17,8 +17,9 @@
       become: true
     - name: Install git and tox
       package:
-        - git
-        - python3-tox
+        name:
+          - git
+          - python3-tox
       become: true
     - include_role: name=start-zuul-console
     - include_role: name=prepare-workspace
