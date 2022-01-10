@@ -72,3 +72,17 @@
       jobs:
         - refresh-automation-hub-token
         - validate-ansible-galaxy-token
+
+- project:
+    name: github.com/ansible-collections/vmware_rest_code_generator
+    default-branch: main
+    templates:
+      - ansible-python3-jobs
+      - ansible-collections-community-vmware-rest-code-generator
+      - integrated-vmware-queue
+    check:
+      jobs:
+        - ansible-tox-linters
+    gate:
+      jobs:
+        - ansible-tox-linters
