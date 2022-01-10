@@ -11,25 +11,174 @@ resources:
             include: []
         - ansible/ansible-zuul-jobs:
             zuul/extra-config-paths: [zuul.sf.d/]
-        - ansible-collections/amazon.aws
-        - ansible-collections/cloud.common
-        - ansible-collections/community.aws
-        - ansible-collections/community.kubernetes
-        - ansible-collections/community.vmware
-        - ansible-collections/kubernetes.core
-        - ansible-collections/vmware.vmware_rest
-        - ansible-collections/vmware_rest_code_generator
-        - ansible-network/releases
 
-        # Don't load any configuration from these projects because we
-        # don't gate them, so they could wedge our config.
-        - ansible/ansible:
+        - ansible/ansible-builder:
             include: []
-        - ansible-community/collection_migration:
+        - ansible/ansible-core-image:
+            include: []
+        - ansible/ansible-navigator:
+            include: []
+        - ansible/ansible-runner:
+            include: []
+        - ansible/python-base-image:
+            include: []
+        - ansible/python-builder-image:
+            include: []
+        - ansible-collections/amazon.aws:
             include: []
         - ansible-collections/ansible.netcommon:
             include: []
+        - ansible-collections/ansible.network:
+            include: []
+        - ansible-collections/ansible.posix:
+            include: []
+        - ansible-collections/ansible.security:
+            include: []
         - ansible-collections/ansible.utils:
+            include: []
+        - ansible-collections/arista.eos:
+            include: []
+        - ansible-collections/checkpoint:
+            include: []
+        - ansible-collections/cisco.asa:
+            include: []
+        - ansible-collections/cisco.ios:
+            include: []
+        - ansible-collections/cisco.iosxr:
+            include: []
+        - ansible-collections/cisco.nxos:
+            include: []
+        - ansible-collections/cloud.common:
+            include: []
+        - ansible-collections/community.asa:
+            include: []
+        - ansible-collections/community.aws:
+            include: []
+        - ansible-collections/community.vmware:
+            include: []
+        - ansible-collections/community.yang:
+            include: []
+        - ansible-collections/frr.frr:
+            include: []
+        - ansible-collections/ibm.qradar:
+            include: []
+        - ansible-collections/junipernetworks.junos:
+            include: []
+        - ansible-collections/kubernetes.core:
+            include: []
+        - ansible-collections/openvswitch.openvswitch:
+            include: []
+        - ansible-collections/servicenow.itsm:
+            include: []
+        - ansible-collections/skydive:
+            include: []
+        - ansible-collections/splunk.es:
+            include: []
+        - ansible-collections/symantec.epm:
+            include: []
+        - ansible-collections/trendmicro.deepsec:
+            include: []
+        - ansible-collections/vmware.vmware_rest:
+            include: []
+        - ansible-collections/vmware_rest_code_generator:
+            include: []
+        - ansible-collections/vyos.vyos:
+            include: []
+        - ansible-community/ansible-bender:
+            include: []
+        - ansible-community/ara:
+            include: []
+        - ansible-community/ara-collection:
+            include: []
+        - ansible-community/ara-infra:
+            include: []
+        - ansible-community/molecule-libvirt:
+            include: []
+        - ansible-community/molecule-vagrant:
+            include: []
+        - ansible/cloud-ee:
+            include: []
+        - ansible/network:
+            include: []
+        - ansible/network-ee:
+            include: []
+        - ansible-network/ansible_content_collections_metrics:
+            include: []
+        - ansible-network/arista_eos:
+            include: []
+        - ansible-network/aws:
+            include: []
+        - ansible-network/aws_management:
+            include: []
+        - ansible-network/azure:
+            include: []
+        - ansible-network/backup_config:
+            include: []
+        - ansible-network/cisco_asa:
+            include: []
+        - ansible-network/cisco_ios:
+            include: []
+        - ansible-network/cisco_iosxr:
+            include: []
+        - ansible-network/cisco_nxos:
+            include: []
+        - ansible-network/cloud_vpn:
+            include: []
+        - ansible-network/collection_migration:
+            include: []
+        - ansible-network/community.netcommon:
+            include: []
+        - ansible-network/config_manager:
+            include: []
+        - ansible-network/content_store:
+            include: []
+        - ansible-network/juniper_junos:
+            include: []
+        - ansible-network/k8s-node-pool-config:
+            include: []
+        - ansible-network/net_operations:
+            include: []
+        - ansible-network/network_collections_migration:
+            include: []
+        - ansible-network/network_configurator:
+            include: []
+        - ansible-network/network_content_collector:
+            include: []
+        - ansible-network/network-engine:
+            include: []
+        - ansible-network/network-image-builder:
+            include: []
+        - ansible-network/network-runner:
+            include: []
+        - ansible-network/openstack:
+            include: []
+        - ansible-network/packet-ci-cloud:
+            include: []
+        - ansible-network/releases:
+            include: []
+        - ansible-network/resource_module_builder:
+            include: []
+        - ansible-network/resource_module_models:
+            include: []
+        - ansible-network/resource_module_planning:
+            include: []
+        - ansible-network/rhel:
+            include: []
+        - ansible-network/sandbox:
+            include: []
+        - ansible-network/vyos:
+            include: []
+        - ansible-network/windmill-config:
+            include: []
+        - ansible-security/ids_config:
+            include: []
+        - ansible-security/ids_install:
+            include: []
+        - pycontribs/selinux:
+            include: []
+        - ansible/ansible:
+            include: []
+        - ansible-community/collection_migration:
             include: []
         - ansible-collections/ansible.windows:
             include: []
@@ -87,6 +236,8 @@ resources:
             include: []
         - ansible-collections/community.routeros:
             include: []
+        - ansible-collections/community.sap:
+            include: []
         - ansible-collections/community.sops:
             include: []
         - ansible-collections/community.windows:
@@ -110,4 +261,6 @@ resources:
         - vmware/govmomi:
             include: []
         - vmware/vsphere-automation-sdk-python:
+            include: []
+        - openshift/community.okd:
             include: []
