@@ -1,0 +1,14 @@
+[Unit]
+Description=Refresh the mirror
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/bin/skopeo sync --src docker --dest docker quay.io/ansible/default-test-container localhost:5000/ansible/
+User=fedora
+Group=fedora
+Environment="REGISTRY_AUTH_FILE=path"
+
+[Install]
+WantedBy=multi-user.target
