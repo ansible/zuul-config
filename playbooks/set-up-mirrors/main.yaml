@@ -1,0 +1,178 @@
+- hosts: localhost
+  tasks:
+    - name: Spawn the mirror vexxhost ams1
+      openstack.cloud.server:
+        state: present
+        cloud: vexxhost
+        region_name: ams1
+        image: Fedora-Cloud-Base-35-1.2.x86_64
+        flavor: v3-standard-2
+        name: mirror
+        network: public
+        key_name: goneri
+      register: result
+    - name: Add host ansible-vexxhost-ams1
+      add_host:
+        name: ansible-vexxhost-ams1
+        groups:
+          - mirrors
+        ansible_ssh_host: "{{ result.server.public_v4 }}"
+        ansible_ssh_user: fedora
+        ansible_python_interpreter: /bin/python3
+    - name: Spawn the mirror vexxhost ca-ymq-1
+      openstack.cloud.server:
+        state: present
+        cloud: vexxhost
+        region_name: ca-ymq-1
+        image: Fedora-Cloud-Base-35-1.2.x86_64
+        flavor: v3-standard-2
+        name: mirror
+        network: public
+        key_name: goneri
+      register: result
+    - name: Add host ansible-vexxhost-ca-ymq-1
+      add_host:
+        name: ansible-vexxhost-ca-ymq-1
+        groups:
+          - mirrors
+        ansible_ssh_host: "{{ result.server.public_v4 }}"
+        ansible_ssh_user: fedora
+        ansible_python_interpreter: /bin/python3
+    - name: Spawn the mirror vexxhost sjc1
+      openstack.cloud.server:
+        state: present
+        cloud: vexxhost
+        region_name: sjc1
+        image: Fedora-Cloud-Base-35-1.2.x86_64
+        boot_from_volume: true
+        volume_size: 50
+        flavor: v2-highcpu-1
+        name: mirror
+        network: public
+        key_name: goneri
+      register: result
+    - name: Add host ansible-vexxhost-sjc1
+      add_host:
+        name: ansible-vexxhost-sjc1
+        groups:
+          - mirrors
+        ansible_ssh_host: "{{ result.server.public_v4 }}"
+        ansible_ssh_user: fedora
+    - name: Spawn the mirror limestone us-dfw-1
+      openstack.cloud.server:
+        state: present
+        cloud: limestone
+        region_name: us-dfw-1
+        image: Fedora-Cloud-Base-35-1.2.x86_64
+        flavor: c1.hwetest.1
+        name: mirror
+        network: "Public Internet"
+        key_name: goneri
+      register: result
+    - name: Add host ansible-limestone-us-dfw-1
+      add_host:
+        name: ansible-limestone-us-dfw-1
+        groups:
+          - mirrors
+        ansible_ssh_host: "{{ result.server.public_v4 }}"
+        ansible_ssh_user: fedora
+    - name: Spawn the mirror limestone us-slc
+      openstack.cloud.server:
+        state: present
+        cloud: limestone
+        region_name: us-slc
+        image: Fedora-Cloud-Base-35-1.2.x86_64
+        flavor: r1.tiny
+        name: mirror
+        network: "Public Internet"
+        key_name: goneri
+      register: result
+    - name: Add host ansible-limestone-us-slc
+      add_host:
+        name: ansible-limestone-us-slc
+        groups:
+          - mirrors
+        ansible_ssh_host: "{{ result.server.public_v4 }}"
+        ansible_ssh_user: fedora
+
+- hosts: mirrors
+  tasks:
+    - name: Copy the deploy-mirror-on-node.sh script
+      copy:
+        src: 2-start-registry-service-on-node.d/deploy-mirror-on-node.sh
+        dest: deploy-mirror-on-node.sh
+    - name: Call deploy-mirror-on-node.sh
+      command: bash deploy-mirror-on-node.sh
+      args:
+        creates: /opt/registry/certs/server.pem
+    - name: Spawn the podman container
+      containers.podman.podman_container:
+        name: test-registry
+        image: docker.io/library/registry:2
+        volume:
+          - /opt/registry/data:/var/lib/registry:z
+          - /opt/registry/certs:/certs:z
+          - /opt/registry/registry-config.yml:/etc/docker/registry/config.yml:z
+        ports:
+          - 5000:5000
+        env:
+          REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/server.pem"
+          REGISTRY_HTTP_TLS_KEY: "/certs/server-key.pem"
+      become: true
+    - name: Copy refresh-mirror.service service file
+      copy:
+        src: "3-install-systemd-services.d/{{ item }}"
+        dest: "/etc/systemd/system/{{ item }}"
+      become: true
+      with_items:
+        - refresh-mirror.service
+        - refresh-mirror.timer
+    - name: Manually trigger refresh-mirror
+      ansible.builtin.systemd:
+        state: started
+        daemon_reload: yes
+        name: refresh-mirror
+      become: true
+    - name: Enable the timer
+      ansible.builtin.systemd:
+        state: started
+        enabled: true 
+        name: refresh-mirror.timer
+      become: true
+    - name: collect facts about system services
+      service_facts:
+      register: services_state
+      become: true
+      retries: 1000
+      delay: 10
+      until: services_state.ansible_facts.services["refresh-mirror.service"]["state"] != "running"
+    - debug: var=services_state
+    - debug: var=services
+    - name: Ensure the run has not failed
+      assert:
+        that:
+          - services_state.ansible_facts.services["refresh-mirror.service"]["state"] == "stopped"
+    - name: Expose the node with Avahi
+      ansible.builtin.systemd:
+        state: started
+        enabled: true 
+        name: refresh-mirror.timer
+      become: true
+    - name: Save the host IP in a file
+      copy:
+        content: "{{ ansible_ssh_host }}"
+        dest: host_ip.txt
+      delegate_to: localhost
+    - name: Save the mirror IP
+      openstack.cloud.object:
+        cloud: rackspace
+        region_name: DFW
+        name: "{{ inventory_hostname }}"
+        container: aaaa
+        filename: host_ip.txt
+        container_access: public
+      delegate_to: localhost
+    - name: Clean up the host_ip.txt file
+      file:
+        path: host_ip.txt
+        state: absent
