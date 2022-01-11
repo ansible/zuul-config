@@ -1,0 +1,38 @@
+---
+- name: Retrieve the IP address
+  uri:
+    url: http://c31bfd6bfb009231e691-ba2be89fa62144fd02adcef310422074.r64.cf1.rackcdn.com/{{ nodepool.provider }}
+    return_content: true
+  register: mirror_address
+  failed_when: false
+
+- name: Ensure the registry service is running on the mirror
+  uri:
+    url: https://{{ mirror_address.content|trim }}:5000
+    validate_certs: no
+  register: registry_check
+  failed_when: false
+  when: mirror_address.status == 200
+
+- when: mirror_address.status == 200 and registry_check.status == 200
+  name: Use the mirror
+  block:
+  - name: Write the IP in /etc/hosts
+    lineinfile:
+      path: /etc/hosts
+      line: "{{ mirror_address.content|trim }} my-mirror" 
+    become: true
+  - name: Create the podman configuration directory
+    file:
+      path: ~/.config/containers/
+      state: directory
+  - name: Copy the configuration
+    copy:
+      dest: ~/.config/containers/registries.conf
+      content: |
+        [[registry]]
+        prefix = "quay.io/ansible/default-test-container"
+        insecure = true
+        blocked = false
+        location = "{{ mirror_address.content|trim }}:5000/ansible/default-test-container"
+
