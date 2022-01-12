@@ -7,7 +7,11 @@
       - system-required
 
 - project:
-    name: github.com/ansible-collections/amazon.aws
+    name: ^ansible-collections/.*
+    default-branch: main
+
+- project:
+    name: ansible-collections/amazon.aws
     default-branch: main
     merge-mode: squash-merge
     templates:
@@ -22,7 +26,6 @@
 
 - project:
     name: ansible-collections/cloud.common
-    default-branch: main
     check:
       jobs:
         - tox-linters
@@ -37,8 +40,7 @@
     default-branch: master
 
 - project:
-    name: github.com/ansible-collections/vmware.vmware_rest
-    default-branch: main
+    name: ansible-collections/vmware.vmware_rest
     merge-mode: squash-merge
     templates:
       - system-required
@@ -47,8 +49,7 @@
       - publish-to-automation-hub
 
 - project:
-    name: github.com/ansible-collections/community.vmware
-    default-branch: main
+    name: ansible-collections/community.vmware
     merge-mode: squash-merge
     templates:
       - system-required
@@ -57,8 +58,7 @@
 #      - publish-to-galaxy
 
 - project:
-    name: github.com/ansible-collections/community.aws
-    default-branch: main
+    name: ansible-collections/community.aws
     merge-mode: squash-merge
     templates:
       - system-required
@@ -66,7 +66,7 @@
       - ansible-collections-community-aws
 
 - project:
-    name: github.com/ansible/zuul-config
+    name: ansible/zuul-config
     check:
        jobs:
         - refresh-automation-hub-token
@@ -77,8 +77,7 @@
         - validate-ansible-galaxy-token
 
 - project:
-    name: github.com/ansible-collections/vmware_rest_code_generator
-    default-branch: main
+    name: ansible-collections/vmware_rest_code_generator
     templates:
       - ansible-python3-jobs
       - ansible-collections-community-vmware-rest-code-generator
