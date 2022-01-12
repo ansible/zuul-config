@@ -1,4 +1,9 @@
 ---
+- pragma:
+    implied-branch-matchers: False
+    implied-branches:
+      - main
+
 - project:
     name: ansible/ansible-zuul-jobs
     default-branch: master
