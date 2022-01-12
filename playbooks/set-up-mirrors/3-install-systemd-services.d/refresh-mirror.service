@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/bin/skopeo sync --src docker --dest docker quay.io/ansible/default-test-container localhost:5000/ansible/
+ExecStart=/opt/sync-registry.sh
 User=fedora
 Group=fedora
 Environment="REGISTRY_AUTH_FILE=path"
