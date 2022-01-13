@@ -10,6 +10,7 @@
 
 - hosts: all:!appliance*
   tasks:
+    - include_role: name=start-zuul-console
     - name: Enable the mirror
       import_role:
         name: use-our-mirror
@@ -25,7 +26,6 @@
           - python3-tox
           - python3-virtualenv
       become: true
-    - include_role: name=start-zuul-console
     - include_role: name=prepare-workspace
 
 
