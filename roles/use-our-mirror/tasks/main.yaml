@@ -7,7 +7,7 @@
   failed_when: false
 
 - name: Ensure the registry service is running on the mirror
-  command: curl -ks https://{{ mirror_address.content|trim }}:5000
+  command: curl --connect-timeout 3 -ks https://{{ mirror_address.content|trim }}:5000
   register: registry_check
   failed_when: false
   when: mirror_address.status == 200
