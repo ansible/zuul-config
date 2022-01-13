@@ -7,14 +7,12 @@
   failed_when: false
 
 - name: Ensure the registry service is running on the mirror
-  uri:
-    url: https://{{ mirror_address.content|trim }}:5000
-    validate_certs: no
+  command: curl -ks https://{{ mirror_address.content|trim }}:5000
   register: registry_check
   failed_when: false
   when: mirror_address.status == 200
 
-- when: mirror_address.status == 200 and registry_check.status == 200
+- when: mirror_address.status == 200 and registry_check.rc == 0
   name: Use the mirror
   block:
   - name: Write the IP in /etc/hosts
@@ -52,7 +50,7 @@
         metalink = http://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch&protocol=http
         proxy = http://{{ mirror_address.content|trim }}:3128
         max_parallel_downloads = 10
-      become: true
+    become: true
     when: ansible_distribution == 'Fedora'
   - name: Copy the Yum configuration (update)
     copy:
@@ -71,5 +69,5 @@
         metalink = http://mirrors.fedoraproject.org/metalink?repo=updates-released-f$releasever&arch=$basearch&protocol=http
         proxy = http://74.63.204.150:3128
         max_parallel_downloads = 10
-      become: true
+    become: true
     when: ansible_distribution == 'Fedora'
