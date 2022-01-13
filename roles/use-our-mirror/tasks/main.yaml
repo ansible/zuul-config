@@ -26,7 +26,7 @@
     file:
       path: ~/.config/containers/
       state: directory
-  - name: Copy the configuration
+  - name: Copy the podman configuration
     copy:
       dest: ~/.config/containers/registries.conf
       content: |
@@ -35,4 +35,41 @@
         insecure = true
         blocked = false
         location = "{{ mirror_address.content|trim }}:5000/ansible/default-test-container"
-
+  - name: Copy the Yum configuration (main)
+    copy:
+      dest: /etc/yum.repos.d/fedora.repo
+      content: |
+        [fedora]
+        name=Fedora $releasever - $basearch
+        failovermethod=priority
+        enabled=1
+        metadata_expire=7d
+        repo_gpgcheck=0
+        type=rpm
+        gpgcheck=1
+        gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+        skip_if_unavailable=False
+        metalink = http://mirrors.fedoraproject.org/metalink?repo=fedora-$releasever&arch=$basearch&protocol=http
+        proxy = http://{{ mirror_address.content|trim }}:3128
+        max_parallel_downloads = 10
+      become: true
+    when: ansible_distribution == 'Fedora'
+  - name: Copy the Yum configuration (update)
+    copy:
+      dest: /etc/yum.repos.d/fedora-updates.repo
+      content: |
+        [updates]
+        name=Fedora $releasever - $basearch - Updates
+        failovermethod=priority
+        enabled=1
+        repo_gpgcheck=0
+        type=rpm
+        gpgcheck=1
+        metadata_expire=6h
+        gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
+        skip_if_unavailable=False
+        metalink = http://mirrors.fedoraproject.org/metalink?repo=updates-released-f$releasever&arch=$basearch&protocol=http
+        proxy = http://74.63.204.150:3128
+        max_parallel_downloads = 10
+      become: true
+    when: ansible_distribution == 'Fedora'
