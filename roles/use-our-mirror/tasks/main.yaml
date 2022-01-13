@@ -69,7 +69,7 @@
         gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
         skip_if_unavailable=False
         metalink = http://mirrors.fedoraproject.org/metalink?repo=updates-released-f$releasever&arch=$basearch&protocol=http
-        proxy = http://74.63.204.150:3128
+        proxy = http://{{ mirror_address.content|trim }}:3128
         max_parallel_downloads = 10
     become: true
     when: ansible_distribution == 'Fedora'
