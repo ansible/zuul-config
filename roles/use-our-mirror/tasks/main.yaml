@@ -12,6 +12,8 @@
   failed_when: false
   when: mirror_address.status == 200
 
+- debug: var=registry_check
+
 - when: mirror_address.status == 200 and registry_check.rc == 0
   name: Use the mirror
   block:
