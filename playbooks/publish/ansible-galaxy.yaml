@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: controller
   tasks:
     - name: Publish collections to Ansible Galaxy
       block:
