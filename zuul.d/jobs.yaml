@@ -174,7 +174,6 @@
     run:
       - playbooks/ansible-collection/run-pre.yaml
       - playbooks/ansible-collection/run.yaml
-    post-run:
       - playbooks/ansible-collection/post.yaml
       - playbooks/publish/ansible-automation-hub.yaml
     required-projects:
@@ -212,7 +211,6 @@
     run:
       - playbooks/ansible-collection/run-pre.yaml
       - playbooks/ansible-collection/run.yaml
-    post-run:
       - playbooks/ansible-collection/post.yaml
       - playbooks/publish/ansible-galaxy.yaml
     required-projects:
