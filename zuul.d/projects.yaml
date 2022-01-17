@@ -55,7 +55,7 @@
       - system-required
       - ansible-collections-community-vmware
 #      - integrated-vmware-queue
-#      - publish-to-galaxy
+      - publish-to-galaxy
 
 - project:
     name: ansible-collections/community.aws
