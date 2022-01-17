@@ -7,7 +7,7 @@
       - system-required
 
 - project:
-    name: ^ansible-collections/.*
+    name: ^(github.com/|)ansible-collections/.*
     default-branch: main
 
 - project:
