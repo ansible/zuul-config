@@ -121,8 +121,8 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       smtp:
-        from: "zuul@ansible.softwarefactory-project.io"
-        to: "softwarefactory-operations-team@redhat.com"
+        from: "ansible-zuul@redhat.com"
+        to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in post pipeline: {change.project}'
       sqlreporter:
       mqtt:
@@ -145,8 +145,8 @@
     failure:
       sqlreporter:
       smtp:
-        from: "zuul@ansible.softwarefactory-project.io"
-        to: "softwarefactory-operations-team@redhat.com"
+        from: "ansible-zuul@redhat.com"
+        to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in pre-release pipeline: {change.project}'
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
@@ -170,8 +170,8 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       smtp:
-        from: "zuul@ansible.softwarefactory-project.io"
-        to: "softwarefactory-operations-team@redhat.com"
+        from: "ansible-zuul@redhat.com"
+        to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in release pipeline: {change.project}'
       sqlreporter:
       mqtt:
@@ -195,12 +195,114 @@
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       smtp:
-        from: "zuul@ansible.softwarefactory-project.io"
-        to: "softwarefactory-operations-team@redhat.com"
+        from: "ansible-zuul@redhat.com"
+        to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
       sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+
+- pipeline:
+    name: periodic-1hr
+    post-review: true
+    description: Jobs in this queue are triggered hourly.
+    manager: independent
+    precedence: low
+    trigger:
+      timer:
+        - time: '0 * * * *'
+    start:
+      mqtt:
+        topic: "zuul/{pipeline}/start/{project}/{branch}"
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      smtp:
+        from: "ansible-zuul@redhat.com"
+        to: "ansible-zuul@redhat.com"
+        subject: '[Zuul] Job failed in periodic-1hr pipeline: {change.project}'
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: periodic-6hr
+    post-review: true
+    description: Jobs in this queue are triggered every 6 hours.
+    manager: independent
+    precedence: low
+    trigger:
+      timer:
+        - time: '0 */6 * * *'
+    start:
+      mqtt:
+        topic: "zuul/{pipeline}/start/{project}/{branch}"
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      smtp:
+        from: "ansible-zuul@redhat.com"
+        to: "ansible-zuul@redhat.com"
+        subject: '[Zuul] Job failed in periodic-6hr pipeline: {change.project}'
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+
+- pipeline:
+    name: periodic-weekly
+    post-review: true
+    description: Jobs in this queue are triggered on a weekly timer.
+    manager: independent
+    precedence: low
+    trigger:
+      timer:
+        # Saturday 8am UTC is a better time to start weekend jobs, as Sunday
+        # is a working day in some geographies.
+        - time: '0 8 * * 6'
+    start:
+      mqtt:
+        topic: "zuul/{pipeline}/start/{project}/{branch}"
+    success:
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+    failure:
+      smtp:
+        from: "ansible-zuul@redhat.com"
+        to: "ansible-zuul@redhat.com"
+        subject: '[Zuul] Job failed in periodic-weekly pipeline: {change.project}'
+      sqlreporter:
+      mqtt:
+        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
+
+- pipeline:
+    name: ondemand
+    description: On-demand pipeline for requesting a run of optional tests in a collection. Leave review comment of "check ondemand" to run jobs in this pipeline.
+    manager: independent
+    precedence: low
+    trigger:
+      github.com:
+        - event: pull_request
+          action: comment
+          comment: (?i)^\s*check ondemand\s*$
+    start:
+      github.com:
+        check: in_progress
+        comment: false
+    success:
+      github.com:
+        check: success
+        comment: false
+    failure:
+      github.com:
+        check: failure
+        comment: false
 
 - pipeline:
     name: merge-check
