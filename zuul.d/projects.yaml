@@ -7,10 +7,6 @@
       - system-required
 
 - project:
-    name: ^(github.com/|)ansible-collections/.*
-    default-branch: main
-
-- project:
     name: ansible-collections/amazon.aws
     default-branch: main
     merge-mode: squash-merge
@@ -26,6 +22,7 @@
 
 - project:
     name: ansible-collections/cloud.common
+    default-branch: main
     check:
       jobs:
         - tox-linters
@@ -41,6 +38,7 @@
 
 - project:
     name: ansible-collections/vmware.vmware_rest
+    default-branch: main
     merge-mode: squash-merge
     templates:
       - system-required
@@ -50,6 +48,7 @@
 
 - project:
     name: ansible-collections/community.vmware
+    default-branch: main
     merge-mode: squash-merge
     templates:
       - system-required
@@ -59,6 +58,7 @@
 
 - project:
     name: ansible-collections/community.aws
+    default-branch: main
     merge-mode: squash-merge
     templates:
       - system-required
@@ -67,6 +67,7 @@
 
 - project:
     name: ansible/zuul-config
+    default-branch: master
     check:
        jobs:
         - refresh-automation-hub-token
@@ -78,6 +79,7 @@
 
 - project:
     name: ansible-collections/vmware_rest_code_generator
+    default-branch: main
     templates:
       - ansible-python3-jobs
       - ansible-collections-community-vmware-rest-code-generator
