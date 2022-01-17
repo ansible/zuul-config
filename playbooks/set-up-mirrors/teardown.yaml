@@ -1,0 +1,49 @@
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Disable the mirrors
+      openstack.cloud.object:
+        cloud: rackspace
+        region_name: DFW
+        name: "{{ item }}"
+        container: aaaa
+        state: absent
+      with_items:
+        - ansible-limestone-us-dfw-1
+        - ansible-limestone-us-slc
+        - ansible-vexxhost-ams1
+        - ansible-vexxhost-ca-ymq-1
+        - ansible-vexxhost-sjc1
+    - name: Pause 45 minutes to be sure we don't break we a running job
+      pause:
+        minutes: 45
+    - name: Kill the mirror vexxhost ams1
+      openstack.cloud.server:
+        cloud: vexxhost
+        region_name: ams1
+        name: mirror
+        state: absent
+    - name: Spawn the mirror vexxhost ca-ymq-1
+      openstack.cloud.server:
+        cloud: vexxhost
+        region_name: ca-ymq-1
+        name: mirror
+        state: absent
+    - name: Spawn the mirror vexxhost sjc1
+      openstack.cloud.server:
+        cloud: vexxhost
+        region_name: sjc1
+        name: mirror
+        state: absent
+    - name: Spawn the mirror limestone us-dfw-1
+      openstack.cloud.server:
+        cloud: limestone
+        region_name: us-dfw-1
+        name: mirror
+        state: absent
+    - name: Spawn the mirror limestone us-slc
+      openstack.cloud.server:
+        cloud: limestone
+        region_name: us-slc
+        name: mirror
+        state: absent

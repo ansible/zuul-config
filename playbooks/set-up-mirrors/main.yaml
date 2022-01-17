@@ -19,6 +19,7 @@
         ansible_ssh_host: "{{ result.server.public_v4 }}"
         ansible_ssh_user: fedora
         ansible_python_interpreter: /bin/python3
+        ansible_ssh_extra_args: "-o stricthostkeychecking=no -o userknownhostsfile=/dev/null"
     - name: Spawn the mirror vexxhost ca-ymq-1
       openstack.cloud.server:
         state: present
@@ -38,6 +39,7 @@
         ansible_ssh_host: "{{ result.server.public_v4 }}"
         ansible_ssh_user: fedora
         ansible_python_interpreter: /bin/python3
+        ansible_ssh_extra_args: "-o stricthostkeychecking=no -o userknownhostsfile=/dev/null"
     - name: Spawn the mirror vexxhost sjc1
       openstack.cloud.server:
         state: present
@@ -58,6 +60,8 @@
           - mirrors
         ansible_ssh_host: "{{ result.server.public_v4 }}"
         ansible_ssh_user: fedora
+        ansible_python_interpreter: /bin/python3
+        ansible_ssh_extra_args: "-o stricthostkeychecking=no -o userknownhostsfile=/dev/null"
     - name: Spawn the mirror limestone us-dfw-1
       openstack.cloud.server:
         state: present
@@ -76,6 +80,8 @@
           - mirrors
         ansible_ssh_host: "{{ result.server.public_v4 }}"
         ansible_ssh_user: fedora
+        ansible_python_interpreter: /bin/python3
+        ansible_ssh_extra_args: "-o stricthostkeychecking=no -o userknownhostsfile=/dev/null"
     - name: Spawn the mirror limestone us-slc
       openstack.cloud.server:
         state: present
@@ -94,9 +100,18 @@
           - mirrors
         ansible_ssh_host: "{{ result.server.public_v4 }}"
         ansible_ssh_user: fedora
+        ansible_python_interpreter: /bin/python3
+        ansible_ssh_extra_args: "-o stricthostkeychecking=no -o userknownhostsfile=/dev/null"
 
 - hosts: mirrors
   tasks:
+    - name: Install skopeo and podman
+      package:
+        name:
+          - skopeo
+          - podman
+        state: present
+      become: true
     - name: Copy the deploy-mirror-on-node.sh script
       copy:
         src: 2-start-registry-service-on-node.d/deploy-mirror-on-node.sh
@@ -119,6 +134,25 @@
           REGISTRY_HTTP_TLS_CERTIFICATE: "/certs/server.pem"
           REGISTRY_HTTP_TLS_KEY: "/certs/server-key.pem"
       become: true
+    - name: Create the /opt/sync-registry.sh script
+      copy:
+        content: |
+          #!/bin/bash
+          set -eux
+          ansible_branches="stable-2.9 stable-2.10 stable-2.11 stable-2.12 stable-2.13 milestone devel"
+          for branch in ${ansible_branches}; do
+              image=$(curl -s https://raw.githubusercontent.com/ansible/ansible/${branch}/test/lib/ansible_test/_data/completion/docker.txt|awk '/quay.io\/ansible\/default-test-container/ {print $2}'|sed 's,.*=,,')
+              if [  -n "${image}" ]; then
+                  /bin/skopeo sync --src docker --dest docker ${image} localhost:5000/ansible/
+              fi
+          done
+          /bin/skopeo sync --src docker --dest docker quay.io/ansible/network-ee-unit-tests:stable-2.9 localhost:5000/ansible/
+          /bin/skopeo sync --src docker --dest docker quay.io/ansible/network-ee-unit-tests:stable-2.10 localhost:5000/ansible/
+          /bin/skopeo sync --src docker --dest docker quay.io/ansible/network-ee-unit-tests:stable-2.11 localhost:5000/ansible/
+          /bin/skopeo sync --src docker --dest docker quay.io/ansible/network-ee-unit-tests:stable-2.12 localhost:5000/ansible/
+        dest: /opt/sync-registry.sh
+        mode: '0755'
+      become: true
     - name: Copy refresh-mirror.service service file
       copy:
         src: "3-install-systemd-services.d/{{ item }}"
@@ -127,6 +161,12 @@
       with_items:
         - refresh-mirror.service
         - refresh-mirror.timer
+        - rpm-mirror.service
+    - command: podman pull quay.io/gleboude/rpm-mirror
+      become: true
+    - command: podman rm -f rpm-mirror
+      become: true
+      ignore_errors: true
     - name: Manually trigger refresh-mirror
       ansible.builtin.systemd:
         state: started
@@ -136,8 +176,14 @@
     - name: Enable the timer
       ansible.builtin.systemd:
         state: started
-        enabled: true 
+        enabled: true
         name: refresh-mirror.timer
+      become: true
+    - name: Enable the rpm-mirror
+      ansible.builtin.systemd:
+        state: started
+        enabled: true
+        name: rpm-mirror
       become: true
     - name: collect facts about system services
       service_facts:
@@ -152,16 +198,23 @@
       assert:
         that:
           - services_state.ansible_facts.services["refresh-mirror.service"]["state"] == "stopped"
+          - services_state.ansible_facts.services["refresh-mirror.service"]["status"] != "failed"
+          - services_state.ansible_facts.services["rpm-mirror.service"]["state"] == "running"
+    - name: Install avahi
+      package:
+        name: avahi
+        state: present
+      become: true
     - name: Expose the node with Avahi
       ansible.builtin.systemd:
         state: started
-        enabled: true 
-        name: refresh-mirror.timer
+        enabled: true
+        name: avahi-daemon
       become: true
     - name: Save the host IP in a file
       copy:
         content: "{{ ansible_ssh_host }}"
-        dest: host_ip.txt
+        dest: "host-ip_{{ inventory_hostname }}.txt"
       delegate_to: localhost
     - name: Save the mirror IP
       openstack.cloud.object:
@@ -169,10 +222,38 @@
         region_name: DFW
         name: "{{ inventory_hostname }}"
         container: aaaa
-        filename: host_ip.txt
+        filename: "host-ip_{{ inventory_hostname }}.txt"
         container_access: public
       delegate_to: localhost
     - name: Clean up the host_ip.txt file
       file:
         path: host_ip.txt
         state: absent
+
+    - name: Wait for the end of the TTL of the CDN
+      pause:
+        seconds: 900
+
+    - name: Retrieve the IP address
+      uri:
+        url: "http://c31bfd6bfb009231e691-ba2be89fa62144fd02adcef310422074.r64.cf1.rackcdn.com/{{ inventory_hostname }}"
+        return_content: true
+      register: mirror_address
+      failed_when: false
+    - debug:
+        msg: "{{ inventory_hostname }}: {{ mirror_address.content|trim }}"
+    - name: Ensure the registry service is running on the mirror
+      command: curl --connect-timeout 3 -ks https://{{ mirror_address.content|trim }}:5000
+      register: registry_check
+      failed_when: false
+      when: mirror_address.status == 200
+    - name: Test the HTTP proxy
+      get_url:
+        url: http://mirror.csclub.uwaterloo.ca/fedora/linux/releases/35/Everything/x86_64/os/Packages/0/0ad-0.0.25b-2.fc35.x86_64.rpm
+        dest: "/tmp/test-{ inventory_hostname }}"
+      environment:
+        http_proxy: "http://{{ mirror_address.content|trim }}:3128"
+    - assert:
+        that:
+          - mirror_address.status == 200
+          - registry_check.rc == 0
