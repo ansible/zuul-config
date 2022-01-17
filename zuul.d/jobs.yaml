@@ -53,6 +53,16 @@
     max: 1
 
 - job:
+    name: ansible-changelog-fragment
+    description: Ensure PRs have generated changelog fragments.
+    run: playbooks/ansible-changelog-fragment/run.yaml
+    files:
+      - ^plugins/.*$
+      - ^tests/.*$
+    nodeset:
+      nodes: []
+
+- job:
     name: config-check
     parent: base
     final: true
