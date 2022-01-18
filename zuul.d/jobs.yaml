@@ -47,6 +47,16 @@
         - name: container
           label: pod-fedora-31
 
+- job:
+    name: ansible-changelog-fragment
+    description: Ensure PRs have generated changelog fragments.
+    run: playbooks/ansible-changelog-fragment/run.yaml
+    files:
+      - ^plugins/.*$
+      - ^tests/.*$
+    nodeset:
+      nodes: []
+
 # Software Factory management job
 - semaphore:
     name: semaphore-config-update
