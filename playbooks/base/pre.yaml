@@ -27,6 +27,9 @@
           - python3-virtualenv
       become: true
     - include_role: name=prepare-workspace
+      when: inventory_hostname != "pod"
+    - include_role: name=prepare-workspace-openshift
+      when: inventory_hostname == "pod"
 
 
 - hosts: all:!appliance

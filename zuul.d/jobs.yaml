@@ -175,7 +175,7 @@
       - github.com/ansible-network/releases
     nodeset:
       nodes:
-        - name: controller
+        - name: pod
           label: pod-python-f35
 
 - job:
