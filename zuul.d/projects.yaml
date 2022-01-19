@@ -1,4 +1,10 @@
 ---
+# NOTE(Gonéri): I'm not sure about this one, but it seems to help
+# when the project is not defined here.
+- project:
+    name: ^(github.com/|)ansible-collections/.*
+    default-branch: main
+
 - project:
     name: ansible/ansible-zuul-jobs
     default-branch: master
