@@ -11,29 +11,29 @@
 - hosts: all:!appliance*
   tasks:
     - include_role: name=start-zuul-console
-    - name: Enable the mirror
-      import_role:
-        name: use-our-mirror
-    - name: Disable Fedora Modular
-      file:
-        path: /etc/yum.repos.d/fedora-modular.repo
-        state: absent
-      become: true
-    - name: Install git and tox
-      package:
-        name:
-          - git
-          - python3-tox
-          - python3-virtualenv
-      become: true
-    - include_role: name=prepare-workspace
-      when: ansible_connection != "kubectl"
+    - when: ansible_connection != "kubectl"
+      block:
+      - name: Enable the mirror
+        import_role:
+          name: use-our-mirror
+      - name: Disable Fedora Modular
+        file:
+          path: /etc/yum.repos.d/fedora-modular.repo
+          state: absent
+        become: true
+      - name: Install git and tox
+        package:
+          name:
+            - git
+            - python3-tox
+            - python3-virtualenv
+        become: true
+      - include_role: name=prepare-workspace
     - include_role: name=prepare-workspace-openshift
       when: ansible_connection == "kubectl"
 
 - hosts: all:!appliance
   tasks:
-    - include_role: name=start-zuul-console
     - block:
         - name: Run add-build-sshkey role (RSA)
           include_role:
