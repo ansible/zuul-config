@@ -1,8 +1,0 @@
----
-- hosts: all:!appliance
-  tasks:
-    - name: Pause the job
-      zuul_return:
-        data:
-          zuul:
-            pause: true
