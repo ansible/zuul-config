@@ -20,11 +20,10 @@
       delegate_to: localhost
 
     - name: Collect tarball artifacts
-      synchronize:
+      fetch:
         dest: "{{ zuul.executor.log_root }}/artifacts/"
-        mode: pull
         src: "{{ item.path }}"
-        verify_host: true
+        flat: true
       with_items: "{{ result.files }}"
 
     - name: Return collection artifacts to Zuul
