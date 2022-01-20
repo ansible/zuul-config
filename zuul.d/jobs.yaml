@@ -42,6 +42,9 @@
     attempts: 3
     secrets:
       - site_ansiblelogs
+      - rackspace_dfw_clouds_yaml
+      - rackspace_iad_clouds_yaml
+      - rackspace_ord_clouds_yaml
     nodeset:
       nodes:
         - name: container
