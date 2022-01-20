@@ -170,7 +170,6 @@
     name: build-ansible-collection-pod
     description: |
       Build ansible collections and return artifacts to zuul
-    pre-run: playbooks/build-ansible-collection-pod/pre.yaml
     run: playbooks/build-ansible-collection-pod/run.yaml
     post-run:
       - playbooks/build-ansible-collection-pod/post.yaml
@@ -179,7 +178,7 @@
     nodeset:
       nodes:
         - name: controller
-          label: pod-python-f35
+          label: zuul-worker-ansible
 
 - job:
     name: ansible-core-ci-aws-session
