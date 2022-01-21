@@ -110,6 +110,9 @@
       - integrated-queue
       - publish-to-galaxy
       - publish-to-automation-hub
+    jobs:
+      - build-ansible-collection-pod:
+          voting: false
 
 - project:
     name: github.com/ansible/network-ee
