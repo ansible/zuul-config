@@ -257,9 +257,5 @@ resources:
             include: []
         - ansible/workshops:
             include: []
-        - vmware/govmomi:
-            include: []
-        - vmware/vsphere-automation-sdk-python:
-            include: []
         - openshift/community.okd:
             include: []
