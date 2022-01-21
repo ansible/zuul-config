@@ -241,6 +241,14 @@
       register: mirror_address
       failed_when: false
     - debug:
+        var: ansible_ssh_host
+    - debug:
+        var: mirror_address.content|trim
+    - name: Assert the IP on the CDN is up to date
+      assert:
+        that:
+          - mirror_address.content|trim == ansible_ssh_host
+    - debug:
         msg: "{{ inventory_hostname }}: {{ mirror_address.content|trim }}"
     - name: Ensure the registry service is running on the mirror
       command: curl --connect-timeout 3 -ks https://{{ mirror_address.content|trim }}:5000
