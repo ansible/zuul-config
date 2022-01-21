@@ -17,6 +17,7 @@ resources:
             include: []
         - ansible/ansible-navigator:
             include: []
+        # NOTE(Gonéri): Thie project does not have the Zuul app
         - ansible/ansible-runner:
             include: []
         - ansible/python-base-image:
@@ -257,5 +258,6 @@ resources:
             include: []
         - ansible/workshops:
             include: []
+        # NOTE(Gonéri): Thie project does not have the Zuul app
         - openshift/community.okd:
             include: []
