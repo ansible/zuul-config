@@ -13,9 +13,6 @@
     - include_role: name=start-zuul-console
     - when: ansible_connection != "kubectl"
       block:
-      - name: Enable the mirror
-        import_role:
-          name: use-our-mirror
       - name: Disable Fedora Modular
         file:
           path: /etc/yum.repos.d/fedora-modular.repo
