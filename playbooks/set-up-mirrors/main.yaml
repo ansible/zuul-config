@@ -105,6 +105,16 @@
 
 - hosts: mirrors
   tasks:
+    - set_fact:
+        disk_info: "{{ ansible_mounts| selectattr('mount','equalto', '/') | list | first }}"
+    - set_fact:
+        disk_free: "{{ disk_info['size_available'] / 1024 / 1024 / 1024 }}"
+    - debug:
+        msg: "Disk free: {{ disk_free }}"
+    - name: Ensure we've got at least 5GB free
+      assert:
+        that: disk_free|int >= 5
+
     - name: Install skopeo and podman
       package:
         name:
