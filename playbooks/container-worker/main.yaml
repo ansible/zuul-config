@@ -1,0 +1,53 @@
+- hosts: localhost
+  tasks:
+    - name: Spawn the container worker
+      openstack.cloud.server:
+        state: present
+        cloud: vexxhost-infra
+        region_name: ams1
+        image: Fedora-Cloud-Base-35-1.2.x86_64
+        flavor: v3-starter-32
+        name: sf-container-worker-1
+        nics:
+          - port-name=sf-container-worker-1
+        key_name: goneri
+        security_groups:
+          - default
+          - kubernetes
+      register: result
+    - name: Add host sf-container-worker-1
+      add_host:
+        name: sf-container-worker-1
+        groups:
+          - sf-container-workers
+        ansible_ssh_host: "{{ result.server.public_v4 }}"
+        ansible_ssh_user: fedora
+        ansible_python_interpreter: /bin/python3
+        ansible_ssh_extra_args: "-o stricthostkeychecking=no -o userknownhostsfile=/dev/null"
+
+- hosts: sf-container-workers
+  tasks:
+    - name: Allow 'wheel' group to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%wheel'
+        line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+        validate: 'visudo -cf %s'
+      become: true
+    - name: Wait for the worker to be ready
+      wait_for_connection:
+    - name: Add the sf user
+      user:
+        name: sf
+        groups: wheel
+      become: true
+    - name: Set authorized key
+      authorized_key:
+        user: sf
+        state: present
+        key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHj3R7JGtLkSD9h+E6JNHGdZ+SStJx+wyQsE7DK41t+Au7mfTJb12zjxBO4OwzAJbVnudN86BPYI0aHuY7ZpZ8+yitcFOBxQdczcGNistIaOHNb7bp0aPpVTYkHEYo3IlsDgPYcMVsvwOpIIDfi8wSQo3p4FNTtOc9ulAeQ7UUl4uId7ILLGzpDhkRrb+hYetJw/e3Xkqz6BW/VFbw6Tb8DdgMGhNVflQNlPz1HB60zKxeoeRkrLg3lMO/LuFHr48MtWuQ4LR13fq/tw3XgzHIBU2LL107wTtZs3KqxdqEcs9+7gAaNtT9+rbMoQvF0E9viZn+vjHOAbfxgXUEsFt7
+      become: true
+      become_user: sf
+    - debug:
+        msg: "{{ inventory_hostname }} deployed at sf@{{ ansible_ssh_host }}"
