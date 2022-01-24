@@ -150,6 +150,13 @@
           /bin/skopeo sync --src docker --dest docker quay.io/ansible/network-ee-unit-tests:stable-2.10 localhost:5000/ansible/
           /bin/skopeo sync --src docker --dest docker quay.io/ansible/network-ee-unit-tests:stable-2.11 localhost:5000/ansible/
           /bin/skopeo sync --src docker --dest docker quay.io/ansible/network-ee-unit-tests:stable-2.12 localhost:5000/ansible/
+          /bin/skopeo sync --src docker --dest docker quay.io/ansible/ansible-builder:latest localhost:5000/ansible/
+          /bin/skopeo sync --src docker --dest docker quay.io/ansible/python-builder:latest localhost:5000/ansible/
+          /bin/skopeo sync --src docker --dest docker quay.io/ansible/ansible-runner:latest localhost:5000/ansible/
+          /bin/skopeo sync --src docker --dest docker quay.io/ansible/ansible-runner:stable-2.12-devel localhost:5000/ansible/
+          /bin/skopeo sync --src docker --dest docker quay.io/ansible/ansible-runner:stable-2.11-devel localhost:5000/ansible/
+          /bin/skopeo sync --src docker --dest docker quay.io/ansible/ansible-runner:stable-2.10-devel localhost:5000/ansible/
+          /bin/skopeo sync --src docker --dest docker quay.io/ansible/ansible-runner:stable-2.9-devel localhost:5000/ansible/
         dest: /opt/sync-registry.sh
         mode: '0755'
       become: true
