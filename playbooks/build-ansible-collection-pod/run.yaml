@@ -1,6 +1,19 @@
 ---
 - hosts: all
   tasks:
+    - command: ls /
+      register: result
+      ignore_errors: true
+    - debug: var=result
+    - command: ls ~/
+      register: result
+      ignore_errors: true
+    - debug: var=result
+    - command: find .
+      register: result
+      ignore_errors: true
+    - debug: var=result
+
     - name: Install generate-ansible-collection
       command: "pip install --user {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/releases'].src_dir }}"
 
