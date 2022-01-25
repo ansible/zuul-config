@@ -1,17 +1,13 @@
 ---
 - hosts: controller
-  vars:
-    # With container, prepare-workspace-openshift copies the
-    # src directory in /
-    ansible_user_dir: ''
   tasks:
     - name: Install generate-ansible-collection
-      command: "pip install --user {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/releases'].src_dir }}"
+      command: "pip install --user ~/{{ zuul.projects['github.com/ansible-network/releases'].src_dir }}"
 
     - name: Generate version number for ansible collection
       args:
         chdir: "~/{{ item.src_dir }}"
-      shell: "if test -f 'galaxy.yml'; then {{ ansible_user_dir }}/.local/bin/generate-ansible-collection; fi"
+      shell: "if test -f 'galaxy.yml'; then ~/.local/bin/generate-ansible-collection; fi"
       with_items: "{{ zuul.projects.values() | list }}"
 
     - name: Run build-ansible-collection role
@@ -19,6 +15,6 @@
         name: build-ansible-collection
       vars:
         ansible_galaxy_executable: "/usr/bin/ansible-galaxy"
-        ansible_galaxy_output_path: "{{ ansible_user_dir }}/artifacts"
-        zuul_work_dir: "{{ ansible_user_dir }}/{{ item.src_dir }}"
+        ansible_galaxy_output_path: "~/artifacts"
+        zuul_work_dir: "~/{{ item.src_dir }}"
       with_items: "{{ zuul.projects.values() | list }}"
