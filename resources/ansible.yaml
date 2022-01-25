@@ -12,250 +12,250 @@ resources:
             zuul/extra-config-paths: [zuul.sf.d/]
 
         - ansible/ansible-builder:
-            include: []
+            zuul/include: []
         - ansible/ansible-core-image:
-            include: []
+            zuul/include: []
         - ansible/ansible-navigator:
-            include: []
+            zuul/include: []
         - ansible/ansible-runner:
-            include: []
+            zuul/include: []
         - ansible/python-base-image:
-            include: []
+            zuul/include: []
         - ansible/python-builder-image:
-            include: []
+            zuul/include: []
         - ansible-collections/amazon.aws:
-            include: []
+            zuul/include: []
         - ansible-collections/ansible.netcommon:
-            include: []
+            zuul/include: []
         - ansible-collections/ansible.network:
-            include: []
+            zuul/include: []
         - ansible-collections/ansible.posix:
-            include: []
+            zuul/include: []
         - ansible-collections/ansible.security:
-            include: []
+            zuul/include: []
         - ansible-collections/ansible.utils:
-            include: []
+            zuul/include: []
         - ansible-collections/arista.eos:
-            include: []
+            zuul/include: []
         - ansible-collections/checkpoint:
-            include: []
+            zuul/include: []
         - ansible-collections/cisco.asa:
-            include: []
+            zuul/include: []
         - ansible-collections/cisco.ios:
-            include: []
+            zuul/include: []
         - ansible-collections/cisco.iosxr:
-            include: []
+            zuul/include: []
         - ansible-collections/cisco.nxos:
-            include: []
+            zuul/include: []
         - ansible-collections/cloud.common:
-            include: []
+            zuul/include: []
         - ansible-collections/community.asa:
-            include: []
+            zuul/include: []
         - ansible-collections/community.aws:
-            include: []
+            zuul/include: []
         - ansible-collections/community.vmware:
-            include: []
+            zuul/include: []
         - ansible-collections/community.yang:
-            include: []
+            zuul/include: []
         - ansible-collections/frr.frr:
-            include: []
+            zuul/include: []
         - ansible-collections/ibm.qradar:
-            include: []
+            zuul/include: []
         - ansible-collections/junipernetworks.junos:
-            include: []
+            zuul/include: []
         - ansible-collections/kubernetes.core:
-            include: []
+            zuul/include: []
         - ansible-collections/openvswitch.openvswitch:
-            include: []
+            zuul/include: []
         - ansible-collections/servicenow.itsm:
-            include: []
+            zuul/include: []
         - ansible-collections/skydive:
-            include: []
+            zuul/include: []
         - ansible-collections/splunk.es:
-            include: []
+            zuul/include: []
         - ansible-collections/symantec.epm:
-            include: []
+            zuul/include: []
         - ansible-collections/trendmicro.deepsec:
-            include: []
+            zuul/include: []
         - ansible-collections/vmware.vmware_rest:
-            include: []
+            zuul/include: []
         - ansible-collections/vmware_rest_code_generator:
-            include: []
+            zuul/include: []
         - ansible-collections/vyos.vyos:
-            include: []
+            zuul/include: []
         - ansible-community/ansible-bender:
-            include: []
+            zuul/include: []
         - ansible-community/ara:
-            include: []
+            zuul/include: []
         - ansible-community/ara-collection:
-            include: []
+            zuul/include: []
         - ansible-community/ara-infra:
-            include: []
+            zuul/include: []
         - ansible-community/molecule-libvirt:
-            include: []
+            zuul/include: []
         - ansible-community/molecule-vagrant:
-            include: []
+            zuul/include: []
         - ansible/cloud-ee:
-            include: []
+            zuul/include: []
         - ansible/network:
-            include: []
+            zuul/include: []
         - ansible/network-ee:
-            include: [.zuul.d/]
+            zuul/include: []
         - ansible-network/ansible_content_collections_metrics:
-            include: []
+            zuul/include: []
         - ansible-network/arista_eos:
-            include: []
+            zuul/include: []
         - ansible-network/aws:
-            include: []
+            zuul/include: []
         - ansible-network/aws_management:
-            include: []
+            zuul/include: []
         - ansible-network/azure:
-            include: []
+            zuul/include: []
         - ansible-network/backup_config:
-            include: []
+            zuul/include: []
         - ansible-network/cisco_asa:
-            include: []
+            zuul/include: []
         - ansible-network/cisco_ios:
-            include: []
+            zuul/include: []
         - ansible-network/cisco_iosxr:
-            include: []
+            zuul/include: []
         - ansible-network/cisco_nxos:
-            include: []
+            zuul/include: []
         - ansible-network/cloud_vpn:
-            include: []
+            zuul/include: []
         - ansible-network/collection_migration:
-            include: []
+            zuul/include: []
         - ansible-network/community.netcommon:
-            include: []
+            zuul/include: []
         - ansible-network/config_manager:
-            include: []
+            zuul/include: []
         - ansible-network/content_store:
-            include: []
+            zuul/include: []
         - ansible-network/juniper_junos:
-            include: []
+            zuul/include: []
         - ansible-network/k8s-node-pool-config:
-            include: []
+            zuul/include: []
         - ansible-network/net_operations:
-            include: []
+            zuul/include: []
         - ansible-network/network_collections_migration:
-            include: []
+            zuul/include: []
         - ansible-network/network_configurator:
-            include: []
+            zuul/include: []
         - ansible-network/network_content_collector:
-            include: []
+            zuul/include: []
         - ansible-network/network-engine:
-            include: []
+            zuul/include: []
         - ansible-network/network-image-builder:
-            include: []
+            zuul/include: []
         - ansible-network/network-runner:
-            include: []
+            zuul/include: []
         - ansible-network/openstack:
-            include: []
+            zuul/include: []
         - ansible-network/packet-ci-cloud:
-            include: []
+            zuul/include: []
         - ansible-network/releases:
-            include: []
+            zuul/include: []
         - ansible-network/resource_module_builder:
-            include: []
+            zuul/include: []
         - ansible-network/resource_module_models:
-            include: []
+            zuul/include: []
         - ansible-network/resource_module_planning:
-            include: []
+            zuul/include: []
         - ansible-network/rhel:
-            include: []
+            zuul/include: []
         - ansible-network/sandbox:
-            include: []
+            zuul/include: []
         - ansible-network/vyos:
-            include: []
+            zuul/include: []
         - ansible-network/windmill-config:
-            include: []
+            zuul/include: []
         - ansible-security/ids_config:
-            include: []
+            zuul/include: []
         - ansible-security/ids_install:
-            include: []
+            zuul/include: []
         - pycontribs/selinux:
-            include: []
+            zuul/include: []
         - ansible/ansible:
-            include: []
+            zuul/include: []
         - ansible-community/collection_migration:
-            include: []
+            zuul/include: []
         - ansible-collections/ansible.windows:
-            include: []
+            zuul/include: []
         - ansible-collections/community.azure:
-            include: []
+            zuul/include: []
         - ansible-collections/community.cassandra:
-            include: []
+            zuul/include: []
         - ansible-collections/community.ciscosmb:
-            include: []
+            zuul/include: []
         - ansible-collections/community.cockroachdb:
-            include: []
+            zuul/include: []
         - ansible-collections/community.crypto:
-            include: []
+            zuul/include: []
         - ansible-collections/community.digitalocean:
-            include: []
+            zuul/include: []
         - ansible-collections/community.dns:
-            include: []
+            zuul/include: []
         - ansible-collections/community.docker:
-            include: []
+            zuul/include: []
         - ansible-collections/community.fortios:
-            include: []
+            zuul/include: []
         - ansible-collections/community.general:
-            include: []
+            zuul/include: []
         - ansible-collections/community.google:
-            include: []
+            zuul/include: []
         - ansible-collections/community.grafana:
-            include: []
+            zuul/include: []
         - ansible-collections/community.hashi_vault:
-            include: []
+            zuul/include: []
         - ansible-collections/community.healthchecksio:
-            include: []
+            zuul/include: []
         - ansible-collections/community.hrobot:
-            include: []
+            zuul/include: []
         - ansible-collections/community.internal_test_tools:
-            include: []
+            zuul/include: []
         - ansible-collections/community.kubernetes:
-            include: []
+            zuul/include: []
         - ansible-collections/community.kubevirt:
-            include: []
+            zuul/include: []
         - ansible-collections/community.libvirt:
-            include: []
+            zuul/include: []
         - ansible-collections/community.molecule:
-            include: []
+            zuul/include: []
         - ansible-collections/community.mongodb:
-            include: []
+            zuul/include: []
         - ansible-collections/community.mysql:
-            include: []
+            zuul/include: []
         - ansible-collections/community.network:
-            include: []
+            zuul/include: []
         - ansible-collections/community.postgresql:
-            include: []
+            zuul/include: []
         - ansible-collections/community.proxysql:
-            include: []
+            zuul/include: []
         - ansible-collections/community.rabbitmq:
-            include: []
+            zuul/include: []
         - ansible-collections/community.routeros:
-            include: []
+            zuul/include: []
         - ansible-collections/community.sap:
-            include: []
+            zuul/include: []
         - ansible-collections/community.sops:
-            include: []
+            zuul/include: []
         - ansible-collections/community.windows:
-            include: []
+            zuul/include: []
         - ansible-collections/community.zabbix:
-            include: []
+            zuul/include: []
         - ansible-collections/hetzner.hcloud:
-            include: []
+            zuul/include: []
         - ansible/awx:
-            include: []
+            zuul/include: []
         - ansible/galaxy:
-            include: []
+            zuul/include: []
         - ansible/galaxy_ng:
-            include: []
+            zuul/include: []
         - ansible/galaxy-importer:
-            include: []
+            zuul/include: []
         - ansible/pylibssh:
-            include: []
+            zuul/include: []
         - ansible/workshops:
-            include: []
+            zuul/include: []
         - openshift/community.okd:
-            include: []
+            zuul/include: []
