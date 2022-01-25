@@ -31,6 +31,8 @@
       - include_role: name=prepare-workspace
     - include_role: name=prepare-workspace-openshift
       when: ansible_connection == "kubectl"
+    - debug:
+        var: zuul.resources
 
 - hosts: all:!appliance
   tasks:
