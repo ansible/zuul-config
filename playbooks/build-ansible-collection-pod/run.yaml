@@ -3,7 +3,7 @@
   vars:
     # With container, prepare-workspace-openshift copies the
     # src directory in /
-    ansible_user_dir: /
+    ansible_user_dir: ''
   tasks:
     - name: Install generate-ansible-collection
       command: "pip install --user {{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/releases'].src_dir }}"
