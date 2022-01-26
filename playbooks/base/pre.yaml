@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   tasks:
+    - debug: var=hostvars
     - block:
         - import_role: name=emit-job-header
         # This depends-on https://review.openstack.org/578234
