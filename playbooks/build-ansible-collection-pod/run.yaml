@@ -1,17 +1,6 @@
 ---
 - hosts: controller
   tasks:
-    - command: ip r
-      register: result
-      ignore_errors: true
-    - command: cat /etc/resolv.conf
-      register: result
-      ignore_errors: true
-    - debug: result
-    - command: ping -c 4 google.ca
-      register: result
-      ignore_errors: true
-    - debug: result
     - name: Install generate-ansible-collection
       command: "pip install --user ~/{{ zuul.projects['github.com/ansible-network/releases'].src_dir }}"
 
