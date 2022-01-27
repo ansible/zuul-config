@@ -21,6 +21,7 @@
       - publish-to-galaxy
       - publish-to-automation-hub
       - ansible-collections-amazon-aws
+      - ansible-ee-tests
 
 - project:
     name: ansible/ansible
