@@ -129,3 +129,17 @@
     default-branch: main
     templates:
       - system-required
+
+- project:
+    name: ansible-collections/openvswitch.openvswitch
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - ansible-collections-openvswitch-openvswitch
+      - ansible-collections-openvswitch-openvswitch-units
+      - ansible-python-jobs
+      - integrated-queue
+      - ansible-ee-tests
+      - publish-to-galaxy
+      - publish-to-automation-hub
