@@ -29,14 +29,14 @@
 - project:
     name: ansible-collections/cloud.common
     default-branch: main
-    check:
-      jobs:
-        - tox-linters
-        - build-ansible-collection
-    gate:
-      jobs:
-        - tox-linters
-        - build-ansible-collection
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - ansible-collections-cloud-common
+      - ansible-python-jobs
+      - ansible-ee-tests
+      - publish-to-galaxy
+      - publish-to-automation-hub
 
 - project:
     name: ansible-network/releases
