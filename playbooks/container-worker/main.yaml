@@ -14,6 +14,7 @@
         security_groups:
           - default
           - kubernetes
+          - '9100 for SF monitoring'
       register: result
     - name: Add host sf-container-worker-1
       add_host:
