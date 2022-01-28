@@ -33,6 +33,31 @@
         insecure = true
         blocked = false
         location = "{{ mirror_address.content|trim }}:5000/ansible/default-test-container"
+
+        [[registry]]
+        prefix = "quay.io/ansible/network-ee-unit-tests"
+        insecure = true
+        blocked = false
+        location = "{{ mirror_address.content|trim }}:5000/ansible/network-ee-unit-tests"
+
+        [[registry]]
+        prefix = "quay.io/ansible/ansible-builder"
+        insecure = true
+        blocked = false
+        location = "{{ mirror_address.content|trim }}:5000/ansible/ansible-builder"
+
+        [[registry]]
+        prefix = "quay.io/ansible/python-builder"
+        insecure = true
+        blocked = false
+        location = "{{ mirror_address.content|trim }}:5000/ansible/python-builder"
+
+        [[registry]]
+        prefix = "quay.io/ansible/ansible-runner"
+        insecure = true
+        blocked = false
+        location = "{{ mirror_address.content|trim }}:5000/ansible/ansible-runner"
+
   - name: Copy the Yum configuration (main)
     copy:
       dest: /etc/yum.repos.d/fedora.repo
