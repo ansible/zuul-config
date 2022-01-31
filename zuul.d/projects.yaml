@@ -6,6 +6,11 @@
     default-branch: main
 
 - project:
+    name: ^(github.com/|)ansible-collections/community\..*
+    templates:
+      - publish-to-galaxy-3pci
+
+- project:
     name: ansible/ansible-zuul-jobs
     default-branch: master
     merge-mode: squash-merge
