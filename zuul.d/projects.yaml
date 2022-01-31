@@ -144,3 +144,7 @@
       - ansible-ee-tests
       - publish-to-galaxy
       - publish-to-automation-hub
+
+- project:
+    name: ansible/network-ee
+    default-branch: main
