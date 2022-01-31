@@ -148,3 +148,14 @@
 - project:
     name: ansible/network-ee
     default-branch: main
+
+- project:
+    name: github.com/ansible-collections/kubernetes.core
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - ansible-collections-kubernetes-core-units
+      - ansible-ee-tests
+      - publish-to-galaxy
+      - publish-to-automation-hub
