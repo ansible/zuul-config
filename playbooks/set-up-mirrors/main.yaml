@@ -181,9 +181,6 @@
         - rpm-mirror.service
     - command: podman pull quay.io/gleboude/rpm-mirror
       become: true
-    - command: podman rm -f rpm-mirror
-      become: true
-      ignore_errors: true
     - name: Manually trigger refresh-mirror
       ansible.builtin.systemd:
         state: started
