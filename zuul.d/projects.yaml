@@ -136,7 +136,7 @@
     merge-mode: squash-merge
     templates:
       - system-required
-      - ansible-collections-openvswitch-openvswitch
+      - ansible-collections-openvswitch-openvswitch_no_network-ee
       - ansible-collections-openvswitch-openvswitch-units
       - ansible-python-jobs
       - integrated-queue
