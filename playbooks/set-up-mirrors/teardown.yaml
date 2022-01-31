@@ -23,25 +23,25 @@
         region_name: ams1
         name: mirror
         state: absent
-    - name: Spawn the mirror vexxhost ca-ymq-1
+    - name: Kill the mirror vexxhost ca-ymq-1
       openstack.cloud.server:
         cloud: vexxhost
         region_name: ca-ymq-1
         name: mirror
         state: absent
-    - name: Spawn the mirror vexxhost sjc1
+    - name: Kill the mirror vexxhost sjc1
       openstack.cloud.server:
         cloud: vexxhost
         region_name: sjc1
         name: mirror
         state: absent
-    - name: Spawn the mirror limestone us-dfw-1
+    - name: Kill the mirror limestone us-dfw-1
       openstack.cloud.server:
         cloud: limestone
         region_name: us-dfw-1
         name: mirror
         state: absent
-    - name: Spawn the mirror limestone us-slc
+    - name: Kill the mirror limestone us-slc
       openstack.cloud.server:
         cloud: limestone
         region_name: us-slc
