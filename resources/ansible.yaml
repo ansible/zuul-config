@@ -85,12 +85,11 @@ resources:
             zuul/include: []
         - ansible-community/ansible-bender:
             zuul/include: []
-        - ansible-community/ara:
-            zuul/include: []
-        - ansible-community/ara-collection:
-            zuul/include: []
-        - ansible-community/ara-infra:
-            zuul/include: []
+        # ara job configuration is handled inside their own repositories
+        # reach out to dmsimard for questions or issues
+        - ansible-community/ara
+        - ansible-community/ara-collection
+        - ansible-community/ara-infra
         - ansible-community/molecule-libvirt:
             zuul/include: []
         - ansible-community/molecule-vagrant:
