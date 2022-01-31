@@ -100,7 +100,7 @@ resources:
         - ansible/network:
             zuul/include: []
         - ansible/network-ee:
-            zuul/include: []
+            zuul/include: [job]
         - ansible-network/ansible_content_collections_metrics:
             zuul/include: []
         - ansible-network/arista_eos:
