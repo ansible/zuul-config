@@ -114,12 +114,6 @@
       - publish-to-automation-hub
 
 - project:
-    name: github.com/ansible/network-ee
-    default-branch: main
-    templates:
-      - system-required
-
-- project:
     name: ansible-collections/ansible.netcommon
     default-branch: main
     templates:
