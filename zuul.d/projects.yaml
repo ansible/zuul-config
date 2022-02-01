@@ -14,7 +14,7 @@
     default-branch: master
 
 - project:
-    name: ^(github.com/|)ansible-collections/community\..*
+    name: "^(github.com/|)ansible-collections/community.(?!aws|vmware).*"
     templates:
       - publish-to-galaxy-3pci
 
