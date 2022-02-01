@@ -6,6 +6,14 @@
     default-branch: main
 
 - project:
+    name: ansible-collections/community.azure
+    default-branch: master
+
+- project:
+    name: ansible-collections/community.cassandra
+    default-branch: master
+
+- project:
     name: ^(github.com/|)ansible-collections/community\..*
     templates:
       - publish-to-galaxy-3pci
