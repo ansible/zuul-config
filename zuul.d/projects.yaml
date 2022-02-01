@@ -137,7 +137,7 @@
     default-branch: main
     templates:
       - system-required
-      - ansible-collections-ansible-utils_no_network-ee
+      - ansible-collections-ansible-utils
       - ansible-collections-ansible-utils-units
       - ansible-python-jobs
       - integrated-queue
