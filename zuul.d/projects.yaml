@@ -45,6 +45,23 @@
     default-branch: devel
 
 - project:
+    name: github.com/ansible-collections/ansible.windows
+    default-branch: main
+    templates:
+      - publish-to-galaxy-3pci
+    pre-release:
+      jobs:
+        - release-ansible-collection-automation-hub
+    release:
+      jobs:
+        - release-ansible-collection-automation-hub
+        - release-ansible-collection-announcement:
+            dependencies:
+              - name: release-ansible-collection-automation-hub
+              - name: release-ansible-collection-galaxy
+                soft: true
+
+- project:
     name: ansible-collections/cloud.common
     default-branch: main
     merge-mode: squash-merge
