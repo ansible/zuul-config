@@ -235,3 +235,14 @@
       - ansible-ee-tests
       - publish-to-galaxy
       - publish-to-automation-hub
+
+- project:
+    name: ansible-collections/frr.frr
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - ansible-collections-frr-frr-units
+      - ansible-python-jobs
+      - ansible-ee-tests
+      - publish-to-galaxy
+      - publish-to-automation-hub
