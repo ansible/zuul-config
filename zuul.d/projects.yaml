@@ -322,3 +322,11 @@
     gate:
       jobs:
         - ansible-tox-linters
+
+- project:
+    name: ansible/python-base-image
+    default-branch: main
+
+- project:
+    name: ansible/python-builder-image
+    default-branch: main
