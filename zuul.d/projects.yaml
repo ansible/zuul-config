@@ -204,3 +204,17 @@
       - ansible-collections-servicenow-itsm-units
       - publish-to-galaxy
       - publish-to-automation-hub
+
+- project:
+    name: github.com/ansible-network/network-engine
+    default-branch: devel
+    templates:
+      - ansible-python3-jobs
+    check:
+      jobs:
+        - ansible-tox-linters
+        - ansible-tox-py27
+    gate:
+      jobs:
+        - ansible-tox-linters
+        - ansible-tox-py27
