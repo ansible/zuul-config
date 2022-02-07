@@ -345,6 +345,7 @@
     success:
       github.com:
         status: 'success'
+        comment: false
       sqlreporter:
     failure:
       github.com:
