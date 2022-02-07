@@ -350,6 +350,7 @@
     failure:
       github.com:
         status: 'failure'
+        comment: false
       sqlreporter:
     # Don't report merge-failures to github
     merge-failure:
