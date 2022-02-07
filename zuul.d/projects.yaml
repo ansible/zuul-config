@@ -285,3 +285,40 @@
     gate:
       jobs:
         - ansible-tox-linters
+
+- project:
+    name: ansible/ansible-builder
+    default-branch: devel
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - publish-to-pypi
+
+- project:
+    name: ansible/ansible-core-image
+    default-branch: main
+
+- project:
+    name: ansible/ansible-navigator
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - publish-to-pypi
+
+- project:
+    name: ansible/ansible-runner
+    default-branch: devel
+    merge-mode: squash-merge
+
+- project:
+    name: ansible/network
+    default-branch: devel
+    templates:
+      - system-required
+    check:
+      jobs:
+        - ansible-tox-linters
+    gate:
+      jobs:
+        - ansible-tox-linters
