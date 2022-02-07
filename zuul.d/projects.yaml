@@ -255,3 +255,15 @@
       - ansible-python-jobs
       - integrated-queue
       - publish-to-galaxy
+
+- project:
+    name: ansible-network/network-runner
+    default-branch: devel
+    templates:
+      - ansible-python3-jobs
+    check:
+      jobs:
+        - ansible-tox-linters
+    gate:
+      jobs:
+        - ansible-tox-linters
