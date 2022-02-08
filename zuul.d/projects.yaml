@@ -160,6 +160,7 @@
       - system-required
       - ansible-collections-ansible-utils
       - ansible-collections-ansible-utils-units
+      - ansible-ee-tests
       - ansible-python-jobs
       - integrated-queue
       - publish-to-galaxy
