@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: controller
   tasks:
     - name: Create virtualenv for ansible-network/releases
       shell: python3 -mvenv ~/venv

@@ -287,6 +287,8 @@
     required-projects:
       - github.com/ansible-network/releases
     nodeset:
-      nodes: []
+      nodes:
+        - name: controller
+          label: zuul-worker-ansible
     secrets:
       - twitter_ansible_content
