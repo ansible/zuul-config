@@ -2,7 +2,7 @@
 - hosts: localhost
   tasks:
     - name: Create virtualenv for ansible-network/releases
-      shell: virtualenv --python python3 ~/venv
+      shell: python3 -mvenv ~/venv
 
     - name: Bootstrap ansible-network/releases
       args:
