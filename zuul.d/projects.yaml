@@ -152,6 +152,8 @@
     default-branch: main
     templates:
       - system-required
+      - publish-to-galaxy
+      - publish-to-automation-hub
 
 - project:
     name: ansible-collections/ansible.utils
