@@ -313,6 +313,9 @@
     name: ansible/ansible-runner
     default-branch: devel
     merge-mode: squash-merge
+    templates:
+      - system-required
+      - publish-to-pypi
 
 - project:
     name: ansible/network
