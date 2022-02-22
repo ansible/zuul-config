@@ -193,7 +193,7 @@
     nodeset:
       nodes:
         - name: controller
-          label: zuul-worker-ansible
+          label: ansible-cloud-centos-8-stream
 
 - job:
     name: release-ansible-python-poetry
