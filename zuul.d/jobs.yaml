@@ -193,7 +193,7 @@
     nodeset:
       nodes:
         - name: controller
-          label: ansible-cloud-centos-8-stream
+          label: ansible-fedora-35-1vcpu
 
 - job:
     name: release-ansible-python-poetry
