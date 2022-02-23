@@ -181,7 +181,6 @@
     pre-run: playbooks/build-python-tarball/pre.yaml
     run: playbooks/build-python-tarball/run.yaml
     post-run:
-      - playbooks/build-python-tarball/post.yaml
       - playbooks/publish/pypi.yaml
     required-projects:
       - github.com/ansible-network/releases
