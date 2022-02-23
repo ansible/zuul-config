@@ -29,6 +29,8 @@ resources:
             zuul/include: []
         - ansible-collections/ansible.network:
             zuul/include: []
+        - ansible-collections/ansible.plugin_builder:
+            zuul/include: []
         - ansible-collections/ansible.posix:
             zuul/include: []
         - ansible-collections/ansible.security:
