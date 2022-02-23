@@ -4,7 +4,7 @@
     - name: Publish artifacts to pypi
       block:
         - name: Create virtualenv for twine
-          shell: virtualenv --python python3 ~/venv
+          shell: python3 -m venv ~/venv
 
         - name: Install twine into virtualenv
           shell: ~/venv/bin/pip install twine
