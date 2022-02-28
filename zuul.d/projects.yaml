@@ -173,7 +173,6 @@
     default-branch: main
     templates:
       - system-required
-      - ansible-community-ansible-plugin-builder
       - integrated-queue
       - publish-to-galaxy
 
