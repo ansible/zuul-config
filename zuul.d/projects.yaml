@@ -18,6 +18,10 @@
     default-branch: master
 
 - project:
+    name: ^(github.com/|)ansible-network/.*
+    default-branch: main
+
+- project:
     name: ^(github.com/|)ansible-collections/community\..*
     templates:
       - publish-to-galaxy-3pci
@@ -483,3 +487,9 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
+
+- project:
+    name: ansible-network/ansible_content_collections_metrics
+    merge-mode: squash-merge
+    templates:
+      - ansible-python-jobs
