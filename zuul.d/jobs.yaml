@@ -291,3 +291,18 @@
           label: zuul-worker-ansible
     secrets:
       - twitter_ansible_content
+
+- job:
+    name: ansible-workshops-tox-integration
+    parent: tox
+    description: |
+      Running workshops from https://github.com/ansible/workshops
+    pre-run:
+      - playbooks/workshops/pre.yaml
+    run:
+      - playbooks/workshops/run.yaml
+    secrets:
+      - secret: aws_workshops_secrets
+        name: aws_workshops_data
+    nodeset: centos-8-stream
+    timeout: 5400
