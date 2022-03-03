@@ -178,6 +178,7 @@
     templates:
       - system-required
       - integrated-queue
+      - ansible-community-ansible-plugin-builder
       - ansible-ee-tests
       - publish-to-galaxy
 
