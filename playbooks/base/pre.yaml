@@ -25,6 +25,7 @@
         package:
           name:
             - epel-release
+        become: true
         when: ansible_distribution == "CentOS"
       - name: Install git and tox
         package:
