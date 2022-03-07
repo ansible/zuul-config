@@ -21,6 +21,11 @@
           path: /etc/yum.repos.d/fedora-modular.repo
           state: absent
         become: true
+      - name: Enable EPEL
+        package:
+          name:
+            - epel-release
+        when: ansible_distribution == "CentOS"
       - name: Install git and tox
         package:
           name:
