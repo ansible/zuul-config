@@ -105,6 +105,15 @@
 
 - hosts: mirrors
   tasks:
+    # We've got some problems (limestone/us-dfw-1) with IPv6, we turn it off until
+    # we've got more time to investigate.
+    - name: Disable IPv6
+      ansible.posix.sysctl:
+        name: net.ipv6.conf.all.disable_ipv6
+        value: 1
+        state: present
+      become: true
+
     - set_fact:
         disk_info: "{{ ansible_mounts| selectattr('mount','equalto', '/') | list | first }}"
     - set_fact:
