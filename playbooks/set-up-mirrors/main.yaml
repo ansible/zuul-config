@@ -214,17 +214,6 @@
           - services_state.ansible_facts.services["refresh-mirror.service"]["state"] == "stopped"
           - services_state.ansible_facts.services["refresh-mirror.service"]["status"] != "failed"
           - services_state.ansible_facts.services["rpm-mirror.service"]["state"] == "running"
-    - name: Install avahi
-      package:
-        name: avahi
-        state: present
-      become: true
-    - name: Expose the node with Avahi
-      ansible.builtin.systemd:
-        state: started
-        enabled: true
-        name: avahi-daemon
-      become: true
     - name: Save the host IP in a file
       copy:
         content: "{{ ansible_ssh_host }}"
