@@ -179,7 +179,6 @@
       - system-required
       - integrated-queue
       - ansible-community-ansible-plugin-builder
-      - publish-to-galaxy
 
 - project:
     name: ansible-collections/openvswitch.openvswitch
