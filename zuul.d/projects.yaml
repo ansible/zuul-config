@@ -179,8 +179,6 @@
       - system-required
       - integrated-queue
       - ansible-community-ansible-plugin-builder
-      - ansible-python-jobs
-      - ansible-ee-tests
       - publish-to-galaxy
 
 - project:
