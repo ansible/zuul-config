@@ -463,6 +463,8 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
+      - ansible-ee-tests
+      - ansible-collections-security-splunk-es
 
 - project:
     name: ansible-collections/symantec.epm
