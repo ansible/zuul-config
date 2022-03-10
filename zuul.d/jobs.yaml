@@ -304,5 +304,8 @@
     secrets:
       - secret: aws_workshops_secrets
         name: aws_workshops_data
-    nodeset: centos-8-stream
+    nodeset:
+      nodes:
+        - name: controller
+          label: ansible-cloud-centos-8-stream
     timeout: 5400
