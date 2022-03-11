@@ -142,8 +142,7 @@
     merge-mode: squash-merge
     templates:
       - system-required
-      # TODO: depends on network-ee-build-container-image
-      #- ansible-collections-arista-eos
+      - ansible-collections-arista-eos
       - ansible-collections-arista-eos-units
       - ansible-python-jobs
       - ansible-ee-tests
