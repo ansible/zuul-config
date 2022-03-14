@@ -488,6 +488,10 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
+      - ansible-collections-vyos-vyos
+      - ansible-collections-vyos-vyos-units
+      - ansible-python-jobs
+      - network-ee-tests
 
 - project:
     name: ansible-network/ansible_content_collections_metrics
