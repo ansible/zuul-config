@@ -441,6 +441,11 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
+      - ansible-collections-security-ibm-qradar
+      - ansible-python-jobs
+      - integrated-queue
+      - ansible-ee-tests
+
 
 - project:
     name: ansible-collections/junipernetworks.junos
