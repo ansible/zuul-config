@@ -196,6 +196,12 @@
 - project:
     name: ansible/network-ee
     default-branch: main
+    check:
+      jobs:
+        - ansible-tox-linters
+    gate:
+      jobs:
+        - ansible-tox-linters
 
 - project:
     name: github.com/ansible-collections/kubernetes.core
