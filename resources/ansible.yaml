@@ -105,30 +105,6 @@ resources:
             zuul/include: []
         - ansible-network/ansible_content_collections_metrics:
             zuul/include: []
-        - ansible-network/arista_eos:
-            zuul/include: []
-        - ansible-network/aws:
-            zuul/include: []
-        - ansible-network/aws_management:
-            zuul/include: []
-        - ansible-network/azure:
-            zuul/include: []
-        - ansible-network/backup_config:
-            zuul/include: []
-        - ansible-network/cisco_asa:
-            zuul/include: []
-        - ansible-network/cisco_ios:
-            zuul/include: []
-        - ansible-network/cisco_iosxr:
-            zuul/include: []
-        - ansible-network/cisco_nxos:
-            zuul/include: []
-        - ansible-network/cloud_vpn:
-            zuul/include: []
-        - ansible-network/collection_migration:
-            zuul/include: []
-        - ansible-network/community.netcommon:
-            zuul/include: []
         - ansible-network/config_manager:
             zuul/include: []
         - ansible-network/content_store:
