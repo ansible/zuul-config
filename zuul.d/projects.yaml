@@ -404,6 +404,11 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
+      - ansible-collections-cisco-asa
+      - ansible-collections-cisco-asa-units
+      - ansible-python-jobs
+      - integrated-queue
+      - ansible-ee-tests
 
 - project:
     name: ansible-collections/cisco.ios
