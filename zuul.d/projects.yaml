@@ -45,6 +45,17 @@
       - ansible-ee-tests
 
 - project:
+    name: ansible-collections/amazon.cloud
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - publish-to-galaxy
+      - publish-to-automation-hub
+      - ansible-collections-amazon-cloud
+      - ansible-ee-tests
+
+- project:
     name: ansible/ansible
     default-branch: devel
 
