@@ -25,6 +25,8 @@ resources:
             zuul/include: []
         - ansible-collections/amazon.aws:
             zuul/include: []
+        - ansible-collections/amazon.cloud:
+            zuul/include: []
         - ansible-collections/ansible.netcommon:
             zuul/include: []
         - ansible-collections/ansible.network:
