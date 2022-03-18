@@ -500,6 +500,11 @@
     merge-mode: squash-merge
     templates:
       - system-required
+      - ansible-collections-juniper-junos
+      - ansible-collections-juniper-junos-units
+      - ansible-python-jobs
+      - integrated-queue
+      - ansible-ee-tests
       - publish-to-galaxy
       - publish-to-automation-hub
 
