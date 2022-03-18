@@ -191,6 +191,14 @@
       - publish-to-automation-hub
 
 - project:
+    name: github.com/ansible-collections/checkpoint
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - ansible-python-jobs
+      - integrated-queue
+
+- project:
     name: ansible-community/ansible.plugin_builder
     default-branch: main
     templates:
