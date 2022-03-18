@@ -531,3 +531,14 @@
     merge-mode: squash-merge
     templates:
       - ansible-python-jobs
+
+- project:
+    name: ansible-collections/ansible.network
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - integrated-queue
+      - ansible-collections-ansible-network
+      - ansible-collections-ansible-network-units
+      - ansible-python-jobs
