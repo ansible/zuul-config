@@ -527,6 +527,9 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
+      - ansible-collections-symantec-epm-units
+      - ansible-python-jobs
+      - ansible-ee-tests
 
 - project:
     name: ansible-collections/trendmicro.deepsec
