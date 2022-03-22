@@ -435,6 +435,9 @@
       - publish-to-galaxy
       - publish-to-automation-hub
       - ansible-ee-tests
+      - ansible-collections-cisco-ios
+      - ansible-collections-cisco-ios-units
+      - ansible-python-jobs
 
 - project:
     name: ansible-collections/cisco.iosxr
