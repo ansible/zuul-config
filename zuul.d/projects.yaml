@@ -482,6 +482,10 @@
     templates:
       - system-required
       - publish-to-galaxy
+      - ansible-collections-community-yang-juniper-junos
+      - ansible-collections-community-yang-cisco-iosxr
+      - ansible-collections-community-yang-units
+      - ansible-python-jobs
 
 - project:
     name: ansible-collections/ibm.qradar
