@@ -48,7 +48,7 @@
     nodeset:
       nodes:
         - name: container
-          label: zuul-worker-ansible
+          label: ansible-fedora-35-1vcpu
 
 - job:
     name: ansible-changelog-fragment
@@ -163,7 +163,7 @@
     nodeset:
       nodes:
         - name: controller
-          label: zuul-worker-ansible
+          label: ansible-fedora-35-1vcpu
 
 - job:
     name: ansible-core-ci-aws-session
@@ -288,7 +288,7 @@
     nodeset:
       nodes:
         - name: controller
-          label: zuul-worker-ansible
+          label: ansible-fedora-35-1vcpu
     secrets:
       - twitter_ansible_content
 
