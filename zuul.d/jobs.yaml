@@ -307,5 +307,5 @@
     nodeset:
       nodes:
         - name: controller
-          label: ansible-cloud-centos-8-stream
+          label: ansible-cloud-centos-8-stream-tiny
     timeout: 5400
