@@ -39,7 +39,7 @@
     extra-vars:
       zuul_use_fetch_output: true
     timeout: 1800
-    attempts: 3
+    attempts: 6
     secrets:
       - site_ansiblelogs
       - rackspace_dfw_clouds_yaml
