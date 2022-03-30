@@ -460,6 +460,8 @@
     merge-mode: squash-merge
     templates:
       - system-required
+      - publish-to-galaxy
+      - publish-to-automation-hub
       - ansible-collections-cisco-iosxr
       - ansible-collections-cisco-iosxr-units
       - ansible-python-jobs
