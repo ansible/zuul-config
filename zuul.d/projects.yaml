@@ -406,6 +406,8 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
+      - ansible-collections-ansible-security
+      - ansible-python-jobs
 
 - project:
     name: ansible-collections/arista.eos
