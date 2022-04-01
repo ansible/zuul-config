@@ -97,6 +97,12 @@
 - project:
     name: ansible-network/releases
     default-branch: master
+    check:
+      jobs:
+        - ansible-tox-linters
+    gate:
+      jobs:
+        - ansible-tox-linters
 
 - project:
     name: ansible-collections/vmware.vmware_rest
