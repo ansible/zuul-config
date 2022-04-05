@@ -17,8 +17,8 @@ resources:
             zuul/include: []
         - ansible/ansible-navigator:
             zuul/include: []
-        - ansible/ansible-runner:
-            zuul/include: []
+        # ansible-runner team maintains in their repositoriy some jobs to publish the images
+        - ansible/ansible-runner
         - ansible/python-base-image:
             zuul/include: []
         - ansible/python-builder-image:
