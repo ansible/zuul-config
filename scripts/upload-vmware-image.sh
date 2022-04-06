@@ -61,7 +61,7 @@ function enable() {
 curl -L -o ~/tmp/${image_name}.qcow2 https://s3.us-east-2.amazonaws.com/ansible-team-cloud-images/$qcow2_image
 OS_CLOUD=vexxhost OS_REGION_NAME=ams1 upload
 OS_CLOUD=vexxhost OS_REGION_NAME=ca-ymq-1 upload
-OS_CLOUD=vexxhost OS_REGION_NAME=sjc1 upload
+#OS_CLOUD=vexxhost OS_REGION_NAME=sjc1 upload
 # Note: VMware images don't work on Limestone, the VCSA is too large and the ESXi 7.0.3 won't boot because there is no e1000e driver.
 # [>                             ] 0%HttpException: 413: Client Error for url: https://api.us-slc.cloud.lstn.net:9292/v2/images/e7dc5593-d21f-4c86-a63d-2158e7bd19c7/file, Request Entity Too Large
 #OS_CLOUD=limestone OS_REGION_NAME=us-slc upload
@@ -70,6 +70,6 @@ rm ~/tmp/${image_name}.raw ~/tmp/${image_name}.qcow2
 
 OS_CLOUD=vexxhost OS_REGION_NAME=ams1 enable
 OS_CLOUD=vexxhost OS_REGION_NAME=ca-ymq-1 enable
-OS_CLOUD=vexxhost OS_REGION_NAME=sjc1 enable
+#OS_CLOUD=vexxhost OS_REGION_NAME=sjc1 enable
 #OS_CLOUD=limestone OS_REGION_NAME=us-slc enable
 #OS_CLOUD=limestone OS_REGION_NAME=us-dfw-1 enable
