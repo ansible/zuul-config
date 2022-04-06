@@ -10,11 +10,6 @@ function upload() {
     if [ $(openstack image list --tag ${image_name} -c Name -f value | grep ${final_name}) ]; then
         return
     fi
-    if [ ! -f ${image_name}.raw ]; then
-        qemu-img convert -f qcow2 -O raw ~/tmp/${image_name}.qcow2 ~/tmp/${image_name}.raw
-    fi
-    sha512sum ~/tmp/${image_name}.qcow2 ~/tmp/${image_name}.raw
-
 
     property=""
     if [[ ${image_name} == *"VMware-VCSA-all"* ]]; then
@@ -44,7 +39,7 @@ function upload() {
         exit 1
     fi
 
-    openstack image create --progress --disk-format raw --file ~/tmp/${image_name}.raw --property hw_qemu_guest_agent=no ${property} ${image_name} --tag ${image_name}
+    openstack image create --progress --disk-format qcow2 --file ~/tmp/${image_name}.qcow2 --property hw_qemu_guest_agent=no ${property} ${image_name} --tag ${image_name}
 }
 
 function enable() {
