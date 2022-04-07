@@ -1,0 +1,4 @@
+---
+ansible_prepare_release__playbook_path: "tools/prepare_release.yml"
+ansible_prepare_release__collection_path: "."
+ansible_prepare_release__playbook_executable: ansible-playbook
