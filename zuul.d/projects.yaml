@@ -511,6 +511,18 @@
       - ansible-python-jobs
 
 - project:
+    name: ansible-collections/ansible.yang
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - publish-to-galaxy
+      - ansible-collections-ansible-yang-juniper-junos
+      - ansible-collections-ansible-yang-cisco-iosxr
+      - ansible-collections-ansible-yang-units
+      - ansible-python-jobs
+
+- project:
     name: ansible-collections/ibm.qradar
     default-branch: main
     merge-mode: squash-merge
