@@ -41,7 +41,7 @@
               source /etc/os-release
               major_version=$(echo $VERSION_ID|cut -d. -f1)
               subscription-manager repos --enable codeready-builder-for-rhel-${major_version}-$(arch)-rpms
-              dnf install -f https://dl.fedoraproject.org/pub/epel/epel-release-latest-${major_version}.noarch.rpm
+              dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-${major_version}.noarch.rpm
             become: true
       - name: Install git and tox
         package:
