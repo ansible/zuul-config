@@ -1,6 +1,12 @@
 ---
 - hosts: all:!appliance*
   tasks:
+    - name: unregister the node
+      command: subscription-manager unregister
+      when: ansible_distribution == "RedHat"
+      become: true
+      ignore_errors: yes
+
     - block:
         - include_role: name=fetch-output
       when:
@@ -13,14 +19,6 @@
         - ansible_user_dir is defined
     - import_role: name=merge-output-to-logs
       when: ansible_user_dir is defined
-
-- hosts: all:!appliance*
-  tasks:
-    - when: ansible_distribution == "RedHat"
-      block:
-        - name: unregister the node
-          command: subscription-manager unregister
-          become: true
 
 - hosts: localhost
   gather_facts: false
