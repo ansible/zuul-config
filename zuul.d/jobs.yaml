@@ -45,6 +45,7 @@
       - rackspace_dfw_clouds_yaml
       - rackspace_iad_clouds_yaml
       - rackspace_ord_clouds_yaml
+      - rhsm
     nodeset:
       nodes:
         - name: container

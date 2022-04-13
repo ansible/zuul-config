@@ -14,6 +14,14 @@
     - import_role: name=merge-output-to-logs
       when: ansible_user_dir is defined
 
+- hosts: all:!appliance*
+  tasks:
+    - when: ansible_distribution == "RedHat"
+      block:
+        - name: unregister the node
+          command: subscription-manager unregister
+          become: true
+
 - hosts: localhost
   gather_facts: false
   tasks:
