@@ -27,6 +27,15 @@
             - epel-release
         become: true
         when: ansible_distribution == "CentOS"
+      - when: ansible_distribution == "RedHat"
+        block:
+          - name: Register the RHEL node
+            command: subscription-manager register --username {{ rhsm.login }} --password {{ rhsm.password|quote }}
+            no_log: true
+            become: true
+          - name: Show the subscription-manager status
+            command: subscription-manager status
+            become: true
       - name: Install git and tox
         package:
           name:
