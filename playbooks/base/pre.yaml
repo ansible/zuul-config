@@ -36,6 +36,12 @@
           - name: Show the subscription-manager status
             command: subscription-manager status
             become: true
+          - name: Enable EPEL on RHEL
+            shell: |
+              major_version=$(echo $VERSION_ID|cut -d. -f1)
+              subscription-manager repos --enable codeready-builder-for-rhel-${major_version}-$(arch)-rpms
+              dnf install -f https://dl.fedoraproject.org/pub/epel/epel-release-latest-${major_version}.noarch.rpm
+            become: true
       - name: Install git and tox
         package:
           name:
