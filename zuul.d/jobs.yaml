@@ -311,3 +311,11 @@
         - name: controller
           label: ansible-cloud-centos-8-stream-tiny
     timeout: 5400
+
+- job:
+    name: downstream-ee
+    description: |
+      install podman and log in the Brew registry
+    pre-run: playbooks/downstream-ee/pre.yaml
+    secrets:
+      - rhsm
