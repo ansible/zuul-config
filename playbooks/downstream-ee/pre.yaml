@@ -3,7 +3,7 @@
   tasks:
     - name: Install podman
       package:
-        name: podmane
+        name: podman
         state: present
       become: true
     - name: Login brew.registry.redhat.io
