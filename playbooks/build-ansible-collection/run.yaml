@@ -4,6 +4,14 @@
     - name: Install generate-ansible-collection
       command: "pip install --user ~/{{ zuul.projects['github.com/ansible-network/releases'].src_dir }}"
 
+    - name: Run release-ansible-collection role
+      include_role:
+        name: release-ansible-collection
+      vars:
+        ansible_prepare_release__playbook_executable: "/usr/bin/ansible-playbook"
+        ansible_prepare_release__collection_path: "~/{{ item.src_dir }}"
+      with_items: "{{ zuul.projects.values() | list }}"
+
     - name: Generate version number for ansible collection
       args:
         chdir: "~/{{ item.src_dir }}"
