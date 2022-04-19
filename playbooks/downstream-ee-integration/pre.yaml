@@ -7,8 +7,8 @@
         state: present
       become: true
     - name: Login brew.registry.redhat.io
-      command: podman login --username {{ rhsm.login }} --password {{ rhsm.password|quote }} brew.registry.redhat.com
+      command: "podman login --username {{ rhsm.login }} --password '{{ rhsm.password }}' brew.registry.redhat.com"
       no_log: true
     - name: Login registry.redhat.io
-      command: podman login --username {{ rhsm.login }} --password {{ rhsm.password|quote }} registry.redhat.com
+      command: "podman login --username {{ rhsm.login }} --password '{{ rhsm.password }}' registry.redhat.com"
       no_log: true
