@@ -317,7 +317,7 @@
     description: |
       Base job to run the EE integration tests
     pre-run:
-      - playbooks/downstream-ee/pre.yaml
+      - playbooks/downstream-ee-integration/pre.yaml
       - playbooks/ansible-core-ci/pre.yaml
     secrets:
       - rhsm
