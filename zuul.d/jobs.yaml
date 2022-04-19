@@ -313,9 +313,12 @@
     timeout: 5400
 
 - job:
-    name: downstream-ee
+    name: downstream-ee-integration
     description: |
-      install podman and log in the Brew registry
-    pre-run: playbooks/downstream-ee/pre.yaml
+      Base job to run the EE integration tests
+    pre-run:
+      - playbooks/downstream-ee/pre.yaml
+      - playbooks/ansible-core-ci/pre.yaml
     secrets:
       - rhsm
+      - ansible_core_ci
