@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: controller
   vars:
     create_core_ci_stage: prod
     create_core_ci_session_key: "{{ ansible_core_ci.key }}"
