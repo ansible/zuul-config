@@ -223,11 +223,11 @@ resources:
             zuul/include: []
         - ansible-collections/community.sap:
             zuul/include: []
-        - ansible-collections/community.sap_install:
+        - sap-linuxlab/community.sap_install:
             zuul/include: []
-        - ansible-collections/community.sap_operations:
+        - sap-linuxlab/community.sap_operations:
             zuul/include: []
-        - ansible-collections/community.sap_libs:
+        - sap-linuxlab/community.sap_libs:
             zuul/include: []
         - ansible-collections/community.sops:
             zuul/include: []
