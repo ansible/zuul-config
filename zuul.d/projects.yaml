@@ -42,7 +42,6 @@
       - publish-to-galaxy
       - publish-to-automation-hub
       - ansible-collections-amazon-aws
-      - ansible-ee-tests
 
 - project:
     name: ansible-collections/amazon.cloud
@@ -90,7 +89,6 @@
       - system-required
       - ansible-collections-cloud-common
       - ansible-python-jobs
-      - ansible-ee-tests
       - publish-to-galaxy
       - publish-to-automation-hub
 
@@ -247,7 +245,6 @@
     templates:
       - system-required
       - ansible-collections-kubernetes-core-units
-      - ansible-ee-tests
       - publish-to-galaxy
       - publish-to-automation-hub
 
@@ -264,7 +261,6 @@
     merge-mode: squash-merge
     templates:
       - system-required
-      - ansible-ee-tests
       - ansible-collections-servicenow-itsm-units
       - publish-to-galaxy
       - publish-to-automation-hub
