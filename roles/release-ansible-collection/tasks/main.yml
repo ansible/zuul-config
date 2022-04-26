@@ -8,4 +8,6 @@
   shell: "{{ ansible_prepare_release__playbook_executable }} {{ ansible_prepare_release__playbook_path }} -v"
   args:
     chdir: "{{ ansible_prepare_release__collection_path }}"
+  environment:
+    TMPDIR: /var/tmp/prepare-release
   when: _result.stat.exists
