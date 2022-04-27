@@ -166,7 +166,6 @@
       - ansible-collections-arista-eos
       - ansible-collections-arista-eos-units
       - ansible-python-jobs
-      - ansible-ee-tests
       - integrated-queue
       - publish-to-galaxy
       - publish-to-automation-hub
@@ -180,7 +179,6 @@
       - ansible-collections-ansible-netcommon
       - ansible-collections-juniper-junos-netconf
       - ansible-python-jobs
-      - ansible-ee-tests
       - integrated-queue
       - publish-to-galaxy
       - publish-to-automation-hub
@@ -192,7 +190,6 @@
       - system-required
       - ansible-collections-ansible-utils
       - ansible-collections-ansible-utils-units
-      - ansible-ee-tests
       - ansible-python-jobs
       - integrated-queue
       - publish-to-galaxy
@@ -224,7 +221,6 @@
       - ansible-collections-openvswitch-openvswitch-units
       - ansible-python-jobs
       - integrated-queue
-      - ansible-ee-tests
       - publish-to-galaxy
       - publish-to-automation-hub
 
@@ -285,7 +281,6 @@
     templates:
       - system-required
       - ansible-collections-ansible-posix-units
-      - ansible-ee-tests
       - publish-to-galaxy
       - publish-to-automation-hub
 
@@ -296,7 +291,6 @@
       - system-required
       - ansible-collections-frr-frr-units
       - ansible-python-jobs
-      - ansible-ee-tests
       - publish-to-galaxy
       - publish-to-automation-hub
 
@@ -441,7 +435,6 @@
       - ansible-collections-cisco-asa-units
       - ansible-python-jobs
       - integrated-queue
-      - ansible-ee-tests
 
 - project:
     name: ansible-collections/cisco.ios
@@ -451,7 +444,6 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
-      - ansible-ee-tests
       - ansible-collections-cisco-ios
       - ansible-collections-cisco-ios-units
       - ansible-python-jobs
@@ -467,7 +459,6 @@
       - ansible-collections-cisco-iosxr
       - ansible-collections-cisco-iosxr-units
       - ansible-python-jobs
-      - ansible-ee-tests
       - integrated-queue
 
 - project:
@@ -483,7 +474,6 @@
       - ansible-collections-cisco-nxos-units
       - ansible-python-jobs
       - integrated-queue
-      - ansible-ee-tests
 
 - project:
     name: ansible-collections/cisco.asa
@@ -529,7 +519,6 @@
       - ansible-collections-security-ibm-qradar
       - ansible-python-jobs
       - integrated-queue
-      - ansible-ee-tests
 
 
 - project:
@@ -542,7 +531,6 @@
       - ansible-collections-juniper-junos-units
       - ansible-python-jobs
       - integrated-queue
-      - ansible-ee-tests
       - publish-to-galaxy
       - publish-to-automation-hub
 
@@ -554,7 +542,6 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
-      - ansible-ee-tests
       - ansible-collections-security-splunk-es
 
 - project:
@@ -567,7 +554,6 @@
       - publish-to-automation-hub
       - ansible-collections-symantec-epm-units
       - ansible-python-jobs
-      - ansible-ee-tests
 
 - project:
     name: ansible-collections/trendmicro.deepsec
@@ -579,7 +565,6 @@
       - publish-to-automation-hub
       - ansible-collections-symantec-epm-units
       - ansible-python-jobs
-      - ansible-ee-tests
 
 - project:
     name: ansible-collections/vyos.vyos
@@ -592,7 +577,6 @@
       - ansible-collections-vyos-vyos
       - ansible-collections-vyos-vyos-units
       - ansible-python-jobs
-      - ansible-ee-tests
 
 - project:
     name: ansible-network/ansible_content_collections_metrics
