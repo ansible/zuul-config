@@ -22,7 +22,7 @@
     default-branch: main
 
 - project:
-    name: ^(github.com/|)ansible-collections/community\..*
+    name: ^(github.com/|)(ansible-collections|sap-linuxlab)/community\..*
     templates:
       - publish-to-galaxy-3pci
 
