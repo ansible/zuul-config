@@ -147,7 +147,6 @@
     name: ansible-collections/vmware_rest_code_generator
     default-branch: main
     templates:
-      - ansible-python3-jobs
       - ansible-collections-community-vmware-rest-code-generator
       - integrated-vmware-queue
     check:
