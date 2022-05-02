@@ -338,7 +338,6 @@
     merge-mode: squash-merge
     templates:
       - system-required
-      - publish-to-pypi
 
 - project:
     name: ansible/ansible-core-image
@@ -358,7 +357,6 @@
     merge-mode: squash-merge
     templates:
       - system-required
-      - publish-to-pypi
 
 - project:
     name: ansible/network
