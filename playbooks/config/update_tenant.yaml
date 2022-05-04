@@ -1,3 +1,4 @@
+# This file is managed by ansible, do not edit directly
 ---
 - name: Discover path of config repository
   command: git rev-parse --show-toplevel
@@ -21,7 +22,7 @@
       copy:
         content: "{{ site_tenant_update.ssh_private_key }}"
         dest: "{{ ssh_private_key_tmp.path }}"
-        mode: 0600
+        mode: '0600'
 
     - name: Add zuul ssh key
       command: "ssh-add {{ ssh_private_key_tmp.path }}"
@@ -35,5 +36,5 @@
         key: "{{ site_tenant_update.ssh_known_hosts }}"
 
     - name: Run tenant_update
-      command: "ssh root@{{ site_tenant_update.fqdn }} sf_tenant_update"
+      command: "ssh root@{{ site_tenant_update.fqdn }} tenant_update"
   when: git_log_resources.stdout == git_log.stdout

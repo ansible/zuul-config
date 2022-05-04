@@ -1,3 +1,4 @@
+# This file is managed by ansible, do not edit directly
 ---
 - name: Create SSH private key tempfile
   tempfile:
@@ -8,7 +9,7 @@
   copy:
     content: "{{ site_install_server.ssh_private_key }}"
     dest: "{{ ssh_private_key_tmp.path }}"
-    mode: 0600
+    mode: '0600'
 
 - name: Add zuul ssh key
   command: "ssh-add {{ ssh_private_key_tmp.path }}"
@@ -22,4 +23,4 @@
     key: "{{ site_install_server.ssh_known_hosts }}"
 
 - name: run config update
-  command: "ssh root@{{ site_install_server.fqdn }} sf_configrepo_update {{ (zuul | zuul_legacy_vars)['ZUUL_NEWREV'] }}"
+  command: "ssh root@{{ site_install_server.fqdn }} config_update {{ (zuul | zuul_legacy_vars)['ZUUL_NEWREV'] }}"
