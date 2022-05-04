@@ -26,13 +26,11 @@
     success:
       github.com:
         status: 'success'
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       github.com:
         status: 'failure'
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -89,14 +87,12 @@
         status: 'success'
         merge: true
         comment: true
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       github.com:
         status: 'failure'
         comment: true
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     window-floor: 20
@@ -116,7 +112,6 @@
       mqtt:
         topic: "zuul/{pipeline}/start/{project}/{branch}"
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
@@ -124,7 +119,6 @@
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in post pipeline: {change.project}'
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -139,11 +133,9 @@
         - event: push
           ref: ^refs/tags/(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)-?((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)$
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
-      sqlreporter:
       smtp:
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
@@ -165,7 +157,6 @@
       mqtt:
         topic: "zuul/{pipeline}/start/{project}/{branch}"
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
@@ -173,7 +164,6 @@
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in release pipeline: {change.project}'
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -190,7 +180,6 @@
       mqtt:
         topic: "zuul/{pipeline}/start/{project}/{branch}"
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
@@ -198,7 +187,6 @@
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -216,7 +204,6 @@
       mqtt:
         topic: "zuul/{pipeline}/start/{project}/{branch}"
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
@@ -224,7 +211,6 @@
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in periodic-1hr pipeline: {change.project}'
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -241,7 +227,6 @@
       mqtt:
         topic: "zuul/{pipeline}/start/{project}/{branch}"
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
@@ -249,7 +234,6 @@
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in periodic-6hr pipeline: {change.project}'
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -269,7 +253,6 @@
       mqtt:
         topic: "zuul/{pipeline}/start/{project}/{branch}"
     success:
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
@@ -277,7 +260,6 @@
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in periodic-weekly pipeline: {change.project}'
-      sqlreporter:
       mqtt:
         topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
@@ -349,12 +331,10 @@
       github.com:
         status: 'success'
         comment: false
-      sqlreporter:
     failure:
       github.com:
         status: 'failure'
         comment: false
-      sqlreporter:
     # Don't report merge-failures to github
     merge-failure:
-        sqlreporter:
+
