@@ -51,10 +51,3 @@
         zuul_log_compress: true
         zuul_log_url: "https://softwarefactory-project.io/logs"
         zuul_logserver_root: "{{ site_sflogs.path }}"
-
-- hosts: localhost
-  ignore_errors: yes
-  roles:
-    - role: submit-logstash-jobs
-      logstash_gearman_server: "elk.softwarefactory-project.io"
-      logstash_gearman_server_port: 4731
