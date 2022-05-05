@@ -102,7 +102,7 @@
     allowed-projects:
       - ansible/zuul-config
     description: Deploy config repo update.
-    run: playbooks/config/update.yaml
+    run: playbooks/config/config-update.yaml
     secrets:
       - site_install_server
       - site_tenant_update

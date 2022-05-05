@@ -1,3 +1,4 @@
+# This file is managed by ansible, do not edit directly
 ---
 - hosts: localhost
   tasks:
@@ -68,7 +69,7 @@
       no_log: true
 
     - name: Check resources changes
-      shell: env - REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.crt /usr/bin/managesf-resources remote-validate --remote-gateway {{ gateway_url }}
+      shell: managesf-resources remote-validate --remote-gateway {{ gateway_url }}
       args:
         chdir: "{{ config_root }}"
 
@@ -84,48 +85,78 @@
         chdir: "{{ config_root }}"
       when: '"gerrit" in arch.roles'
 
-    - name: Check dashboards
-      command: python3 /usr/libexec/software-factory/sf-update-dashboard --check --input dashboards/
-      args:
-        chdir: "{{ config_root }}"
-      when: '"gerrit" in arch.roles'
-
     - name: Check policy file
       command: python3 -c "import yaml; yaml.safe_load(open('policies/policy.yaml'))"
       args:
         chdir: "{{ config_root }}"
 
-    - name: Validate repoxplorer configuration
-      block:
-        - name: Check syntax errors in repoxplorer definition files
-          command: >
-            env - repoxplorer-config-validate --config {{ config_root }}/defconf/defconf-repoxplorer.py
-          args:
-            chdir: "{{ config_root }}"
-      when: '"repoxplorer" in arch.roles'
+    - name: Check nodepool dhall configuration
+      shell: |
+        for dhall_conf in $(ls nodepool/static_config/*.dhall 2> /dev/null); do
+          echo ${dhall_conf}
+          dhall-to-yaml --file ${dhall_conf} --output build/$(basename ${dhall_conf} .dhall).yaml || exit 1
+        done
+      args:
+        chdir: "{{ config_root }}"
 
     - name: Validate nodepool configuration
       block:
-        - name: Install fake _nodepool.yaml
+        - name: Install defconf nodepool.yaml
           copy:
             remote_src: true
             src: "{{ config_root }}/defconf/defconf-nodepool.yaml"
-            dest: "{{ config_root }}/build/_nodepool.yaml"
+            dest: "{{ config_root }}/nodepool/_nodepool.yaml"
 
-        - name: Merge nodepool config repo files
+        - name: Check all launcher-hosts exists (task fail with invalid hostname on stdout)
+          shell: >
+            find {{ config_root }}/nodepool/ -name "*.yaml" | xargs grep '^ *launcher-host: ' | awk '{ print $3 }' |
+            grep -v '^\({{ arch.launcher_hosts | join('\|') }}\)$'
+          register: _unknown_launcher_hosts
+          failed_when: _unknown_launcher_hosts.stdout
+          changed_when: false
+
+        - name: Generate per launcher-hosts configuration
+          block:
+            - name: Generate configuration
+              command: >
+                managesf-configuration nodepool
+                --cache-dir {{ config_root }}/../.cache
+                {% if item != arch.launcher_hosts[0] %}--extra-launcher {% endif %}
+                --hostname {{ item }}
+                --config-dir {{ config_root }} --output build/nodepool-{{ item }}.yaml
+              args:
+                chdir: "{{ config_root }}"
+              loop: "{{ arch.launcher_hosts }}"
+
+            - name: Run nodepool config-validate for nodepool-launchers
+              command: >
+                nodepool -c build/nodepool-{{ item }}.yaml config-validate
+              args:
+                chdir: "{{ config_root }}"
+              loop: "{{ arch.launcher_hosts }}"
+          when: arch.launcher_hosts
+
+        - name: Merge nodepool-builder config repo files
           command: >
-            env - /usr/share/sf-config/scripts/sf-nodepool-conf-merger.py
-                nodepool/ build/nodepool.yaml
+            managesf-configuration nodepool
+            --cache-dir {{ config_root }}/../.cache --builder
+            --config-dir {{ config_root }} --output build/nodepool-builder.yaml
           args:
             chdir: "{{ config_root }}"
 
-        - name: Run nodepool config-validate
+        - name: Run nodepool config-validate for nodepool-builder
           command: >
-            env - /opt/rh/rh-python35/root/bin/nodepool -c build/nodepool.yaml
-                config-validate
+            nodepool -c build/nodepool-builder.yaml config-validate
           args:
             chdir: "{{ config_root }}"
-      when: '"nodepool-launcher" in arch.roles'
+
+        - name: Run nodepool config-validate for static configuration
+          command: >
+            find nodepool/static_config/ -name '*.yaml' -exec nodepool -c {} config-validate \;
+          args:
+            chdir: "{{ config_root }}"
+      when:
+        - '"nodepool-launcher" in arch.roles'
 
     - name: Validate zuul configuration
       block:
@@ -137,14 +168,17 @@
 
         - name: Merge zuul tenant config
           command: >
-            env - /bin/managesf-configuration zuul
-               --cache-dir {{ config_root }}/../.cache --config-dir {{ config_root }} --gateway-url {{ gateway_url }} {{ tenant_options | default('') }} --output build/main.yaml
+            managesf-configuration zuul
+            --cache-dir {{ config_root }}/../.cache
+            --config-dir {{ config_root }}
+            --gateway-url {{ gateway_url }} {{ tenant_options | default('') }}
+            --output build/main.yaml
           args:
             chdir: "{{ config_root }}"
 
         - name: Validate zuul config syntax
           command: >
-            env - /bin/zuul -c zuul.conf tenant-conf-check
+            env - /usr/local/bin/zuul -c zuul.conf tenant-conf-check
           args:
             chdir: "{{ config_root }}/build"
 
