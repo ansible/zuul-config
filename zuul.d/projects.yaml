@@ -500,6 +500,7 @@
     templates:
       - system-required
       - publish-to-galaxy
+      - publish-to-automation-hub
       - ansible-collections-ansible-yang-juniper-junos
       - ansible-collections-ansible-yang-cisco-iosxr
       - ansible-collections-ansible-yang-units
