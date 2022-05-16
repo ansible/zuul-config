@@ -183,18 +183,6 @@
       - publish-to-automation-hub
 
 - project:
-    name: ansible-collections/ansible.utils
-    default-branch: main
-    templates:
-      - system-required
-      - ansible-collections-ansible-utils
-      - ansible-collections-ansible-utils-units
-      - ansible-python-jobs
-      - integrated-queue
-      - publish-to-galaxy
-      - publish-to-automation-hub
-
-- project:
     name: github.com/ansible-collections/checkpoint
     merge-mode: squash-merge
     templates:
