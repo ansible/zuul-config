@@ -549,7 +549,7 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
-      - ansible-collections-symantec-epm-units
+      - ansible-collections-security-trendmicro-deepsec-units
       - ansible-python-jobs
 
 - project:
