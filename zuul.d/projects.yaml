@@ -514,7 +514,6 @@
     templates:
       - system-required
       - ansible-collections-juniper-junos
-      - ansible-collections-juniper-junos-units
       - ansible-python-jobs
       - integrated-queue
       - publish-to-galaxy
