@@ -456,7 +456,6 @@
       - publish-to-automation-hub
       - system-required
       - ansible-collections-cisco-nxos
-      - ansible-collections-cisco-nxos-units
       - ansible-python-jobs
       - integrated-queue
 
