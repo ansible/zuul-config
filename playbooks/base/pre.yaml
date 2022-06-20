@@ -27,7 +27,7 @@
             - epel-release
         become: true
         when: ansible_distribution == "CentOS"
-      - when: ansible_distribution == "RedHat"
+      - when: ansible_distribution == "RedHat" and nodepool.provider != "ansible-us-east-2"
         block:
           - name: Register the RHEL node
             command: subscription-manager register --username {{ rhsm.login }} --password {{ rhsm.password|quote }}
