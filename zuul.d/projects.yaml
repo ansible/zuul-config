@@ -400,8 +400,8 @@
     templates:
       - system-required
       - publish-to-galaxy
-      - publish-to-automation-hub   
-      
+      - publish-to-automation-hub
+
 - project:
     name: github.com/ansible-collections/community.asa
     default-branch: main
@@ -410,7 +410,7 @@
       - system-required
       - ansible-collections-community-asa
       - ansible-collections-community-asa-units
-      
+
 - project:
     name: ansible-collections/cisco.asa
     default-branch: main
@@ -433,7 +433,6 @@
       - publish-to-galaxy
       - publish-to-automation-hub
       - ansible-collections-cisco-ios
-      - ansible-collections-cisco-ios-units
       - ansible-python-jobs
 
 - project:
@@ -445,7 +444,6 @@
       - publish-to-galaxy
       - publish-to-automation-hub
       - ansible-collections-cisco-iosxr
-      - ansible-collections-cisco-iosxr-units
       - ansible-python-jobs
       - integrated-queue
 
