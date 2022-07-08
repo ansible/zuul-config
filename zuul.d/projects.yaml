@@ -370,19 +370,6 @@
     default-branch: main
 
 - project:
-    name: ansible/workshops
-    default-branch: devel
-    third-party-check:
-      jobs:
-        - ansible-tox-linters
-        - workshops-tox-integration-f5
-        - workshops-tox-integration-networking
-        - workshops-tox-integration-rhel
-        - workshops-tox-integration-security
-        - workshops-tox-integration-smart-mgmt
-        - workshops-tox-integration-windows
-
-- project:
     name: ansible-collections/ansible.security
     default-branch: main
     merge-mode: squash-merge
