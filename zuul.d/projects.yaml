@@ -39,6 +39,12 @@
       - system-required
 
 - project:
+    name: ansible/aws-ci-admin
+    default-branch: main
+    templates:
+      - ansible-aws-ci-admin
+
+- project:
     name: ansible-collections/amazon.aws
     default-branch: main
     merge-mode: squash-merge
