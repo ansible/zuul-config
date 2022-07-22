@@ -253,3 +253,5 @@ resources:
             zuul/include: []
         - openshift/community.okd:
             zuul/include: []
+        - goneri/vcenter-ldap-role-manager:
+            zuul/include: []
