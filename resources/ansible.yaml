@@ -167,8 +167,6 @@ resources:
             zuul/include: []
         - ansible-collections/ansible.windows:
             zuul/include: []
-        - ansible-collections/community.azure:
-            zuul/include: []
         - ansible-collections/community.cassandra:
             zuul/include: []
         - ansible-collections/community.ciscosmb:
