@@ -197,14 +197,6 @@
       - integrated-queue
 
 - project:
-    name: ansible-community/ansible.plugin_builder
-    default-branch: main
-    templates:
-      - system-required
-      - integrated-queue
-      - ansible-community-ansible-plugin-builder
-
-- project:
     name: ansible-collections/openvswitch.openvswitch
     default-branch: main
     merge-mode: squash-merge
