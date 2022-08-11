@@ -63,6 +63,8 @@ resources:
             zuul/include: []
         - ansible-collections/community.aws:
             zuul/include: []
+        - ansible-collections/community.nextcloud:
+            zuul/include: []
         - ansible-collections/community.vmware:
             zuul/include: []
         - ansible-collections/community.yang:
