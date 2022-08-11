@@ -28,6 +28,11 @@
       - publish-to-galaxy-3pci
 
 - project:
+    name: ansible-collections/ibm.csm
+    templates:
+      - publish-to-galaxy-3pci
+
+- project:
     name: ansible/ansible-zuul-jobs
     default-branch: master
     merge-mode: squash-merge
