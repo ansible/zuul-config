@@ -69,6 +69,8 @@ resources:
             zuul/include: []
         - ansible-collections/frr.frr:
             zuul/include: []
+        - ansible-collections/ibm.csm:
+            zuul/include: []
         - ansible-collections/ibm.qradar:
             zuul/include: []
         - ansible-collections/junipernetworks.junos:
