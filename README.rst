@@ -23,7 +23,7 @@ If the project is in the `ansible-collections/ https://github.com/ansible-collec
 PR1
 ---
 
-- Add to `zuul/tenants.yaml <https://github.com/ansible/zuul-config/blob/master/resources/ansible.yaml>`_
+- Add to `resources/ansible.yaml <https://github.com/ansible/zuul-config/blob/master/resources/ansible.yaml>`_
 
 note: Follow up to the merge of the PR, Zuul will refresh its configuration. The job is called `update-config`. For various reason, the update may fail, you can take a look at the previous runs here: https://ansible.softwarefactory-project.io/zuul/builds?job_name=config-update&project=ansible/zuul-config
 
