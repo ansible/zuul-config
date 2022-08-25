@@ -45,8 +45,9 @@ function upload() {
 function enable() {
     echo "enabling"
     image_to_use=$(openstack image list --status active --tag ${image_name} --format json --limit 1|jq -r .[0].ID)
-    current_name=$(openstack image show ${image_to_use} --format json| jq .name)
+    current_name=$(openstack image show ${image_to_use} --format json| jq -r .name)
     if [ ! ${current_name} = ${final_name} ]; then
+        echo "Rotating images"
         openstack image set ${final_name} --name ${final_name}-old || true
         openstack image set ${image_to_use} --name ${final_name}
     fi
