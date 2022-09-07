@@ -1,10 +1,18 @@
 #!/bin/bash
 set -eux
 qcow2_image=$1
-last_modified=$(curl -s --fail --head https://s3.us-east-2.amazonaws.com/ansible-team-cloud-images/${qcow2_image}|awk '/^Last-Modified:/ {print $2" "$3" "$4" "$5" "$6}')
-timestamp=$(date -d "${last_modified}" +%Y%m%d)
-final_name=$(basename -s .qcow2 ${qcow2_image})
-image_name=$(basename -s .qcow2 ${qcow2_image})-${timestamp}
+if [ -f  ${qcow2_image} ]; then
+    final_name=$(basename -s .qcow2 ${qcow2_image})
+    image_name=$(basename -s .qcow2 ${qcow2_image}-$(sha256sum ${qcow2_image}|cut -d' ' -f1))
+    local_copy=${qcow2_image}
+else
+    last_modified=$(curl -s --fail --head https://s3.us-east-2.amazonaws.com/ansible-team-cloud-images/${qcow2_image}|awk '/^Last-Modified:/ {print $2" "$3" "$4" "$5" "$6}')
+    timestamp=$(date -d "${last_modified}" +%Y%m%d)
+    final_name=$(basename -s .qcow2 ${qcow2_image})
+    image_name=$(basename -s .qcow2 ${qcow2_image})-${timestamp}
+    local_copy=~/tmp/${image_name}.qcow2
+    curl -L -o ${local_copy} https://s3.us-east-2.amazonaws.com/ansible-team-cloud-images/$qcow2_image
+fi
 
 function upload() {
     if [ $(openstack image list --tag ${image_name} -c Name -f value | grep ${final_name}) ]; then
@@ -39,7 +47,7 @@ function upload() {
         exit 1
     fi
 
-    openstack image create --progress --disk-format qcow2 --file ~/tmp/${image_name}.qcow2 --property hw_qemu_guest_agent=no ${property} ${image_name} --tag ${image_name}
+    openstack image create --progress --disk-format qcow2 --file ${local_copy} --property hw_qemu_guest_agent=no ${property} ${image_name} --tag ${image_name}
 }
 
 function enable() {
@@ -54,7 +62,6 @@ function enable() {
 }
 
 
-curl -L -o ~/tmp/${image_name}.qcow2 https://s3.us-east-2.amazonaws.com/ansible-team-cloud-images/$qcow2_image
 OS_CLOUD=vexxhost OS_REGION_NAME=ams1 upload
 OS_CLOUD=vexxhost OS_REGION_NAME=ca-ymq-1 upload
 #OS_CLOUD=vexxhost OS_REGION_NAME=sjc1 upload
@@ -62,7 +69,6 @@ OS_CLOUD=vexxhost OS_REGION_NAME=ca-ymq-1 upload
 # [>                             ] 0%HttpException: 413: Client Error for url: https://api.us-slc.cloud.lstn.net:9292/v2/images/e7dc5593-d21f-4c86-a63d-2158e7bd19c7/file, Request Entity Too Large
 #OS_CLOUD=limestone OS_REGION_NAME=us-slc upload
 #OS_CLOUD=limestone OS_REGION_NAME=us-dfw-1 upload
-rm ~/tmp/${image_name}.raw ~/tmp/${image_name}.qcow2
 
 OS_CLOUD=vexxhost OS_REGION_NAME=ams1 enable
 OS_CLOUD=vexxhost OS_REGION_NAME=ca-ymq-1 enable
