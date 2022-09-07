@@ -59,6 +59,8 @@ resources:
             zuul/include: []
         - ansible-collections/cloud.common:
             zuul/include: []
+        - ansible-collections/community.arduino:
+            zuul/include: []
         - ansible-collections/community.asa:
             zuul/include: []
         - ansible-collections/community.aws:
