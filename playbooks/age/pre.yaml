@@ -4,6 +4,9 @@
     - name: the feature is only tested on Fedora controller
       when: ansible_distribution == 'Fedora'
       block:
+        - name: Fetch and install the artifacts
+          import_role:
+            name: aws-deploy-artifacts
         - name: Write the private key.txt file
           copy:
             content: "{{ age.key_txt }}"
