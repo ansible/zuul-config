@@ -28,7 +28,7 @@
           debug:
             var: encrypted_files.files
         - name: Extract the encypted files
-          command: age -v --decrypt -i ~/key.txt -o {{ item.path|regex_replace('.age$') }} {{ item.path }}
+          command: age --decrypt -i ~/key.txt -o {{ item.path|regex_replace('.age$') }} {{ item.path }}
           with_items: "{{ encrypted_files.files }}"
         - name: Wipe the key file
           command: shred ~/key.txt
