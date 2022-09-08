@@ -1,0 +1,35 @@
+---
+- hosts: controller
+  tasks:
+    - name: the feature is only tested on Fedora controller
+      when: ansible_distribution == 'Fedora'
+      block:
+        - name: Write the private key.txt file
+          copy:
+            content: "{{ age.key_txt }}"
+            dest: ~/key.txt
+        - name: Install age
+          package:
+            name: age
+            state: present
+          become: true
+        - name: Find encypted files
+          find:
+            paths: ~/.ansible/collections/ansible_collections
+            recurse: true
+            file_type: file
+            patterns:
+              - "*.tar.gz.age"
+          register: encrypted_files
+        - name: List encypted files found
+          debug:
+            var: encrypted_files.files
+        - name: Extract the encypted files
+          command: age -v --decrypt -i ~/key.txt -o {{ item.path|regex_replace('.age$') }} {{ item.path }}
+          with_items: "{{ encrypted_files.files }}"
+        - name: Wipe the key file
+          command: shred ~/key.txt
+        - name: Delete the key file
+          file:
+            path: ~/key.txt
+            state: absent
