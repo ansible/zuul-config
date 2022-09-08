@@ -160,6 +160,7 @@
       - playbooks/age/pre.yaml
     secrets:
       - ansible_core_ci
+      - age
 
 - job:
     name: release-ansible-python
