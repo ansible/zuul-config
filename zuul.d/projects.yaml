@@ -48,7 +48,7 @@
 - project:
     name: ansible-collections/amazon.aws
     default-branch: main
-    merge-mode: merge
+    merge-mode: squash-merge
     templates:
       - system-required
       - publish-to-galaxy
