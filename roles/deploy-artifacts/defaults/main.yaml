@@ -2,3 +2,4 @@
 deploy_artifacts_type:
     - ansible_collection
     - python_sdist
+deploy_artifacts_venv_path: ~/venv
