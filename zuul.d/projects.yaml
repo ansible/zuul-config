@@ -25,6 +25,11 @@
       - publish-to-galaxy-3pci
 
 - project:
+    name: ansible-network/ansible.snmp
+    templates:
+      - publish-to-automation-hub
+
+- project:
     name: ansible-collections/hetzner.hcloud
     templates:
       - publish-to-galaxy-3pci
