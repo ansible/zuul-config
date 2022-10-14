@@ -577,3 +577,15 @@
     templates:
       - ansible-python-jobs
       - ansible-python3-jobs
+
+- project:
+    name: ansible-collections/community.cip
+    default-branch: main
+    templates:
+      - publish-to-galaxy
+
+- project:
+    name: ansible-collections/osbuild.composer
+    default-branch: main
+    templates:
+      - publish-to-galaxy
