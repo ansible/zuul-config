@@ -65,6 +65,8 @@ resources:
             zuul/include: []
         - ansible-collections/community.aws:
             zuul/include: []
+        - ansible-collections/community.cip:
+            zuul/include: []
         - ansible-collections/community.nextcloud:
             zuul/include: []
         - ansible-collections/community.vmware:
@@ -82,6 +84,8 @@ resources:
         - ansible-collections/kubernetes.core:
             zuul/include: []
         - ansible-collections/openvswitch.openvswitch:
+            zuul/include: []
+        - ansible-collections/osbuild.composer:
             zuul/include: []
         - ansible-collections/servicenow.itsm:
             zuul/include: []
