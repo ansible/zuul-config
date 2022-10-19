@@ -337,3 +337,29 @@
         comment: false
     # Don't report merge-failures to github
     merge-failure: {}
+
+- pipeline:
+    name: integration
+    description: integration pipeline for requesting a run of ansible-test integration in a collection with a specific targets list. Leave review comment of "check integration xxx" to run jobs in this pipeline.
+    manager: independent
+    precedence: low
+    trigger:
+      github.com:
+        - event: pull_request
+          action: comment
+          comment: (?i)^\s*check integration.*$
+    start:
+      github.com:
+        status: 'pending'
+        status-url: "https://ansible.softwarefactory-project.io/zuul/status.html"
+        comment: false
+      mqtt:
+        topic: "zuul/{pipeline}/start/{project}/{branch}"
+    success:
+      github.com:
+        check: success
+        comment: false
+    failure:
+      github.com:
+        check: failure
+        comment: false
