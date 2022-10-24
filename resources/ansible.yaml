@@ -267,3 +267,5 @@ resources:
             zuul/include: []
         - ansible-collections/cloud.aws_troubleshooting:
             zuul/include: []
+        - ansible-collections/cloud.aws_ops:
+            zuul/include: []
