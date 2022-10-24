@@ -589,3 +589,11 @@
     default-branch: main
     templates:
       - publish-to-galaxy
+
+- project:
+    name: ansible-collections/cloud.aws_troubleshooting
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - ansible-collections-cloud-aws_troubleshooting
