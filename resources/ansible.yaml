@@ -265,3 +265,5 @@ resources:
             zuul/include: []
         - goneri/vcenter-ldap-role-manager:
             zuul/include: []
+        - ansible-collections/cloud.aws_troubleshooting:
+            zuul/include: []
