@@ -177,6 +177,8 @@ resources:
             zuul/include: []
         - ansible-community/collection_migration:
             zuul/include: []
+        - ansible-collections/ansible.snmp:
+            zuul/include: []
         - ansible-collections/ansible.windows:
             zuul/include: []
         - ansible-collections/community.cassandra:
