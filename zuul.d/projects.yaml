@@ -16,8 +16,6 @@
 - project:
     name: ^(github.com/|)ansible-network/.*
     default-branch: main
-    templates:
-      - publish-to-galaxy-3pci
 
 - project:
     name: ^(github.com/|)(ansible-collections|sap-linuxlab)/community\..*
@@ -25,7 +23,7 @@
       - publish-to-galaxy-3pci
 
 - project:
-    name: ansible-network/ansible.snmp
+    name: ansible-collections/ansible.snmp
     templates:
       - publish-to-automation-hub
 

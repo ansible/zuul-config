@@ -121,8 +121,6 @@ resources:
             zuul/include: []
         - ansible/network-ee:
             zuul/include: []
-        - ansible-network/ansible.snmp:
-            zuul/include: []
         - ansible-network/ansible_content_collections_metrics:
             zuul/include: []
         - ansible-network/config_manager:
