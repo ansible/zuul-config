@@ -26,6 +26,7 @@
     name: ansible-collections/ansible.snmp
     templates:
       - publish-to-automation-hub
+      - publish-to-galaxy-3pci
 
 - project:
     name: ansible-collections/hetzner.hcloud
