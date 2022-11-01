@@ -596,3 +596,11 @@
     templates:
       - system-required
       - ansible-collections-cloud-aws_troubleshooting
+
+- project:
+    name: ansible-collections/cloud.aws_ops
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - ansible-collections-cloud-aws_ops
