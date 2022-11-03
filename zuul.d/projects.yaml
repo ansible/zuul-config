@@ -59,7 +59,6 @@
       - publish-to-galaxy
       - publish-to-automation-hub
       - ansible-collections-amazon-aws
-      - ansible-collections-amazon-aws-each-target
 
 - project:
     name: ansible-collections/amazon.cloud
