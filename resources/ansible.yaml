@@ -8,9 +8,7 @@ resources:
         - ansible/zuul-config:
             zuul/config-project: True
             zuul/exclude-unprotected-branches: False
-        - ansible/ansible-zuul-jobs:
-            zuul/extra-config-paths: [zuul.sf.d/]
-
+        - ansible/ansible-zuul-jobs
         - ansible/ansible-builder:
             zuul/include: []
         - ansible/ansible-core-image:
