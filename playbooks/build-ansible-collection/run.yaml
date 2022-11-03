@@ -15,7 +15,7 @@
     - name: Generate version number for ansible collection
       args:
         chdir: "~/{{ item.src_dir }}"
-      shell: "if test -f 'galaxy.yml'; then ~/.local/bin/generate-ansible-collection; fi"
+      shell: "if test -f 'galaxy.yml'; then ~/.local/bin/generate-ansible-collection --for-release; fi"
       with_items: "{{ zuul.projects.values() | list }}"
 
     - name: Create a directory the zuul-output
