@@ -60,6 +60,7 @@
       - publish-to-automation-hub
       - ansible-collections-amazon-aws
       - ansible-collections-amazon-aws-each-target
+      - ansible-collections-amazon-aws-integration
 
 - project:
     name: ansible-collections/amazon.cloud
@@ -148,6 +149,7 @@
       - system-required
       - publish-to-galaxy
       - ansible-collections-community-aws
+      - ansible-collections-community-aws-integration
 
 - project:
     name: ansible/zuul-config
