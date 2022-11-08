@@ -193,8 +193,9 @@ resources:
             zuul/include: []
         - ansible-collections/community.fortios:
             zuul/include: []
-        - ansible-collections/community.general:
-            zuul/include: []
+        # 2022-11-08 20:04:18,548 ERROR zuul.GithubConnection.GithubClientManager: No installation ID available for project ansible-collections/community.general
+        # - ansible-collections/community.general:
+        #     zuul/include: []
         - ansible-collections/community.google:
             zuul/include: []
         - ansible-collections/community.grafana:
