@@ -35,8 +35,9 @@ resources:
             zuul/include: []
         - ansible-community/ansible.plugin_builder:
             zuul/include: []
-        - ansible-collections/ansible.posix:
-            zuul/include: []
+# ERROR zuul.GithubConnection.GithubClientManager: No installation ID available
+#        - ansible-collections/ansible.posix:
+#            zuul/include: []
         - ansible-collections/ansible.security:
             zuul/include: []
         - ansible-collections/ansible.utils:
