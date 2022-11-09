@@ -249,8 +249,6 @@ resources:
             zuul/include: []
         - ansible-collections/hetzner.hcloud:
             zuul/include: []
-        - ansible/awx:
-            zuul/include: []
         - ansible/galaxy:
             zuul/include: []
         - ansible/galaxy_ng:
