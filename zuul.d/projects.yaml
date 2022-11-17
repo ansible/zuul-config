@@ -574,6 +574,8 @@
     merge-mode: squash-merge
     templates:
       - system-required
+      - publish-to-galaxy
+      - publish-to-automation-hub
       - integrated-queue
       - ansible-collections-ansible-network
       - ansible-collections-ansible-network-units
