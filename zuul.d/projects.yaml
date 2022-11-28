@@ -149,6 +149,15 @@
       - publish-to-galaxy
 
 - project:
+    name: ansible-collections/cloud.terraform
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - ansible-collections-cloud-terraform-units
+      - publish-to-galaxy
+
+- project:
     name: ansible-collections/community.aws
     default-branch: main
     merge-mode: squash-merge
