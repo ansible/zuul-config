@@ -117,6 +117,7 @@
     merge-mode: squash-merge
     templates:
       - ansible-python-jobs
+      - ansible-collections-cloud-gouttelette-units
 
 - project:
     name: ansible-network/releases
