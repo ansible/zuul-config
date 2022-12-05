@@ -48,7 +48,7 @@
     nodeset:
       nodes:
         - name: container
-          label: zuul-worker-ansible-f37
+          label: ansible-fedora-37-1vcpu
 
 - job:
     name: ansible-changelog-fragment
@@ -178,7 +178,7 @@
     nodeset:
       nodes:
         - name: controller
-          label: zuul-worker-ansible-f37
+          label: ansible-fedora-37-1vcpu
 
 - job:
     name: release-ansible-python-poetry
@@ -223,7 +223,7 @@
     nodeset:
       nodes:
         - name: controller
-          label: zuul-worker-ansible-f37
+          label: ansible-fedora-37-1vcpu
     semaphore: ansible-automation-hub
 
 - job:
@@ -261,7 +261,7 @@
     nodeset:
       nodes:
         - name: controller
-          label: zuul-worker-ansible-f37
+          label: ansible-fedora-37-1vcpu
 
 - job:
     name: release-ansible-collection-announcement
@@ -274,7 +274,7 @@
     nodeset:
       nodes:
         - name: controller
-          label: zuul-worker-ansible-f37
+          label: ansible-fedora-37-1vcpu
     secrets:
       - twitter_ansible_content
 
