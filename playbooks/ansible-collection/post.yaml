@@ -4,7 +4,7 @@
     - name: Find tarballs in folder
       find:
         file_type: file
-        paths: "{{ ansible_user_dir }}/artifacts"
+        paths: "~/artifacts"
         patterns: "*.tar.gz"
       register: result
 
