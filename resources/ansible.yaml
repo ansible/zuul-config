@@ -89,6 +89,8 @@ resources:
             zuul/include: []
         - ansible-collections/osbuild.composer:
             zuul/include: []
+        - ansible-collections/pravic:
+            zuul/include: []
         - ansible-collections/servicenow.itsm:
             zuul/include: []
         - ansible-collections/skydive:
