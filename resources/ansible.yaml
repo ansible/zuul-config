@@ -239,6 +239,8 @@ resources:
             zuul/include: []
         - ansible-collections/community.sap:
             zuul/include: []
+        - ansible-collections/community.vagrant:
+            zuul/include: []
         - sap-linuxlab/community.sap_install:
             zuul/include: []
         - sap-linuxlab/community.sap_operations:
