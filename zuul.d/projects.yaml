@@ -604,10 +604,18 @@
       - publish-to-galaxy
 
 - project:
+    name: ansible-collections/microsoft.ad
+    default-branch: main
+    templates:
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
+- project:
     name: ansible-collections/osbuild.composer
     default-branch: main
     templates:
       - publish-to-galaxy
+
 
 - project:
     name: ansible-collections/cloud.aws_troubleshooting
