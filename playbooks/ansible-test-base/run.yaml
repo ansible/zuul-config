@@ -1,6 +1,9 @@
 ---
 - hosts: controller
   tasks:
+    - name: RUN dot yaml
+      debug:
+        msg: "Run, dotyaml is coming"
     - when: ansible_test_collections | default(False)
       block:
         - name: Copy the galaxy.yml on the controller

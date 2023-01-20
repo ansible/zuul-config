@@ -1,4 +1,7 @@
 ---
+- name: Debug run
+  debug:
+    msg: "Running integration test with " + '{{ ansible_test_git_branch }}'
 - name: Include branch specific variables.
   include_vars: "{{ item }}"
   with_first_found:
@@ -41,10 +44,17 @@
 #  import_tasks: enable_ara.yaml
 #  when: ansible_test_enable_ara
 
+- name: Are there changed files?
+  debug:
+    msg: '{{ ansible_test_git_branch }}'
 
 - name: Identiy the targets associated with the changed files
   import_tasks: ansible_test_changed.yaml
   when: ansible_test_changed|bool
+
+- name: If so, what targets?
+  debug:
+    msg: "{{ ansible_test_integration_targets }}"
 
 - name: Set the targets
   set_fact:
