@@ -229,6 +229,8 @@ resources:
             zuul/include: []
         - ansible-collections/community.network:
             zuul/include: []
+        - ansible-collections/community.pacemaker:
+            zuul/include: []
         - ansible-collections/community.postgresql:
             zuul/include: []
         - ansible-collections/community.proxysql:
