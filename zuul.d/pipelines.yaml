@@ -336,4 +336,4 @@
         status: 'failure'
         comment: false
     # Don't report merge-failures to github
-    merge-failure: {}
+    merge-conflict: {}
