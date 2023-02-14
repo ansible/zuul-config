@@ -197,6 +197,8 @@ resources:
             zuul/include: []
         - ansible-collections/community.docker:
             zuul/include: []
+        - ansible-collections/community.elastic:
+            zuul/include: []
         - ansible-collections/community.fortios:
             zuul/include: []
         - ansible-collections/community.general:
