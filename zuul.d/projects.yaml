@@ -589,14 +589,6 @@
       - ansible-python-jobs
 
 - project:
-    name: goneri/vcenter-ldap-role-manager
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - ansible-python-jobs
-      - ansible-python3-jobs
-
-- project:
     name: ansible-collections/community.cip
     default-branch: main
     templates:
