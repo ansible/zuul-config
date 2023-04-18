@@ -279,3 +279,5 @@ resources:
             zuul/include: []
         - ansible-collections/cloud.aws_ops:
             zuul/include: []
+        - ansible-collections/community.sonic:
+            zuul/include: []
