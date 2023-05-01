@@ -72,7 +72,6 @@
     templates:
       - system-required
       - publish-to-galaxy
-      - ansible-collections-amazon-cloud
 
 - project:
     name: ansible-collections/amazon_cloud_code_generator
