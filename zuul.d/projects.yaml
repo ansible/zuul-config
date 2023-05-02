@@ -72,7 +72,6 @@
     templates:
       - system-required
       - publish-to-galaxy
-      - ansible-collections-amazon-cloud
 
 - project:
     name: ansible-collections/amazon_cloud_code_generator
@@ -609,14 +608,6 @@
     templates:
       - publish-to-galaxy
 
-
-- project:
-    name: ansible-collections/cloud.aws_ops
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - ansible-collections-cloud-aws_ops
 
 - project:
     name: github.com/ansible-collections/cloud.terraform
