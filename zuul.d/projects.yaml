@@ -610,14 +610,6 @@
 
 
 - project:
-    name: ansible-collections/cloud.aws_troubleshooting
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - ansible-collections-cloud-aws_troubleshooting
-
-- project:
     name: github.com/ansible-collections/cloud.terraform
     default-branch: main
     merge-mode: squash-merge
