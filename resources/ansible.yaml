@@ -81,6 +81,8 @@ resources:
             zuul/include: []
         - ansible-collections/ibm.qradar:
             zuul/include: []
+        - ansible-collections/ibm.storage_virtualize:
+            zuul/include: []
         - ansible-collections/junipernetworks.junos:
             zuul/include: []
         - ansible-collections/kubernetes.core:
