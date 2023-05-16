@@ -66,14 +66,6 @@
       - ansible-collections-amazon-aws-integration
 
 - project:
-    name: ansible-collections/amazon.cloud
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-
-- project:
     name: ansible-collections/amazon_cloud_code_generator
     default-branch: main
     merge-mode: squash-merge
