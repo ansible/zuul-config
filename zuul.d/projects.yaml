@@ -246,7 +246,6 @@
     merge-mode: squash-merge
     templates:
       - system-required
-      - ansible-collections-kubernetes-core-units
       - publish-to-galaxy
       - publish-to-automation-hub
 
