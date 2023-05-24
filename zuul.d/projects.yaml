@@ -599,3 +599,11 @@
     default-branch: main
     templates:
       - publish-to-galaxy
+
+
+- project:
+    name: github.com/ansible-collections/cloud.terraform
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
