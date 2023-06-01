@@ -74,6 +74,13 @@
       - ansible-collections-amazon-cloud-code-generator
 
 - project:
+    name: ansible-collections/kubernetes.core
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+
+- project:
     name: ansible/ansible
     default-branch: devel
 
