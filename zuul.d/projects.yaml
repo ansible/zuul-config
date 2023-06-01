@@ -241,6 +241,13 @@
         - ansible-tox-linters
 
 - project:
+    name: github.com/ansible-collections/kubernetes.core
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+
+- project:
     name: github.com/openshift/community.okd
     default-branch: main
     merge-mode: squash-merge
