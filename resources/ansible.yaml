@@ -85,6 +85,8 @@ resources:
             zuul/include: []
         - ansible-collections/openvswitch.openvswitch:
             zuul/include: []
+        - ansible-collections/kubernetes.core:
+            zuul/include: []
         - ansible-collections/osbuild.composer:
             zuul/include: []
         - ansible-collections/pravic:
