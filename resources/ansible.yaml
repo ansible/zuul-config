@@ -14,6 +14,7 @@ resources:
         - ansible/ansible-core-image:
             zuul/include: []
         - ansible/ansible-navigator:
+            connection: github.com-git
             zuul/include: []
         # ansible-runner team maintains in their repositoriy some jobs to publish the images
         - ansible/ansible-runner
@@ -32,6 +33,7 @@ resources:
         - ansible-collections/ansible.network:
             zuul/include: []
         - ansible-community/ansible.plugin_builder:
+            connection: github.com-git
             zuul/include: []
         - ansible-collections/ansible.posix:
             zuul/include: []
@@ -88,6 +90,7 @@ resources:
         - ansible-collections/kubernetes.core:
             zuul/include: []
         - ansible-collections/osbuild.composer:
+            connection: github.com-git
             zuul/include: []
         - ansible-collections/pravic:
             zuul/include: []
@@ -174,6 +177,7 @@ resources:
         - ansible-security/ids_install:
             zuul/include: []
         - pycontribs/selinux:
+            connection: github.com-git
             zuul/include: []
         - ansible/ansible:
             zuul/include: []
@@ -262,6 +266,7 @@ resources:
         - ansible-collections/microsoft.ad:
             zuul/include: []
         - ansible/awx:
+            connection: github.com-git
             zuul/include: []
         - ansible/galaxy:
             zuul/include: []
@@ -276,8 +281,10 @@ resources:
         - openshift/community.okd:
             zuul/include: []
         - ansible-collections/cloud.aws_troubleshooting:
+            connection: github.com-git
             zuul/include: []
         - ansible-collections/cloud.aws_ops:
+            connection: github.com-git
             zuul/include: []
         - ansible-collections/community.sonic:
             zuul/include: []
