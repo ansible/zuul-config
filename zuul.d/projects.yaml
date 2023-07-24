@@ -110,7 +110,6 @@
     templates:
       - system-required
       - ansible-collections-cloud-common
-      - ansible-python-jobs
       - publish-to-galaxy
       - publish-to-automation-hub
 
