@@ -489,7 +489,6 @@
       - publish-to-automation-hub
       - ansible-collections-ansible-yang-juniper-junos
       - ansible-collections-ansible-yang-cisco-iosxr
-      - ansible-collections-ansible-yang-units
       - ansible-python-jobs
 
 - project:
