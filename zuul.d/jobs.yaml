@@ -226,18 +226,19 @@
           label: ansible-fedora-37-1vcpu
     semaphore: ansible-automation-hub
 
-- job:
-    name: validate-ansible-galaxy-token
-    description: |
-      A job that validate the status of the Galaxy token
-    final: true
-    run:
-      - playbooks/validate-ansible-galaxy-token/run.yaml
-    secrets:
-      - secret: galaxy_secret
-        name: ansible_galaxy_info
-    nodeset:
-      nodes: []
+# We can not run this job until we determine a new endpoint that can be checked with galaxy-ng
+#- job:
+#    name: validate-ansible-galaxy-token
+#    description: |
+#      A job that validate the status of the Galaxy token
+#    final: true
+#    run:
+#      - playbooks/validate-ansible-galaxy-token/run.yaml
+#    secrets:
+#      - secret: galaxy_secret
+#        name: ansible_galaxy_info
+#    nodeset:
+#      nodes: []
 
 - job:
     name: release-ansible-collection-galaxy
