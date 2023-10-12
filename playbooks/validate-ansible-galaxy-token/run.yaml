@@ -2,7 +2,13 @@
 - hosts: localhost
   tasks:
     - name: Validate the token
+      uri:
+        url: https://galaxy.ansible.com/api/_ui/v1/me/
+        headers:
+          Authorization: Token {{ ansible_galaxy_info.token }}
       no_log: true
-      debug:
-        msg: "Skipping validation check"
-#      shell: 'curl --header "Authorization: Token {{ ansible_galaxy_info.token }}" https://galaxy.ansible.com/api/internal/me/preferences/|grep notify_survey'
+      register: resp
+
+    - name: Assert token belongs to ansibuddy
+      assert:
+        that: resp.json.username == "ansibuddy"
