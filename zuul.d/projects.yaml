@@ -249,13 +249,6 @@
         - ansible-tox-linters
 
 - project:
-    name: github.com/openshift/community.okd
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - ansible-collections-community-okd
-
-- project:
     name: github.com/ansible-collections/servicenow.itsm
     default-branch: main
     merge-mode: squash-merge
