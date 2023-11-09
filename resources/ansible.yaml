@@ -94,8 +94,6 @@ resources:
             zuul/include: []
         - ansible-collections/pravic:
             zuul/include: []
-        - ansible-collections/servicenow.itsm:
-            zuul/include: []
         - ansible-collections/skydive:
             zuul/include: []
         - ansible-collections/splunk.es:
