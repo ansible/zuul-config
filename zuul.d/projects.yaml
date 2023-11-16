@@ -109,7 +109,6 @@
     merge-mode: squash-merge
     templates:
       - system-required
-      - ansible-collections-cloud-common
       - publish-to-galaxy
       - publish-to-automation-hub
 
