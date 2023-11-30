@@ -271,7 +271,6 @@
     default-branch: main
     templates:
       - system-required
-      - ansible-collections-ansible-posix-units
       - publish-to-galaxy
       - publish-to-automation-hub
 
