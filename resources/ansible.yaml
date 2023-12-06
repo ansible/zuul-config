@@ -223,6 +223,8 @@ resources:
             zuul/include: []
         - ansible-collections/community.lbry:
             zuul/include: []
+        - ansible-collections/community.library_inventory_filtering:
+            zuul/include: []
         - ansible-collections/community.libvirt:
             zuul/include: []
         - ansible-collections/community.molecule:
