@@ -43,6 +43,11 @@
       - publish-to-galaxy-3pci
 
 - project:
+    name: ansible-collections/community.docker
+    templates:
+      - ansible-collections-community-docker
+
+- project:
     name: ansible/ansible-zuul-jobs
     default-branch: master
     merge-mode: squash-merge
