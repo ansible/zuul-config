@@ -592,3 +592,10 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
+
+- project:
+    # These projects use the shared workflow from https://github.com/ansible-community/github-action-test-galaxy-import
+    # so they don't need the rather slow third-party-check in CI
+    name: ^(github.com/|)ansible-collections/community\.(crypto|dns|docker|general|hrobot|internal_test_tools|library_inventory_filtering|routeros|sops)
+    templates:
+      - publish-to-galaxy-plain
