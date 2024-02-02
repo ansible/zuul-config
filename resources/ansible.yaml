@@ -257,6 +257,8 @@ resources:
             zuul/include: []
         - sap-linuxlab/community.sap_launchpad:
             zuul/include: []
+        - sap-linuxlab/community.sap_infrastructure:
+            zuul/include: []
         - ansible-collections/community.sops:
             zuul/include: []
         - ansible-collections/community.windows:
