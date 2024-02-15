@@ -294,3 +294,5 @@ resources:
             zuul/include: []
         - ansible-collections/community.proxmox:
             zuul/include: []
+        - ansible-collections/community.clickhouse:
+            zuul/include: []
