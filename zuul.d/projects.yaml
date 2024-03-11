@@ -599,3 +599,11 @@
     name: ^(github.com/|)ansible-collections/community\.(crypto|dns|docker|general|hrobot|internal_test_tools|library_inventory_filtering|routeros|sops)
     templates:
       - publish-to-galaxy-plain
+
+- project:
+    name: ansible-collections/servicenow.itsm
+    default-branch: main
+    templates:
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
