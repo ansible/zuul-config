@@ -296,3 +296,5 @@ resources:
             zuul/include: []
         - ansible-collections/community.clickhouse:
             zuul/include: []
+        - ansible-collections/servicenow.itsm:
+            zuul/include: []
