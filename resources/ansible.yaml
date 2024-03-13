@@ -284,12 +284,6 @@ resources:
             zuul/include: []
         - openshift/community.okd:
             zuul/include: []
-        - ansible-collections/cloud.aws_troubleshooting:
-            connection: github.com-git
-            zuul/include: []
-        - ansible-collections/cloud.aws_ops:
-            connection: github.com-git
-            zuul/include: []
         - ansible-collections/community.sonic:
             zuul/include: []
         - ansible-collections/community.proxmox:
@@ -297,4 +291,19 @@ resources:
         - ansible-collections/community.clickhouse:
             zuul/include: []
         - ansible-collections/servicenow.itsm:
+            zuul/include: []
+        - redhat-cop/cloud.aws_troubleshooting:
+            connection: github.com-git
+            zuul/include: []
+        - redhat-cop/cloud.aws_ops:
+            connection: github.com-git
+            zuul/include: []
+        - redhat-cop/cloud.azure_ops:
+            connection: github.com-git
+            zuul/include: []
+        - redhat-cop/cloud.gcp_ops:
+            connection: github.com-git
+            zuul/include: []
+        - redhat-cop/cloud.terraform_ops:
+            connection: github.com-git
             zuul/include: []
