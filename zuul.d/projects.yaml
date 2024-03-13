@@ -607,3 +607,32 @@
       - publish-to-galaxy
       - publish-to-automation-hub
 
+- project:
+    name: redhat-cop/cloud.aws_ops
+    default-branch: main
+    templates:
+      - publish-to-automation-hub
+
+- project:
+    name: redhat-cop/cloud.aws_troubleshooting
+    default-branch: main
+    templates:
+      - publish-to-automation-hub
+
+- project:
+    name: redhat-cop/cloud.azure_ops
+    default-branch: main
+    templates:
+      - publish-to-automation-hub
+
+- project:
+    name: redhat-cop/cloud.gcp_ops
+    default-branch: main
+    templates:
+      - publish-to-automation-hub
+
+- project:
+    name: redhat-cop/cloud.terraform_ops
+    default-branch: main
+    templates:
+      - publish-to-automation-hub
