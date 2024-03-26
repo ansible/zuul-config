@@ -307,3 +307,6 @@ resources:
         - redhat-cop/cloud.terraform_ops:
             connection: github.com-git
             zuul/include: []
+       - ansible-community/ansible.content_builder:
+            connection: github.com-git
+            zuul/include: []
