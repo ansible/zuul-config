@@ -53,8 +53,6 @@ resources:
             zuul/include: []
         - ansible-collections/cisco.iosxr:
             zuul/include: []
-        - ansible-collections/cisco.nxos:
-            zuul/include: []
         - ansible-collections/cloud.common:
             zuul/include: []
         - ansible-collections/cloud.terraform:
