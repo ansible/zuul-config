@@ -410,16 +410,15 @@
       - integrated-queue
 
 - project:
-    name: ansible-collections/cisco.iosxr
+    name: ansible-collections/cisco.ios
     default-branch: main
     merge-mode: squash-merge
     templates:
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
-      - ansible-collections-cisco-iosxr
+      - ansible-collections-cisco-ios
       - ansible-python-jobs
-      - integrated-queue
 
 - project:
     name: ansible-collections/cisco.asa
