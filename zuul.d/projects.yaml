@@ -62,7 +62,6 @@
     templates:
       - publish-to-galaxy
       - publish-to-automation-hub
-      - ansible-collections-amazon-aws-each-target
       - ansible-collections-amazon-aws-integration
 
 - project:
