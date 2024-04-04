@@ -147,7 +147,7 @@
     templates:
       - system-required
       - ansible-collections-community-vmware
-#      - integrated-vmware-queue
+      #      - integrated-vmware-queue
       - publish-to-galaxy
 
 - project:
@@ -164,7 +164,7 @@
     name: ansible/zuul-config
     default-branch: master
     check:
-       jobs:
+      jobs:
         - refresh-automation-hub-token
         - validate-ansible-galaxy-token
     periodic:
@@ -410,17 +410,6 @@
       - integrated-queue
 
 - project:
-    name: ansible-collections/cisco.ios
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-      - ansible-collections-cisco-ios
-      - ansible-python-jobs
-
-- project:
     name: ansible-collections/cisco.iosxr
     default-branch: main
     merge-mode: squash-merge
@@ -475,7 +464,6 @@
       - ansible-collections-security-ibm-qradar
       - ansible-python-jobs
       - integrated-queue
-
 
 - project:
     name: ansible-collections/junipernetworks.junos
@@ -569,7 +557,6 @@
     default-branch: main
     templates:
       - publish-to-galaxy
-
 
 - project:
     name: github.com/ansible-collections/cloud.terraform
