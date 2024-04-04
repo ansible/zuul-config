@@ -421,18 +421,6 @@
       - ansible-python-jobs
 
 - project:
-    name: ansible-collections/cisco.iosxr
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-      - ansible-collections-cisco-iosxr
-      - ansible-python-jobs
-      - integrated-queue
-
-- project:
     name: ansible-collections/cisco.asa
     default-branch: main
     merge-mode: squash-merge
