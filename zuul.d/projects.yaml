@@ -147,7 +147,7 @@
     templates:
       - system-required
       - ansible-collections-community-vmware
-#      - integrated-vmware-queue
+      #      - integrated-vmware-queue
       - publish-to-galaxy
 
 - project:
@@ -164,7 +164,7 @@
     name: ansible/zuul-config
     default-branch: master
     check:
-       jobs:
+      jobs:
         - refresh-automation-hub-token
         - validate-ansible-galaxy-token
     periodic:
@@ -184,18 +184,6 @@
     gate:
       jobs:
         - ansible-tox-linters
-
-- project:
-    name: ansible-collections/arista.eos
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - ansible-collections-arista-eos
-      - ansible-python-jobs
-      - integrated-queue
-      - publish-to-galaxy
-      - publish-to-automation-hub
 
 - project:
     name: ansible-collections/ansible.netcommon
@@ -380,15 +368,6 @@
       - ansible-python-jobs
 
 - project:
-    name: ansible-collections/arista.eos
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-
-- project:
     name: github.com/ansible-collections/community.asa
     default-branch: main
     merge-mode: squash-merge
@@ -463,7 +442,6 @@
       - ansible-collections-security-ibm-qradar
       - ansible-python-jobs
       - integrated-queue
-
 
 - project:
     name: ansible-collections/junipernetworks.junos
@@ -557,7 +535,6 @@
     default-branch: main
     templates:
       - publish-to-galaxy
-
 
 - project:
     name: github.com/ansible-collections/cloud.terraform
