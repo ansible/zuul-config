@@ -420,18 +420,6 @@
       - ansible-python-jobs
 
 - project:
-    name: ansible-collections/ibm.qradar
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-      - ansible-collections-security-ibm-qradar
-      - ansible-python-jobs
-      - integrated-queue
-
-- project:
     name: ansible-collections/junipernetworks.junos
     default-branch: main
     merge-mode: squash-merge
