@@ -420,18 +420,6 @@
       - ansible-python-jobs
 
 - project:
-    name: ansible-collections/ibm.qradar
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-      - ansible-collections-security-ibm-qradar
-      - ansible-python-jobs
-      - integrated-queue
-
-- project:
     name: ansible-collections/junipernetworks.junos
     default-branch: main
     merge-mode: squash-merge
@@ -444,16 +432,6 @@
       - publish-to-automation-hub
 
 - project:
-    name: ansible-collections/splunk.es
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-      - ansible-collections-security-splunk-es
-
-- project:
     name: ansible-collections/symantec.epm
     default-branch: main
     merge-mode: squash-merge
@@ -462,17 +440,6 @@
       - publish-to-galaxy
       - publish-to-automation-hub
       - ansible-collections-symantec-epm-units
-      - ansible-python-jobs
-
-- project:
-    name: ansible-collections/trendmicro.deepsec
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-      - ansible-collections-security-trendmicro-deepsec-units
       - ansible-python-jobs
 
 - project:
