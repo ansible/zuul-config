@@ -34,6 +34,8 @@ PR2
 
 note: You don't need to do it if the project satisfies the rules specified in the file. For example, `rule 1 <https://github.com/ansible/zuul-config/blob/master/zuul.d/projects.yaml#L4-L6>`_ and `rule 2 <https://github.com/ansible/zuul-config/blob/master/zuul.d/projects.yaml#L20-L23>`_ say that if a collection's repository name starts with ansible-collections/community* or sap-linux/community* and the repository has the `main` branch as default, the repository will be included in the project and published by Zuul on Galaxy automatically when a git tag is created in the collection's repo. In this case, only PR1 above is required.
 
+note: In case you have a ``community.*`` collection in the github.com/ansible-collections/ organization, you need to add your collection to the explicit regular expression that enables the ``publish-to-galaxy-3pci`` template if you do not have an equivalent of the Galaxy importer test running in GHA.
+
 
 Gating
 ======
