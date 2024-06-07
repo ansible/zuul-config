@@ -69,8 +69,6 @@ resources:
             zuul/include: []
         - ansible-collections/community.yang:
             zuul/include: []
-        - ansible-collections/frr.frr:
-            zuul/include: []
         - ansible-collections/gouttelette:
             zuul/include: []
         - ansible-collections/ibm.csm:
