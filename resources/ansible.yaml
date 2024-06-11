@@ -37,8 +37,6 @@ resources:
             zuul/include: []
         - ansible-collections/ansible.posix:
             zuul/include: []
-        - ansible-collections/ansible.security:
-            zuul/include: []
         - ansible-collections/ansible.utils:
             zuul/include: []
         - ansible-collections/ansible.yang:
