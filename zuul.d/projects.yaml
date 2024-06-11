@@ -360,17 +360,6 @@
     default-branch: main
 
 - project:
-    name: ansible-collections/ansible.security
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-      - ansible-collections-ansible-security
-      - ansible-python-jobs
-
-- project:
     name: github.com/ansible-collections/community.asa
     default-branch: main
     merge-mode: squash-merge
