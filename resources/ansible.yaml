@@ -96,8 +96,6 @@ resources:
             zuul/include: []
         - ansible-collections/vmware_rest_code_generator:
             zuul/include: []
-        - ansible-collections/vyos.vyos:
-            zuul/include: []
         - ansible-community/ansible-bender:
             zuul/include: []
         # Note (dmsimard)
@@ -155,8 +153,6 @@ resources:
         - ansible-network/rhel:
             zuul/include: []
         - ansible-network/sandbox:
-            zuul/include: []
-        - ansible-network/vyos:
             zuul/include: []
         - ansible-network/windmill-config:
             zuul/include: []

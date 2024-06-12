@@ -424,17 +424,6 @@
       - ansible-python-jobs
 
 - project:
-    name: ansible-collections/vyos.vyos
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-      - ansible-collections-vyos-vyos
-      - ansible-python-jobs
-
-- project:
     name: ansible-network/ansible_content_collections_metrics
     merge-mode: squash-merge
     templates:
