@@ -241,6 +241,12 @@
     merge-mode: squash-merge
     templates:
       - ansible-collections-community-okd
+    pre-release:
+      jobs:
+        - release-redhat-openshift-automation-hub
+    release:
+      jobs:
+        - release-redhat-openshift-automation-hub
 
 - project:
     name: github.com/ansible-network/network-engine
