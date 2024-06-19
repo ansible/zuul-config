@@ -28,8 +28,6 @@ resources:
             zuul/include: []
         - ansible-collections/amazon_cloud_code_generator:
             zuul/include: []
-        - ansible-collections/ansible.netcommon:
-            zuul/include: []
         - ansible-collections/ansible.network:
             zuul/include: []
         - ansible-community/ansible.plugin_builder:
