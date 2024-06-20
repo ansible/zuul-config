@@ -198,6 +198,12 @@
         - ansible-tox-linters
 
 - project:
+    name: ansible-collections/ansible.netcommon
+    default-branch: main
+    templates:
+      - system-required
+
+- project:
     name: ansible-collections/ansible.utils
     default-branch: main
     templates:
