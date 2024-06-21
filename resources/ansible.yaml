@@ -28,24 +28,12 @@ resources:
             zuul/include: []
         - ansible-collections/amazon_cloud_code_generator:
             zuul/include: []
-        - ansible-collections/ansible.network:
-            zuul/include: []
         - ansible-community/ansible.plugin_builder:
             connection: github.com-git
             zuul/include: []
         - ansible-collections/ansible.posix:
             zuul/include: []
-        - ansible-collections/ansible.utils:
-            zuul/include: []
-        - ansible-collections/ansible.yang:
-            zuul/include: []
-        - ansible-collections/arista.eos:
-            zuul/include: []
         - ansible-collections/checkpoint:
-            zuul/include: []
-        - ansible-collections/cisco.asa:
-            zuul/include: []
-        - ansible-collections/cisco.ios:
             zuul/include: []
         - ansible-collections/cloud.common:
             zuul/include: []
@@ -69,11 +57,7 @@ resources:
             zuul/include: []
         - ansible-collections/ibm.csm:
             zuul/include: []
-        - ansible-collections/ibm.qradar:
-            zuul/include: []
         - ansible-collections/ibm.storage_virtualize:
-            zuul/include: []
-        - ansible-collections/junipernetworks.junos:
             zuul/include: []
         - ansible-collections/kubernetes.core:
             zuul/include: []
@@ -84,11 +68,7 @@ resources:
             zuul/include: []
         - ansible-collections/skydive:
             zuul/include: []
-        - ansible-collections/splunk.es:
-            zuul/include: []
         - ansible-collections/symantec.epm:
-            zuul/include: []
-        - ansible-collections/trendmicro.deepsec:
             zuul/include: []
         - ansible-collections/vmware.vmware_rest:
             zuul/include: []
@@ -117,8 +97,6 @@ resources:
         - ansible-network/config_manager:
             zuul/include: []
         - ansible-network/content_store:
-            zuul/include: []
-        - ansible-network/juniper_junos:
             zuul/include: []
         - ansible-network/k8s-node-pool-config:
             zuul/include: []

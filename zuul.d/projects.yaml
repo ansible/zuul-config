@@ -198,14 +198,6 @@
         - ansible-tox-linters
 
 - project:
-    name: ansible-collections/ansible.utils
-    default-branch: main
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-
-- project:
     name: github.com/ansible-collections/checkpoint
     merge-mode: squash-merge
     templates:
@@ -351,27 +343,6 @@
       - ansible-collections-community-asa-units
 
 - project:
-    name: ansible-collections/cisco.asa
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-      - ansible-collections-cisco-asa
-      - ansible-python-jobs
-      - integrated-queue
-
-- project:
-    name: ansible-collections/cisco.asa
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-
-- project:
     name: ansible-collections/community.yang
     default-branch: main
     merge-mode: squash-merge
@@ -381,30 +352,6 @@
       - ansible-collections-community-yang-juniper-junos
       - ansible-collections-community-yang-cisco-iosxr
       - ansible-python-jobs
-
-- project:
-    name: ansible-collections/ansible.yang
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-      - ansible-collections-ansible-yang-juniper-junos
-      - ansible-collections-ansible-yang-cisco-iosxr
-      - ansible-python-jobs
-
-- project:
-    name: ansible-collections/junipernetworks.junos
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - ansible-collections-juniper-junos
-      - ansible-python-jobs
-      - integrated-queue
-      - publish-to-galaxy
-      - publish-to-automation-hub
 
 - project:
     name: ansible-collections/symantec.epm
