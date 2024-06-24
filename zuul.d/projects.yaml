@@ -35,7 +35,7 @@
 
 - project:
     # Lists all community.* collections in github.com/ansible-collections that do **not** use a GHA version of the Galaxy importer test.
-    name: ^(github.com/|)ansible-collections/community\.(arduino|asa|aws|cassandra|cip|ciscosmb|clickhouse|cockroachdb|digitalocean|elastic|fortios|fqcn_migration|google|grafana|hashi_vault|healthchecksio|ioscm|kubevirt|libvirt|molecule|mongodb|mysql|network|nextcloud|osbuild|pacemaker|postgresql|proxmox|proxysql|rabbitmq|sap|sonic|vagrant|vmware|windows|yang|zabbix)
+    name: ^(github.com/|)ansible-collections/community\.(arduino|asa|aws|cassandra|cip|ciscosmb|clickhouse|cockroachdb|digitalocean|elastic|fortios|fqcn_migration|google|grafana|hashi_vault|healthchecksio|ioscm|kubevirt|libvirt|molecule|mongodb|mysql|network|nextcloud|osbuild|pacemaker|postgresql|proxmox|proxysql|rabbitmq|sap|sonic|vagrant|vmware|windows|zabbix)
     templates:
       - publish-to-galaxy-3pci
 
@@ -376,27 +376,6 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
-
-- project:
-    name: ansible-collections/community.yang
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - ansible-collections-community-yang-cisco-iosxr
-      - ansible-python-jobs
-
-- project:
-    name: ansible-collections/ansible.yang
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-      - ansible-collections-ansible-yang-cisco-iosxr
-      - ansible-python-jobs
 
 - project:
     name: ansible-collections/symantec.epm
