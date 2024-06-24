@@ -384,7 +384,6 @@
     templates:
       - system-required
       - publish-to-galaxy
-      - ansible-collections-community-yang-juniper-junos
       - ansible-collections-community-yang-cisco-iosxr
       - ansible-python-jobs
 
@@ -396,21 +395,8 @@
       - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
-      - ansible-collections-ansible-yang-juniper-junos
       - ansible-collections-ansible-yang-cisco-iosxr
       - ansible-python-jobs
-
-- project:
-    name: ansible-collections/junipernetworks.junos
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - ansible-collections-juniper-junos
-      - ansible-python-jobs
-      - integrated-queue
-      - publish-to-galaxy
-      - publish-to-automation-hub
 
 - project:
     name: ansible-collections/symantec.epm
