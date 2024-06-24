@@ -39,8 +39,6 @@ resources:
             zuul/include: []
         - ansible-collections/ansible.utils:
             zuul/include: []
-        - ansible-collections/ansible.yang:
-            zuul/include: []
         - ansible-collections/arista.eos:
             zuul/include: []
         - ansible-collections/checkpoint:
@@ -64,8 +62,6 @@ resources:
         - ansible-collections/community.nextcloud:
             zuul/include: []
         - ansible-collections/community.vmware:
-            zuul/include: []
-        - ansible-collections/community.yang:
             zuul/include: []
         - ansible-collections/gouttelette:
             zuul/include: []
