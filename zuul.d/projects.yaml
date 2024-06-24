@@ -206,6 +206,18 @@
       - publish-to-automation-hub
 
 - project:
+    name: ansible-collections/ansible.netcommon
+    default-branch: main
+    templates:
+      - system-required
+      - ansible-collections-ansible-netcommon
+      - ansible-collections-juniper-junos-netconf
+      - ansible-python-jobs
+      - integrated-queue
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
+- project:
     name: github.com/ansible-collections/checkpoint
     merge-mode: squash-merge
     templates:
