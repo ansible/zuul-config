@@ -39,8 +39,6 @@ resources:
             zuul/include: []
         - ansible-collections/ansible.utils:
             zuul/include: []
-        - ansible-collections/ansible.yang:
-            zuul/include: []
         - ansible-collections/arista.eos:
             zuul/include: []
         - ansible-collections/checkpoint:
@@ -65,8 +63,6 @@ resources:
             zuul/include: []
         - ansible-collections/community.vmware:
             zuul/include: []
-        - ansible-collections/community.yang:
-            zuul/include: []
         - ansible-collections/gouttelette:
             zuul/include: []
         - ansible-collections/ibm.csm:
@@ -74,8 +70,6 @@ resources:
         - ansible-collections/ibm.qradar:
             zuul/include: []
         - ansible-collections/ibm.storage_virtualize:
-            zuul/include: []
-        - ansible-collections/junipernetworks.junos:
             zuul/include: []
         - ansible-collections/kubernetes.core:
             zuul/include: []
