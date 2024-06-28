@@ -93,11 +93,10 @@ resources:
         - ansible-community/ansible-bender:
             zuul/include: []
         # Note (dmsimard)
-        # ara and community images job configuration are handled inside their own repositories
+        # ara job configuration are handled inside their own repositories
         - ansible-community/ara
         - ansible-community/ara-collection
         - ansible-community/ara-infra
-        - ansible-community/images
         - ansible-community/molecule-libvirt:
             zuul/include: []
         - ansible-community/molecule-vagrant:
