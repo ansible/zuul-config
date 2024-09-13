@@ -286,3 +286,18 @@ resources:
         - redhat-cop/cloud.terraform_ops:
             connection: github.com-git
             zuul/include: []
+        - ansible-collections/ansible_hub:
+            zuul/include: []
+        - ansible-collections/ansible/event-driven-ansible:
+            zuul/include: []
+        - ansible/galaxy_collection:
+            zuul/include: []
+        - redhat-cop/eda_configuration:
+            connection: github.com-git
+            zuul/include: []
+        - redhat-cop/controller_configuration:
+            connection: github.com-git
+            zuul/include: []
+        - redhat-cop/infra.platform_configuration:
+            connection: github.com-git
+            zuul/include: []
