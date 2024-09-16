@@ -58,16 +58,19 @@
       github.com:
         - event: pull_request_review
           action: submitted
-          state: approved
+          state:
+            - approved
         - event: pull_request
           action: comment
           comment: (?i)^\s*regate\s*$
         - event: pull_request_review
           action: submitted
-          state: approved
+          state:
+            - approved
         - event: pull_request_review
           action: dismissed
-          state: request_changes
+          state:
+            - changes_requested
         - event: pull_request
           action: status
           status: "softwarefactory-project-zuul\\[bot\\]:ansible/check:success"
