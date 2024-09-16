@@ -176,6 +176,12 @@
           args:
             chdir: "{{ config_root }}"
 
+        - name: Display tenant configuration
+          debug:
+            var: build_main
+          vars:
+            build_main: "{{ lookup('file', config_root + '/build/main.yaml') }}"
+
         - name: Validate zuul config syntax
           command: >
             env - /usr/local/bin/zuul-admin -c zuul.conf tenant-conf-check
