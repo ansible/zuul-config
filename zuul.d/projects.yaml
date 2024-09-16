@@ -471,3 +471,16 @@
     default-branch: main
     templates:
       - publish-to-automation-hub
+
+- project:
+    name: ^(github.com/|)ansible/(ansible_hub|event-driven-ansible|galaxy_collection)
+    default-branch: main
+    templates:
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
+- project:
+    name: ^(github.com/|)redhat-cop/(eda_configuration|controller_configuration|infra\.platform_configuration)
+    default-branch: main
+    templates:
+      - publish-to-automation-hub
