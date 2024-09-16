@@ -178,7 +178,7 @@
 
         - name: Validate zuul config syntax
           command: >
-            env - /usr/local/bin/zuul -c zuul.conf tenant-conf-check
+            env - /usr/local/bin/zuul-admin -c zuul.conf tenant-conf-check
           args:
             chdir: "{{ config_root }}/build"
 
