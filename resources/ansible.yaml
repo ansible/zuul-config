@@ -288,7 +288,7 @@ resources:
             zuul/include: []
         - ansible-collections/ansible_hub:
             zuul/include: []
-        - ansible-collections/ansible/event-driven-ansible:
+        - ansible/event-driven-ansible:
             zuul/include: []
         - ansible/galaxy_collection:
             zuul/include: []
