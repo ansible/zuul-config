@@ -480,7 +480,7 @@
       - publish-to-automation-hub
 
 - project:
-    name: ansible-collections/ansible/event-driven-ansible
+    name: ansible/event-driven-ansible
     default-branch: main
     templates:
       - publish-to-galaxy
