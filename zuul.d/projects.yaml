@@ -483,7 +483,6 @@
     name: ansible/event-driven-ansible
     default-branch: main
     templates:
-      - publish-to-galaxy
       - publish-to-automation-hub
 
 - project:
