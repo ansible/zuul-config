@@ -69,7 +69,7 @@
       no_log: true
 
     - name: Check resources changes
-      shell: managesf-resources remote-validate --remote-gateway {{ gateway_url }}
+      shell: /usr/local/bin/managesf-resources remote-validate --remote-gateway {{ gateway_url }}
       args:
         chdir: "{{ config_root }}"
 
@@ -176,9 +176,15 @@
           args:
             chdir: "{{ config_root }}"
 
+        - name: Display tenant configuration
+          debug:
+            var: build_main
+          vars:
+            build_main: "{{ lookup('file', config_root + '/build/main.yaml') }}"
+
         - name: Validate zuul config syntax
           command: >
-            env - /usr/local/bin/zuul -c zuul.conf tenant-conf-check
+            env - /usr/local/bin/zuul-admin -c zuul.conf tenant-conf-check
           args:
             chdir: "{{ config_root }}/build"
 
