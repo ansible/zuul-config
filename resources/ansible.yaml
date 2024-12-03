@@ -248,6 +248,8 @@ resources:
             zuul/include: []
         - ansible-collections/microsoft.ad:
             zuul/include: []
+        - ansible-collections/microsoft.iis:
+            zuul/include: []
         - ansible/awx:
             connection: github.com-git
             zuul/include: []
