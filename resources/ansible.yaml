@@ -5,6 +5,7 @@ resources:
       tenant: ansible
       source-repositories:
         # The config projects
+        #
         - ansible/zuul-config:
             zuul/config-project: True
             zuul/exclude-unprotected-branches: False
