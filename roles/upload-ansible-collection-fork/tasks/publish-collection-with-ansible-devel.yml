@@ -1,0 +1,28 @@
+---
+- name: Run our-ensure-python role
+  include_role:
+    name: our-ensure-python
+  vars:
+    ensure_python__version: "3.11"
+
+- name: Run ensure-virtualenv role
+  include_role:
+    name: ensure-virtualenv
+
+- name: Setup base virtualenv_options
+  set_fact:
+    _virtualenv_options: "--python python3.11"
+
+- name: Create virtualenv for ansible-test
+  shell: "virtualenv {{ _virtualenv_options }} ~/venv"
+
+- name: Install pytest-forked into virtualenv
+  environment:
+    ANSIBLE_SKIP_CONFLICT_CHECK: '1'
+  shell: '~/venv/bin/pip install git+https://github.com/ansible/ansible@devel'
+
+- name: Display ansible version
+  environment:
+    ANSIBLE_CONFIG: "{{ ansible_config_file_path }}"
+  shell: "source ~/venv/bin/activate && ansible-galaxy -vvv collection publish {{ item.path }}"
+  with_items: "{{ collection_tarballs_files }}"
