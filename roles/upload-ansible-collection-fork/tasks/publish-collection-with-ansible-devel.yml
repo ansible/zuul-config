@@ -21,7 +21,7 @@
     ANSIBLE_SKIP_CONFLICT_CHECK: '1'
   shell: '~/venv/bin/pip install git+https://github.com/ansible/ansible@devel'
 
-- name: Display ansible version
+- name: Publish ansible collections tarballs
   environment:
     ANSIBLE_CONFIG: "{{ ansible_config_file_path }}"
   shell: "source ~/venv/bin/activate && ansible-galaxy -vvv collection publish {{ item.path }}"
