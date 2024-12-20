@@ -188,20 +188,6 @@
       release_poetry_project: true
 
 - job:
-    name: refresh-automation-hub-token
-    description: |
-      Nightly job to refresh our offline token for automation hub
-
-      See https://access.redhat.com/articles/3626371 for expire information.
-    final: true
-    run: playbooks/refresh-automation-hub-token/run.yaml
-    secrets:
-      - secret: ansible_automation_hub_secret
-        name: ansible_galaxy_info
-    nodeset:
-      nodes: []
-
-- job:
     name: release-ansible-collection-automation-hub
     description: |
       Release ansible collection to https://cloud.redhat.com/ansible/automation-hub
@@ -215,6 +201,10 @@
       - playbooks/publish/ansible-automation-hub.yaml
     required-projects:
       - github.com/ansible-network/releases
+      # This is a temporary workaround before the following PR
+      # https://github.com/ansible/ansible/pull/83145 is merged
+      - name: github.com/ansible/ansible
+        override-checkout: devel
     vars:
       ansible_galaxy_executable: "{{ ansible_user_dir }}/{{ zuul.projects['github.com/ansible-network/releases'].src_dir }}/.tox/generate_collection_version/bin/ansible-galaxy"
     secrets:
