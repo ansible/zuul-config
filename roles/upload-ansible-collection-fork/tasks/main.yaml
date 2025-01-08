@@ -29,7 +29,7 @@
     #   with_items: "{{ ansible_galaxy_collection_tarballs.files }}"
 
     # This is a temporary workaround before the following PR
-    # https://github.com/ansible/ansible/pull/83145 is merged
+    # https://github.com/ansible/ansible/pull/83145 is released (2.19)
     - name: Publish collection using ansible devel version
       include_tasks: publish-collection-with-ansible-devel.yml
       vars:
