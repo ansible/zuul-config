@@ -35,7 +35,7 @@
 
 - project:
     # Lists all community.* collections in github.com/ansible-collections that do **not** use a GHA version of the Galaxy importer test.
-    name: ^(github.com/|)ansible-collections/community\.(arduino|asa|aws|cassandra|cip|ciscosmb|clickhouse|cockroachdb|digitalocean|elastic|fortios|fqcn_migration|google|grafana|hashi_vault|healthchecksio|ioscm|kubevirt|libvirt|molecule|mongodb|mysql|network|nextcloud|osbuild|pacemaker|postgresql|proxmox|proxysql|rabbitmq|sap|sonic|vagrant|vmware|windows|zabbix)
+    name: ^(github.com/|)ansible-collections/community\.(arduino|aws|cassandra|cip|ciscosmb|clickhouse|cockroachdb|digitalocean|elastic|fortios|fqcn_migration|google|grafana|hashi_vault|healthchecksio|ioscm|kubevirt|libvirt|molecule|mongodb|mysql|network|nextcloud|osbuild|pacemaker|postgresql|proxmox|proxysql|rabbitmq|sap|sonic|vagrant|vmware|windows|zabbix)
     templates:
       - publish-to-galaxy-3pci
 
@@ -346,36 +346,6 @@
 - project:
     name: ansible/python-builder-image
     default-branch: main
-
-- project:
-    name: github.com/ansible-collections/community.asa
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - ansible-collections-community-asa
-      - ansible-collections-community-asa-units
-
-- project:
-    name: ansible-collections/cisco.asa
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
-      - ansible-collections-cisco-asa
-      - ansible-python-jobs
-      - integrated-queue
-
-- project:
-    name: ansible-collections/cisco.asa
-    default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - publish-to-galaxy
-      - publish-to-automation-hub
 
 - project:
     name: ansible-collections/symantec.epm
