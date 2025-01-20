@@ -86,8 +86,6 @@ resources:
             zuul/include: []
         - ansible-collections/trendmicro.deepsec:
             zuul/include: []
-        - ansible-collections/vmware.vmware_rest:
-            zuul/include: []
         - ansible-collections/vmware_rest_code_generator:
             zuul/include: []
         - ansible-community/ansible-bender:
