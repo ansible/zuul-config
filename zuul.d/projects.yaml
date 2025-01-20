@@ -475,3 +475,9 @@
     default-branch: main
     templates:
       - publish-to-automation-hub
+
+# vmware_rest does not use zuul, but other repos are dependent
+# on it being in the zuul config
+- project:
+    name: ansible-collections/vmware.vmware_rest
+    default-branch: main
