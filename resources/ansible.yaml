@@ -301,3 +301,7 @@ resources:
         - redhat-cop/infra.platform_configuration:
             connection: github.com-git
             zuul/include: []
+        # vmware_rest does not use zuul, but other repos are dependent
+        # on it being in the zuul config
+        - ansible-collections/vmware.vmware_rest:
+            zuul/include: []
