@@ -80,10 +80,6 @@
 - project:
     name: ansible-collections/amazon_cloud_code_generator
     default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - system-required
-      - ansible-collections-amazon-cloud-code-generator
 
 - project:
     name: ansible-collections/kubernetes.core
@@ -127,10 +123,6 @@
 - project:
     name: ansible-collections/gouttelette
     default-branch: main
-    merge-mode: squash-merge
-    templates:
-      - ansible-python-jobs
-      - ansible-collections-cloud-gouttelette-units
 
 - project:
     name: ansible-network/releases
