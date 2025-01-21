@@ -86,8 +86,6 @@ resources:
             zuul/include: []
         - ansible-collections/trendmicro.deepsec:
             zuul/include: []
-        - ansible-collections/vmware_rest_code_generator:
-            zuul/include: []
         - ansible-community/ansible-bender:
             zuul/include: []
         # Note (dmsimard)
@@ -304,4 +302,6 @@ resources:
         # vmware_rest does not use zuul, but other repos are dependent
         # on it being in the zuul config
         - ansible-collections/vmware.vmware_rest:
+            zuul/include: []
+        - ansible-collections/vmware_rest_code_generator:
             zuul/include: []

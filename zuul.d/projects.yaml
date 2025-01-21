@@ -175,19 +175,6 @@
         - validate-ansible-galaxy-token
 
 - project:
-    name: ansible-collections/vmware_rest_code_generator
-    default-branch: main
-    templates:
-      - ansible-collections-community-vmware-rest-code-generator
-      - integrated-vmware-queue
-    check:
-      jobs:
-        - ansible-tox-linters
-    gate:
-      jobs:
-        - ansible-tox-linters
-
-- project:
     name: ansible-collections/ansible.utils
     default-branch: main
     templates:
@@ -480,4 +467,7 @@
 # on it being in the zuul config
 - project:
     name: ansible-collections/vmware.vmware_rest
+    default-branch: main
+- project:
+    name: ansible-collections/vmware_rest_code_generator
     default-branch: main
