@@ -63,6 +63,8 @@ resources:
             zuul/include: []
         - ansible-collections/community.vmware:
             zuul/include: []
+        - ansible-collections/gouttelette:
+            zuul/include: []
         - ansible-collections/ibm.csm:
             zuul/include: []
         - ansible-collections/ibm.qradar:
