@@ -26,8 +26,6 @@ resources:
             zuul/include: []
         - ansible-collections/amazon.aws:
             zuul/include: []
-        - ansible-collections/amazon_cloud_code_generator:
-            zuul/include: []
         - ansible-collections/ansible.netcommon:
             zuul/include: []
         - ansible-collections/ansible.network:
@@ -62,8 +60,6 @@ resources:
         - ansible-collections/community.nextcloud:
             zuul/include: []
         - ansible-collections/community.vmware:
-            zuul/include: []
-        - ansible-collections/gouttelette:
             zuul/include: []
         - ansible-collections/ibm.csm:
             zuul/include: []
@@ -302,6 +298,4 @@ resources:
         # vmware_rest does not use zuul, but other repos are dependent
         # on it being in the zuul config
         - ansible-collections/vmware.vmware_rest:
-            zuul/include: []
-        - ansible-collections/vmware_rest_code_generator:
             zuul/include: []
