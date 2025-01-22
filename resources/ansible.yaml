@@ -26,8 +26,6 @@ resources:
             zuul/include: []
         - ansible-collections/amazon.aws:
             zuul/include: []
-        - ansible-collections/amazon_cloud_code_generator:
-            zuul/include: []
         - ansible-collections/ansible.netcommon:
             zuul/include: []
         - ansible-collections/ansible.network:
@@ -62,8 +60,6 @@ resources:
         - ansible-collections/community.nextcloud:
             zuul/include: []
         - ansible-collections/community.vmware:
-            zuul/include: []
-        - ansible-collections/gouttelette:
             zuul/include: []
         - ansible-collections/ibm.csm:
             zuul/include: []
