@@ -9,20 +9,29 @@
   include_role:
     name: ensure-virtualenv
 
-- name: Setup base virtualenv_options
-  set_fact:
-    _virtualenv_options: "--python python3.11"
+- name: Create temporary directory for python virtual env
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: .ansible_venv
+  register: venv_path
 
-- name: Create virtualenv for ansible-test
-  shell: "virtualenv {{ _virtualenv_options }} ~/venv"
+- block:
+    - name: Create virtualenv and install ansible devel into it
+      ansible.builtin.pip:
+        virtualenv_python: python3.12
+        virtualenv: "{{ venv_path.path }}"
+        state: present
+        name:
+          - 'git+https://github.com/ansible/ansible@devel'
 
-- name: Install pytest-forked into virtualenv
-  environment:
-    ANSIBLE_SKIP_CONFLICT_CHECK: '1'
-  shell: '~/venv/bin/pip install git+https://github.com/ansible/ansible@devel'
+    - name: Publish collections tarballs
+      environment:
+        ANSIBLE_CONFIG: "{{ ansible_config_file_path }}"
+      shell: "source {{ venv_path.path }}/bin/activate && ansible-galaxy -vvv collection publish {{ item.path }}"
+      with_items: "{{ collection_tarballs_files }}"
 
-- name: Publish ansible collections tarballs
-  environment:
-    ANSIBLE_CONFIG: "{{ ansible_config_file_path }}"
-  shell: "source ~/venv/bin/activate && ansible-galaxy -vvv collection publish {{ item.path }}"
-  with_items: "{{ collection_tarballs_files }}"
+  always:
+    - name: Delete temporary directory used for python virtual env
+      ansible.builtin.file:
+        state: absent
+        path: "{{ venv_path.path }}"
