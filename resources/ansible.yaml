@@ -214,6 +214,8 @@ resources:
             zuul/include: []
         - ansible-collections/community.postgresql:
             zuul/include: []
+        - ansible-collections/community.proxmox:
+            zuul/include: []
         - ansible-collections/community.proxysql:
             zuul/include: []
         - ansible-collections/community.rabbitmq:
