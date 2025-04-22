@@ -167,11 +167,9 @@
     default-branch: master
     check:
       jobs:
-        - refresh-automation-hub-token
         - validate-ansible-galaxy-token
     periodic:
       jobs:
-        - refresh-automation-hub-token
         - validate-ansible-galaxy-token
 
 - project:
