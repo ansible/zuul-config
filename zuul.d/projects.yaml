@@ -35,7 +35,7 @@
 
 - project:
     # Lists all community.* collections in github.com/ansible-collections that do **not** use a GHA version of the Galaxy importer test.
-    name: ^(github.com/|)ansible-collections/community\.(arduino|aws|cassandra|cip|ciscosmb|clickhouse|cockroachdb|digitalocean|elastic|fortios|fqcn_migration|google|grafana|hashi_vault|healthchecksio|ioscm|kubevirt|libvirt|molecule|mongodb|mysql|network|nextcloud|osbuild|pacemaker|postgresql|proxmox|proxysql|rabbitmq|sap|sonic|vagrant|vmware|windows|zabbix)
+    name: ^(github.com/|)ansible-collections/community\.(arduino|aws|cassandra|cip|ciscosmb|clickhouse|cockroachdb|digitalocean|elastic|fortios|fqcn_migration|google|grafana|hashi_vault|healthchecksio|ioscm|kubevirt|libvirt|molecule|mongodb|mysql|network|nextcloud|osbuild|pacemaker|postgresql|proxysql|rabbitmq|sap|sonic|vagrant|vmware|windows|zabbix)
     templates:
       - publish-to-galaxy-3pci
 
