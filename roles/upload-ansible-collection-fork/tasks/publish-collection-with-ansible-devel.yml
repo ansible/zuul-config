@@ -1,8 +1,4 @@
 ---
-- name: Run ensure-virtualenv role
-  include_role:
-    name: ensure-virtualenv
-
 - name: Create temporary directory for python virtual env
   ansible.builtin.tempfile:
     state: directory
