@@ -1,14 +1,4 @@
 ---
-- name: Run our-ensure-python role
-  include_role:
-    name: our-ensure-python
-  vars:
-    ensure_python__version: "3.11"
-
-- name: Run ensure-virtualenv role
-  include_role:
-    name: ensure-virtualenv
-
 - name: Create temporary directory for python virtual env
   ansible.builtin.tempfile:
     state: directory
@@ -18,7 +8,7 @@
 - block:
     - name: Create virtualenv and install ansible devel into it
       ansible.builtin.pip:
-        virtualenv_python: python3.12
+        virtualenv_python: python3.11
         virtualenv: "{{ venv_path.path }}"
         state: present
         name:
