@@ -34,7 +34,9 @@
         zuul_log_path_shard_build: true
 
     - name: Run upload-logs-swift role
-      no_log: true
+      # Enable no_log again once the POST_FAILURE are diagnosed. This task is presently failing with:
+      #  'fatal: [localhost]: FAILED! => {"censored": "the output has been hidden due to the fact that \'no_log: true\' was specified for this result", "changed": false}'
+      # no_log: true
       include_role:
         name: upload-logs-swift
       vars:
