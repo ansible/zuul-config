@@ -1,2 +1,2 @@
 dependencies:
-  - role: upload-logs-basek
+  - role: upload-logs-base
