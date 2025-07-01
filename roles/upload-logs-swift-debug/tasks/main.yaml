@@ -19,7 +19,7 @@
 
     - name: Upload logs to swift
       delegate_to: localhost
-      no_log: true
+      # no_log: true
       zuul_swift_upload:
         cloud: "{{ zuul_log_cloud_config }}"
         partition: "{{ zuul_log_partition }}"

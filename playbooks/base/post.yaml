@@ -34,7 +34,7 @@
         zuul_log_path_shard_build: true
 
     - name: Run upload-logs-swift role
-      no_log: true
+      # no_log: true
       include_role:
         name: upload-logs-swift-debug
       vars:
