@@ -202,8 +202,6 @@ resources:
             zuul/include: []
         - ansible-collections/community.libvirt:
             zuul/include: []
-        - ansible-collections/community.molecule:
-            zuul/include: []
         - ansible-collections/community.mongodb:
             zuul/include: []
         - ansible-collections/community.mysql:
