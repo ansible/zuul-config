@@ -22,19 +22,11 @@
 
     - debug: var=ansible_galaxy_collection_tarballs
 
-    # - name: Publish collection to Ansible Galaxy / Automation Hub
-    #   environment:
-    #     ANSIBLE_CONFIG: "{{ _ansiblecfg_tmp.path }}"
-    #   shell: "{{ ansible_galaxy_executable }} -vvv collection publish {{ item.path }}"
-    #   with_items: "{{ ansible_galaxy_collection_tarballs.files }}"
-
-    # This is a temporary workaround before the following PR
-    # https://github.com/ansible/ansible/pull/83145 is released (2.19)
-    - name: Publish collection using ansible devel version
-      include_tasks: publish-collection-with-ansible-devel.yml
-      vars:
-        ansible_config_file_path: "{{ _ansiblecfg_tmp.path }}"
-        collection_tarballs_files: "{{ ansible_galaxy_collection_tarballs.files }}"
+    - name: Publish collection to Ansible Galaxy / Automation Hub
+      environment:
+        ANSIBLE_CONFIG: "{{ _ansiblecfg_tmp.path }}"
+      shell: "{{ ansible_galaxy_executable }} -vvv collection publish {{ item.path }}"
+      with_items: "{{ ansible_galaxy_collection_tarballs.files }}"
 
   always:
     - name: Shred ansible-galaxy credentials
