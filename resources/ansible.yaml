@@ -57,6 +57,8 @@ resources:
             zuul/include: []
         - ansible-collections/community.aws:
             zuul/include: []
+        - ansible-collections/community.beszel:
+            zuul/include: []
         - ansible-collections/community.cip:
             zuul/include: []
         - ansible-collections/community.nextcloud:
