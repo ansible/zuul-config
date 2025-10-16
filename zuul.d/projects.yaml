@@ -469,9 +469,3 @@
 - project:
     name: ansible-collections/vmware_rest_code_generator
     default-branch: main
-
-- project:
-    name: ansible-collections/ansible.mcp
-    default-branch: main
-    templates:
-      - ansible-collections-ansible-mcp-integration
