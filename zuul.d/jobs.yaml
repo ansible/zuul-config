@@ -316,3 +316,16 @@
       nodes:
         - name: controller
           label: ansible-fedora-37-1vcpu
+
+- job:
+    name: ansible-mcp-integration-base
+    description: |
+      Create an AWS/sts session with an ansible-core-ci key and
+      generate integration_config.yml with Github PAT for ansible
+      MCP tests.
+    pre-run:
+      - playbooks/ansible-integration-config/pre.yaml
+      - playbooks/ansible-core-ci/pre.yaml
+    secrets:
+      - ansible_mcp_github_pat
+      - ansible_core_ci

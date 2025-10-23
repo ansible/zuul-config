@@ -1,0 +1,9 @@
+---
+- hosts: controller
+  tasks:
+    - name: Generate integration_config.yml with Github PAT
+      ansible.builtin.copy:
+        dest: /tmp/integration_config.yml
+        content: |
+          ---
+          github_mcp_pat: "{{ ansible_mcp_github_pat.token }}"
