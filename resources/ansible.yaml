@@ -65,6 +65,8 @@ resources:
             zuul/include: []
         - ansible-collections/community.nextcloud:
             zuul/include: []
+        - ansible-collections/community.openwrt:
+            zuul/include: []
         - ansible-collections/community.vmware:
             zuul/include: []
         - ansible-collections/gouttelette:
