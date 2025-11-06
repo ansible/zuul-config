@@ -1,0 +1,9 @@
+# extra-vars.yml
+zuul:
+  project:
+    # The short name of your project's configuration
+    name: ansible-automation-hub
+    # This MUST be the absolute path to your local git repository
+    src_dir: /home/gosriniv/github/collections/ansible_collections/cloud/common
+  tenant:
+    name: my-tenant
