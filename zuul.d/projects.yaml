@@ -474,4 +474,6 @@
     name: ansible-collections/ansible.mcp
     default-branch: main
     templates:
+      - publish-to-galaxy
+      - publish-to-automation-hub
       - ansible-collections-ansible-mcp-integration
