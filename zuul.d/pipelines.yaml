@@ -41,9 +41,7 @@
       in order in this pipeline, and if they pass tests, will be
       merged.
     success-message: Build succeeded (gate pipeline).
-    failure-message: |
-      Build failed (gate pipeline).  For information on how to proceed, see
-      http://docs.openstack.org/infra/manual/developers.html#automated-testing
+    failure-message: Build failed (gate pipeline).
     manager: dependent
     precedence: high
     supercedes: check
@@ -306,14 +304,12 @@
 - pipeline:
     name: third-party-check
     description: |
-      Newly uploaded patchsets to projects that are external to OpenStack
+      Newly uploaded patchsets to projects that are external to Ansible
       enter this pipeline to receive an initial +/-1 Verified vote.
     success-message: Build succeeded (third-party-check pipeline).
-    # TODO(mordred) We should write a document for non-OpenStack developers
     failure-message: |
       Build failed (third-party-check pipeline) integration testing with
-      OpenStack. For information on how to proceed, see
-      http://docs.openstack.org/infra/manual/developers.html#automated-testing
+      Ansible.
     manager: independent
     trigger:
       github.com:
