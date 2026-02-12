@@ -41,8 +41,9 @@
     timeout: 1800
     secrets:
       - site_ansiblelogs
-      - aws_s3_bucket_key
-      - aws_s3_bucket_private_key
+      - rackspace_dfw_clouds_yaml
+      - rackspace_iad_clouds_yaml
+      - rackspace_ord_clouds_yaml
       - rhsm
     nodeset:
       nodes:
