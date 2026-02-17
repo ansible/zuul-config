@@ -44,8 +44,6 @@
       - rackspace_dfw_clouds_yaml
       - rackspace_iad_clouds_yaml
       - rackspace_ord_clouds_yaml
-      - aws_s3_bucket_key
-      - aws_s3_bucket_private_key
       - rhsm
     nodeset:
       nodes:
