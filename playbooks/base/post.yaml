@@ -35,7 +35,7 @@
 
     - name: Build log upload targets and run failover (Swift only, to rule out failover config issues)
       ansible.builtin.block:
-        - name: Set zuul_log_targets (S3 + Swift with random Rackspace region)
+        - name: Set zuul_log_targets (Swift with random Rackspace region)
           ansible.builtin.set_fact:
             zuul_log_targets: "{{ swift_target }}"
           vars:
