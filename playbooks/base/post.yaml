@@ -34,7 +34,7 @@
         zuul_log_path_shard_build: true
 
     - name: Build log upload targets and run failover (Swift only, to rule out failover config issues)
-      block:
+      ansible.builtin.block:
         - name: Set zuul_log_targets (Swift with random Rackspace region)
           ansible.builtin.set_fact:
             zuul_log_targets: "{{ swift_target }}"
