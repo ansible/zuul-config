@@ -33,10 +33,12 @@
       vars:
         zuul_log_path_shard_build: true
 
-    - name: Build log upload targets and run failover
+    - name: Build log upload targets and run failover (Swift only, to rule out failover config issues)
       block:
-        - name: Set Swift target
+        - name: Set zuul_log_targets (Swift with random Rackspace region)
           ansible.builtin.set_fact:
+            targets: "{{ swift_target }}"
+          vars:
             swift_target:
               - target: swift
                 args:
@@ -48,18 +50,6 @@
             - "{{ rackspace_dfw_clouds_yaml }}"
             - "{{ rackspace_iad_clouds_yaml }}"
             - "{{ rackspace_ord_clouds_yaml }}"
-
-        - name: Set S3 target
-          ansible.builtin.set_fact:
-            s3_target:
-              - target: s3
-                zuul_log_bucket: zuul-logging
-                zuul_log_aws_access_key: "{{aws_s3_bucket_key}}"
-                zuul_log_aws_secret_key: "{{aws_s3_bucket_private_key}}"
-
-        - name: Set up failover targets (S3 first, then Swift)
-          ansible.builtin.set_fact:
-            targets: "{{s3_target + swift_target}}"
 
         - name: Run upload-logs-failover role (S3 then Swift)
           no_log: true
