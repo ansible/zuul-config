@@ -470,4 +470,3 @@
     templates:
       - publish-to-galaxy
       - publish-to-automation-hub
-      - ansible-collections-ansible-mcp-integration
