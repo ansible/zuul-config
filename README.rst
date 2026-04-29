@@ -1,7 +1,7 @@
 zuul-config
 ==============
 
-This repo contains the configuration of the `Ansible Content CI https://ansible.softwarefactory-project.io/zuul/status`.
+This repo contains the configuration of the `Ansible Content CI https://gateway-cloud-softwarefactory.apps.ocp.cloud.ci.centos.org/zuul/t/ansible/status`.
 
 Zuul
 ====
@@ -17,15 +17,15 @@ To add new repos into Zuul, it's a two step process:
 Enable the Github Application
 =============================
 
-First, you **MUST** enable the `softwarefactory-project-zuul https://github.com/apps/softwarefactory-project-zuul/` application in your Github project.
-If the project is in the `ansible-collections/ https://github.com/ansible-collections` namespace, you don't have to do anything. 
+First, you **MUST** enable the `centosinfra-prod-github-app https://github.com/apps/centosinfra-prod-github-app` application in your Github project.
+If the project is in the `ansible-collections/ https://github.com/ansible-collections` namespace, you don't have to do anything.
 
 PR1
 ---
 
 - Add to `resources/ansible.yaml <https://github.com/ansible/zuul-config/blob/master/resources/ansible.yaml>`_
 
-note: Follow up to the merge of the PR, Zuul will refresh its configuration. The job is called `update-config`. For various reason, the update may fail, you can take a look at the previous runs here: https://ansible.softwarefactory-project.io/zuul/builds?job_name=config-update&project=ansible/zuul-config
+note: Follow up to the merge of the PR, Zuul will refresh its configuration. The job is called `update-config`. For various reason, the update may fail, you can take a look at the previous runs here: https://gateway-cloud-softwarefactory.apps.ocp.cloud.ci.centos.org/zuul/t/ansible/builds?job_name=config-update&project=ansible/zuul-config
 
 PR2
 ---
@@ -47,7 +47,7 @@ If you want to let Zuul merge the new PRs you need to add a label called `mergei
 Status
 ======
 
-`CI Dashboard <https://ansible.softwarefactory-project.io/zuul/status>`_
+`CI Dashboard <https://gateway-cloud-softwarefactory.apps.ocp.cloud.ci.centos.org/zuul/t/ansible/status>`_
 
 Talk to us
 ==========

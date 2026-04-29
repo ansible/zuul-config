@@ -19,20 +19,13 @@
     start:
       github.com:
         status: 'pending'
-        status-url: "https://ansible.softwarefactory-project.io/zuul/status.html"
         comment: false
-      mqtt:
-        topic: "zuul/{pipeline}/start/{project}/{branch}"
     success:
       github.com:
         status: 'success'
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       github.com:
         status: 'failure'
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: gate
@@ -81,23 +74,16 @@
     start:
       github.com:
         status: 'pending'
-        status-url: "https://ansible.softwarefactory-project.io/zuul/status.html"
         comment: false
-      mqtt:
-        topic: "zuul/{pipeline}/start/{project}/{branch}"
     success:
       github.com:
         status: 'success'
         merge: true
         comment: true
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       github.com:
         status: 'failure'
         comment: true
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     window-floor: 20
     window-increase-factor: 2
 
@@ -111,19 +97,11 @@
       github.com:
         - event: push
           ref: ^refs/heads/.*$
-    start:
-      mqtt:
-        topic: "zuul/{pipeline}/start/{project}/{branch}"
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       smtp:
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in post pipeline: {change.project}'
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: pre-release
@@ -135,16 +113,11 @@
       github.com:
         - event: push
           ref: ^refs/tags/(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)|((?:[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))$
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       smtp:
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in pre-release pipeline: {change.project}'
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: release
@@ -156,19 +129,11 @@
       github.com:
         - event: push
           ref: ^refs/tags/(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$
-    start:
-      mqtt:
-        topic: "zuul/{pipeline}/start/{project}/{branch}"
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       smtp:
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in release pipeline: {change.project}'
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: periodic
@@ -179,19 +144,11 @@
     trigger:
       timer:
         - time: '0 0 * * *'
-    start:
-      mqtt:
-        topic: "zuul/{pipeline}/start/{project}/{branch}"
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       smtp:
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in periodic pipeline: {change.project}'
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 
 - pipeline:
@@ -203,19 +160,11 @@
     trigger:
       timer:
         - time: '0 * * * *'
-    start:
-      mqtt:
-        topic: "zuul/{pipeline}/start/{project}/{branch}"
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       smtp:
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in periodic-1hr pipeline: {change.project}'
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: periodic-6hr
@@ -226,19 +175,11 @@
     trigger:
       timer:
         - time: '0 */6 * * *'
-    start:
-      mqtt:
-        topic: "zuul/{pipeline}/start/{project}/{branch}"
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       smtp:
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in periodic-6hr pipeline: {change.project}'
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 
 - pipeline:
@@ -252,19 +193,11 @@
         # Saturday 8am UTC is a better time to start weekend jobs, as Sunday
         # is a working day in some geographies.
         - time: '0 8 * * 6'
-    start:
-      mqtt:
-        topic: "zuul/{pipeline}/start/{project}/{branch}"
-    success:
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
     failure:
       smtp:
         from: "ansible-zuul@redhat.com"
         to: "ansible-zuul@redhat.com"
         subject: '[Zuul] Job failed in periodic-weekly pipeline: {change.project}'
-      mqtt:
-        topic: "zuul/{pipeline}/result/{project}/{branch}/{change}"
 
 - pipeline:
     name: ondemand
@@ -279,10 +212,7 @@
     start:
       github.com:
         status: 'pending'
-        status-url: "https://ansible.softwarefactory-project.io/zuul/status.html"
         comment: false
-      mqtt:
-        topic: "zuul/{pipeline}/start/{project}/{branch}"
     success:
       github.com:
         check: success
@@ -328,7 +258,6 @@
     start:
       github.com:
         status: 'pending'
-        status-url: 'https://ansible.softwarefactory-project.io/zuul/status.html'
         comment: false
     success:
       github.com:
