@@ -61,10 +61,6 @@
       nodes: []
 
 # Software Factory management job
-- semaphore:
-    name: semaphore-config-update
-    max: 1
-
 - job:
     name: ansible-changelog-fragment
     description: Ensure PRs have generated changelog fragments.
@@ -72,40 +68,6 @@
     files:
       - ^plugins/.*$
       - ^tests/.*$
-    nodeset:
-      nodes: []
-
-- job:
-    name: config-check
-    parent: base
-    final: true
-    allowed-projects:
-      - ansible/zuul-config
-    description: Validate the config repo.
-    run: playbooks/config/check.yaml
-    post-run: playbooks/config/check-fetch-artifacts.yaml
-    secrets:
-      - service_user
-    vars:
-      zuul_log_url: "https://gateway-cloud-softwarefactory.apps.ocp.cloud.ci.centos.org/logs/"
-      gateway_url: "https://gateway-cloud-softwarefactory.apps.ocp.cloud.ci.centos.org"
-      tenant_config: True
-      master_sf_url:  https://gateway-cloud-softwarefactory.apps.ocp.cloud.ci.centos.org
-    nodeset:
-      nodes: []
-
-- job:
-    name: config-update
-    parent: base
-    final: true
-    allowed-projects:
-      - ansible/zuul-config
-    description: Deploy config repo update.
-    run: playbooks/config/config-update.yaml
-    secrets:
-      - site_install_server
-      - site_tenant_update
-    semaphore: semaphore-config-update
     nodeset:
       nodes: []
 
@@ -118,14 +80,14 @@
     check:
       jobs:
 #        - config-linters
-        - config-check
+        - noop
     gate:
       jobs:
 #        - config-linters
-        - config-check
+        - noop
     post:
       jobs:
-        - config-update
+        - noop
 
 - job:
     name: wait-for-changes-ahead
