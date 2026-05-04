@@ -212,6 +212,13 @@
         - release-redhat-openshift-automation-hub
 
 - project:
+    name: github.com/ansible-collections/ansible.mysql
+    default-branch: main
+    templates:
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
+- project:
     name: github.com/ansible-network/network-engine
     default-branch: devel
     templates:
