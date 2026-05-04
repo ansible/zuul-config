@@ -28,6 +28,8 @@ resources:
             zuul/include: []
         - ansible-collections/ansible.mcp:
             zuul/include: []
+        - ansible-collections/ansible.mysql:
+            zuul/include: []
         - ansible-collections/ansible.netcommon:
             zuul/include: []
         - ansible-collections/ansible.network:
