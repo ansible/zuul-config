@@ -38,6 +38,7 @@
         - name: Set zuul_log_targets (Swift with random Rackspace region)
           ansible.builtin.set_fact:
             targets: "{{ swift_target }}"
+          no_log: true
           vars:
             swift_target:
               - target: swift
