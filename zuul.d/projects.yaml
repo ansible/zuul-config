@@ -8,14 +8,17 @@
 - project:
     name: ansible-collections/community.cassandra
     default-branch: master
+    merge-mode: rebase
 
 - project:
     name: ansible-collections/community.elastic
     default-branch: master
+    merge-mode: rebase
 
 - project:
     name: ansible-collections/community.mongodb
     default-branch: master
+    merge-mode: rebase
 
 - project:
     name: ^(github.com/|)ansible-network/.*
@@ -30,12 +33,14 @@
     # All projects **not** using the shared workflow from https://github.com/ansible-community/github-action-test-galaxy-import
     # or something equivalent should be explicitly listed below!
     name: ^(github.com/|)ansible-collections/community\..*
+    merge-mode: rebase
     templates:
       - publish-to-galaxy-plain
 
 - project:
     # Lists all community.* collections in github.com/ansible-collections that do **not** use a GHA version of the Galaxy importer test.
     name: ^(github.com/|)ansible-collections/community\.(arduino|aws|cassandra|cip|ciscosmb|clickhouse|cockroachdb|digitalocean|eda|elastic|fortios|fqcn_migration|google|grafana|hashi_vault|healthchecksio|ioscm|kubevirt|libvirt|molecule|mongodb|mysql|network|nextcloud|osbuild|pacemaker|postgresql|proxysql|rabbitmq|sap|sonic|vagrant|vmware|windows|zabbix)
+    merge-mode: rebase
     templates:
       - publish-to-galaxy-3pci
 
@@ -74,7 +79,6 @@
 - project:
     name: ansible-collections/amazon_cloud_code_generator
     default-branch: main
-    merge-mode: squash-merge
     templates:
       - system-required
       - ansible-collections-amazon-cloud-code-generator
@@ -91,10 +95,12 @@
 - project:
     name: ansible/ansible
     default-branch: devel
+    merge-mode: rebase
 
 - project:
     name: github.com/ansible-collections/ansible.windows
     default-branch: main
+    merge-mode: rebase
     templates:
       - publish-to-galaxy-3pci
     pre-release:
@@ -121,7 +127,6 @@
 - project:
     name: ansible-collections/gouttelette
     default-branch: main
-    merge-mode: squash-merge
     templates:
       - ansible-python-jobs
       - ansible-collections-cloud-gouttelette-units
@@ -182,7 +187,6 @@
 
 - project:
     name: github.com/ansible-collections/checkpoint
-    merge-mode: squash-merge
     templates:
       - system-required
       - ansible-python-jobs
@@ -319,7 +323,6 @@
 - project:
     name: ansible-collections/symantec.epm
     default-branch: main
-    merge-mode: squash-merge
     templates:
       - system-required
       - publish-to-galaxy
@@ -349,12 +352,14 @@
 - project:
     name: ansible-collections/community.cip
     default-branch: main
+    merge-mode: rebase
     templates:
       - publish-to-galaxy
 
 - project:
     name: ansible-collections/microsoft.ad
     default-branch: main
+    merge-mode: rebase
     templates:
       - publish-to-galaxy
       - publish-to-automation-hub
@@ -362,6 +367,7 @@
 - project:
     name: ansible-collections/microsoft.iis
     default-branch: main
+    merge-mode: rebase
     templates:
       - publish-to-galaxy
       - publish-to-automation-hub
@@ -428,6 +434,7 @@
 - project:
     name: ansible/event-driven-ansible
     default-branch: main
+    merge-mode: rebase
     templates:
       - publish-to-automation-hub
 
@@ -460,6 +467,7 @@
 - project:
     name: ansible-collections/vmware.vmware_rest
     default-branch: main
+    merge-mode: rebase
 - project:
     name: ansible-collections/vmware_rest_code_generator
     default-branch: main
