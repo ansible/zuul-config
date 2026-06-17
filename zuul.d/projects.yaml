@@ -69,7 +69,6 @@
     templates:
       - publish-to-galaxy
       - publish-to-automation-hub
-      - ansible-collections-amazon-aws-integration
 
 - project:
     name: ansible-collections/amazon_cloud_code_generator
@@ -153,8 +152,6 @@
     templates:
       - system-required
       - publish-to-galaxy
-      - ansible-collections-community-aws
-      - ansible-collections-community-aws-integration
 
 - project:
     name: ansible/zuul-config
