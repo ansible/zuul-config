@@ -152,6 +152,7 @@
     templates:
       - system-required
       - publish-to-galaxy
+      - ansible-collections-community-aws
 
 - project:
     name: ansible/zuul-config
