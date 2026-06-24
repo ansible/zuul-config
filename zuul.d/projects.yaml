@@ -177,6 +177,8 @@
     default-branch: main
     templates:
       - system-required
+      - publish-to-galaxy
+      - publish-to-automation-hub
 
 - project:
     name: github.com/ansible-collections/checkpoint
@@ -466,5 +468,41 @@
     name: ansible-collections/ansible.mcp
     default-branch: main
     templates:
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
+- project:
+    name: ansible-collections/cisco.ios
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
+- project:
+    name: ansible-collections/cisco.iosxr
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
+- project:
+    name: ansible-collections/cisco.nxos
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
+- project:
+    name: ansible-collections/arista.eos
+    default-branch: main
+    merge-mode: squash-merge
+    templates:
+      - system-required
       - publish-to-galaxy
       - publish-to-automation-hub
