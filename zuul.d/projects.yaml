@@ -166,6 +166,7 @@
 
 - project:
     name: ansible-collections/ansible.utils
+    merge-mode: squash-merge
     default-branch: main
     templates:
       - system-required
@@ -174,6 +175,7 @@
 
 - project:
     name: ansible-collections/ansible.netcommon
+    merge-mode: squash-merge
     default-branch: main
     templates:
       - system-required
