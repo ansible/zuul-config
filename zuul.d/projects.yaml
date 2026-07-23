@@ -226,6 +226,22 @@
         - ansible-tox-linters
 
 - project:
+    name: github.com/ansible-collections/ansible.mariadb
+    default-branch: main
+    templates:
+      - system-required
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
+- project:
+    name: github.com/ansible-collections/ansible.mysql
+    default-branch: main
+    templates:
+      - system-required
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
+- project:
     name: github.com/ansible-collections/ansible.posix
     default-branch: main
     templates:
