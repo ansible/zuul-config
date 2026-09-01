@@ -55,7 +55,6 @@
             s3_target:
               - target: s3
                 args:
-                  zuul_log_partition: true
                   zuul_log_bucket: zuul-logging
                   zuul_log_bucket_public: true
                   zuul_log_aws_access_key: "{{ zuul_logs_aws_s3.access_key_id }}"
