@@ -69,6 +69,9 @@
     templates:
       - publish-to-galaxy
       - publish-to-automation-hub
+    check:
+      jobs:
+        - dnm-aca-4966-base-minimal-test
 
 - project:
     name: ansible-collections/amazon_cloud_code_generator
