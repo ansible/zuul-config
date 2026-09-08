@@ -66,13 +66,6 @@
             targets: "{{ s3_target + swift_target }}"
           no_log: true
 
-        - name: Run upload-logs-failover role (S3 then Swift)
-          no_log: true
-          include_role:
-            name: upload-logs-failover
-          vars:
-            zuul_log_targets: "{{ targets }}"
-
         - name: DIAGNOSTIC - check S3 egress reachability
           ansible.builtin.uri:
             url: https://zuul-logging.s3.amazonaws.com/
@@ -111,3 +104,10 @@
         - name: DIAGNOSTIC - report fake-credential test result
           ansible.builtin.debug:
             var: s3_fake_cred_test
+
+        - name: Run upload-logs-failover role (S3 then Swift)
+          no_log: true
+          include_role:
+            name: upload-logs-failover
+          vars:
+            zuul_log_targets: "{{ targets }}"
