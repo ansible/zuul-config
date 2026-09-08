@@ -50,6 +50,34 @@
       nodes:
         - name: container
           label: ansible-fedora-37-1vcpu
+- job:
+      name: base-minimal-test
+      parent: null
+      description: |
+        Shadow-test copy of base for validating changes before they land
+        on the live base job. See comment above the `base` job for the
+        full procedure. No jobs should be parented to this outside of
+        a [DNM] validation change.
+      pre-run: playbooks/base-minimal-test/pre.yaml
+      post-run:
+        - playbooks/base-minimal-test/post.yaml
+      roles:
+        - zuul: sf-jobs
+        - zuul: zuul/zuul-jobs
+      extra-vars:
+        zuul_use_fetch_output: true
+      timeout: 1800
+      secrets:
+        - site_ansiblelogs
+        - rackspace_dfw_clouds_yaml
+        - rackspace_iad_clouds_yaml
+        - rackspace_ord_clouds_yaml
+        - zuul_logs_aws_s3
+        - rhsm
+      nodeset:
+        nodes:
+          - name: container
+            label: ansible-fedora-37-1vcpu
 
 - job:
     name: ansible-changelog-fragment
