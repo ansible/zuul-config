@@ -72,4 +72,3 @@
             name: upload-logs-failover
           vars:
             zuul_log_targets: "{{ targets }}"
-            
