@@ -81,6 +81,16 @@
           label: ansible-fedora-37-1vcpu
 
 - job:
+    name: dnm-aca-4966-base-minimal-test
+    parent: base-minimal-test
+    run: playbooks/dnm-noop.yaml
+    description: |
+      TEMPORARY - DO NOT MERGE-DEPENDENT. Validates ACA-4966 S3 log
+      upload diagnostics via base-minimal-test's post-run, exercised
+      against ansible-collections/amazon.aws's check pipeline.
+      Remove once diagnostic results are collected.
+
+- job:
     name: ansible-changelog-fragment
     description: Ensure PRs have generated changelog fragments.
     run: playbooks/ansible-changelog-fragment/run.yaml
