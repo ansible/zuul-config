@@ -36,7 +36,7 @@ note: You don't need to do it if the project satisfies the rules specified in th
 
 note: In case you have a ``community.*`` collection in the github.com/ansible-collections/ organization, you need to add your collection to the explicit regular expression that enables the ``publish-to-galaxy-3pci`` template if you do not have an equivalent of the Galaxy importer test running in GHA.
 
-
+# Test
 Gating
 ======
 
