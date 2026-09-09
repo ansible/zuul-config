@@ -1,6 +1,0 @@
----
-- hosts: all
-  tasks:
-    - name: DNM noop task for ACA-4966 validation
-      ansible.builtin.debug:
-        msg: "Throwaway job — only exists to exercise base-minimal-test's post-run diagnostics."
