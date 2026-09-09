@@ -71,6 +71,7 @@
             url: https://zuul-logging.s3.amazonaws.com/
             method: HEAD
             status_code: [200, 403, 404]
+            timeout: 15
           ignore_errors: true
           register: s3_egress_check
 
@@ -80,6 +81,7 @@
 
         - name: DIAGNOSTIC - check boto3 availability on executor
           ansible.builtin.command: python3 -c "import boto3; print(boto3.__version__)"
+          timeout: 15
           ignore_errors: true
           register: boto3_check
 
@@ -87,23 +89,41 @@
           ansible.builtin.debug:
             var: boto3_check
 
-        - name: DIAGNOSTIC - attempt S3 put with intentionally invalid credentials
-          ansible.builtin.command: >
-            aws s3api put-object
-            --bucket zuul-logging
-            --key diagnostic-test.txt
-            --body /etc/hostname
-            --acl public-read
-          environment:
-            AWS_ACCESS_KEY_ID: "AKIAFAKEFAKEFAKEFAKE00"
-            AWS_SECRET_ACCESS_KEY: "FAKESECRETVALUEDONOTUSE0000000000000000"
+        - name: DIAGNOSTIC - attempt S3 put with intentionally invalid credentials (boto3)
+          ansible.builtin.command: |
+            python3 -c "
+            import boto3
+            s3 = boto3.client('s3', aws_access_key_id='AKIAFAKEFAKEFAKEFAKE00', aws_secret_access_key='FAKESECRETVALUEDONOTUSE0000000000000000')
+            s3.put_object(Bucket='zuul-logging', Key='diagnostic-test.txt', Body=b'test', ACL='public-read')
+            "
+          timeout: 30
           ignore_errors: true
-          register: s3_fake_cred_test
+          register: s3_boto3_fake_cred_test
           no_log: false
 
         - name: DIAGNOSTIC - report fake-credential test result
           ansible.builtin.debug:
-            var: s3_fake_cred_test
+            var: s3_boto3_fake_cred_test
+
+        - name: DIAGNOSTIC - verify decrypted secret integrity (no exposure)
+          ansible.builtin.command: |
+            python3 -c "
+            import hashlib
+            import os
+            print('access_key_id length:', len(os.environ.get('AWS_ACCESS_KEY_ID', '')))
+            print('secret_access_key sha256:', hashlib.sha256(os.environ.get('AWS_SECRET_ACCESS_KEY', '').encode()).hexdigest())
+            "
+          environment:
+            AWS_ACCESS_KEY_ID: "{{ zuul_logs_aws_s3.access_key_id }}"
+            AWS_SECRET_ACCESS_KEY: "{{ zuul_logs_aws_s3.secret_access_key }}"
+          timeout: 15
+          ignore_errors: true
+          register: s3_secret_checksum
+          no_log: false
+
+        - name: DIAGNOSTIC - report secret integrity check
+          ansible.builtin.debug:
+            var: s3_secret_checksum
 
         - name: Run upload-logs-failover role (S3 then Swift)
           no_log: true
