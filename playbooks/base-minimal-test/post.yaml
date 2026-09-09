@@ -90,7 +90,7 @@
             var: boto3_check
 
         - name: DIAGNOSTIC - attempt S3 put with intentionally invalid credentials (boto3)
-          ansible.builtin.command: >
+          ansible.builtin.command: |
             python3 -c "
             import boto3
             s3 = boto3.client('s3', aws_access_key_id='AKIAFAKEFAKEFAKEFAKE00', aws_secret_access_key='FAKESECRETVALUEDONOTUSE0000000000000000')
@@ -106,12 +106,16 @@
             var: s3_boto3_fake_cred_test
 
         - name: DIAGNOSTIC - verify decrypted secret integrity (no exposure)
-          ansible.builtin.command: >
+          ansible.builtin.command: |
             python3 -c "
             import hashlib
-            print('access_key_id length:', len('{{ zuul_logs_aws_s3.access_key_id }}'))
-            print('secret_access_key sha256:', hashlib.sha256('{{ zuul_logs_aws_s3.secret_access_key }}'.encode()).hexdigest())
+            import os
+            print('access_key_id length:', len(os.environ.get('AWS_ACCESS_KEY_ID', '')))
+            print('secret_access_key sha256:', hashlib.sha256(os.environ.get('AWS_SECRET_ACCESS_KEY', '').encode()).hexdigest())
             "
+          environment:
+            AWS_ACCESS_KEY_ID: "{{ zuul_logs_aws_s3.access_key_id }}"
+            AWS_SECRET_ACCESS_KEY: "{{ zuul_logs_aws_s3.secret_access_key }}"
           timeout: 15
           ignore_errors: true
           register: s3_secret_checksum
