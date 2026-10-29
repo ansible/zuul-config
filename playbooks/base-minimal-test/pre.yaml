@@ -1,0 +1,77 @@
+---
+- hosts: localhost
+  tasks:
+    - block:
+        - import_role: name=emit-job-header
+        # This depends-on https://review.openstack.org/578234
+        - import_role: name=log-inventory
+      vars:
+        zuul_log_url: "https://gateway-cloud-softwarefactory.apps.ocp.cloud.ci.centos.org/logs"
+
+- hosts: all:!appliance*
+  tasks:
+    - include_role: name=start-zuul-console
+    - when: ansible_connection != "kubectl"
+      block:
+      - name: Enable the mirror
+        import_role:
+          name: use-our-mirror
+      - name: Disable Fedora Modular
+        file:
+          path: /etc/yum.repos.d/fedora-modular.repo
+          state: absent
+        become: true
+      - name: Enable EPEL
+        package:
+          name:
+            - epel-release
+        become: true
+        when: ansible_distribution == "CentOS"
+      - when: ansible_distribution == "RedHat" and nodepool.provider != "ansible-us-east-2"
+        block:
+          - name: Register the RHEL node
+            command: subscription-manager register --username {{ rhsm.login }} --password {{ rhsm.password|quote }}
+            no_log: true
+            become: true
+          - name: Show the subscription-manager status
+            command: subscription-manager status
+            become: true
+          - name: Enable EPEL on RHEL
+            shell: |
+              source /etc/os-release
+              major_version=$(echo $VERSION_ID|cut -d. -f1)
+              subscription-manager repos --enable codeready-builder-for-rhel-${major_version}-$(arch)-rpms
+              dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-${major_version}.noarch.rpm
+            become: true
+      - name: Install git and tox
+        package:
+          name:
+            - git
+            - python3-tox
+            - python3-virtualenv
+        become: true
+      - include_role: name=prepare-workspace
+    - include_role: name=prepare-workspace-openshift
+      when: ansible_connection == "kubectl"
+
+- hosts: all:!appliance
+  tasks:
+    - block:
+        - name: Run add-build-sshkey role (RSA)
+          include_role:
+            name: add-build-sshkey
+          vars:
+            zuul_ssh_key_size: 2048
+        - name: Run add-build-sshkey role (ECDSA)
+          include_role:
+            name: add-build-sshkey
+          vars:
+            zuul_ssh_key_algorithm: ecdsa
+            zuul_ssh_key_size: 521
+      when: "ansible_connection != 'kubectl'"
+    - block:
+        - include_role: name=remove-zuul-sshkey
+      run_once: true
+      when: "ansible_connection == 'kubectl'"
+    - import_role: name=ensure-output-dirs
+      when: ansible_user_dir is defined
