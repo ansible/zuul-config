@@ -43,8 +43,8 @@
         zuul_log_aws_access_key: "{{ zuul_logs_aws_s3.access_key_id }}"
         zuul_log_aws_secret_key: "{{ zuul_logs_aws_s3.secret_access_key }}"
 
-    - name: Correct reported log URL to use the S3 website-hosting endpoint
+    - name: Correct reported log URL to point directly at the generated index.html
       zuul_return:
         data:
           zuul:
-            log_url: "http://zuul-logging.s3-website-us-east-1.amazonaws.com/{{ zuul_log_path }}/"
+            log_url: "https://zuul-logging.s3.amazonaws.com/{{ zuul_log_path }}/index.html"
