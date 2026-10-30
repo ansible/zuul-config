@@ -75,6 +75,16 @@
           label: ansible-fedora-37-1vcpu
 
 - job:
+    name: dnm-s3-log-index-base-minimal-test
+    parent: base-minimal-test
+    run: playbooks/dnm-noop.yaml
+    description: |
+      TEMPORARY - DO NOT MERGE-DEPENDENT. Validates the corrected S3 log
+      index.html URL fix via base-minimal-test's post-run, exercised
+      against ansible-collections/amazon.aws's check pipeline.
+      Remove once validation results are collected.
+
+- job:
     name: ansible-changelog-fragment
     description: Ensure PRs have generated changelog fragments.
     run: playbooks/ansible-changelog-fragment/run.yaml
