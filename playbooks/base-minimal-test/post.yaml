@@ -26,6 +26,8 @@
     - name: Run Zuul manifest role
       include_role:
         name: generate-zuul-manifest
+      vars:
+        generate_zuul_manifest_index_links: true
 
     - name: Set zuul-log-path fact
       include_role:
@@ -42,9 +44,3 @@
         zuul_log_bucket_public: true
         zuul_log_aws_access_key: "{{ zuul_logs_aws_s3.access_key_id }}"
         zuul_log_aws_secret_key: "{{ zuul_logs_aws_s3.secret_access_key }}"
-
-    - name: Correct reported log URL to point directly at the generated index.html
-      zuul_return:
-        data:
-          zuul:
-            log_url: "https://zuul-logging.s3.amazonaws.com/{{ zuul_log_path }}/index.html"
