@@ -26,6 +26,8 @@
     - name: Run Zuul manifest role
       include_role:
         name: generate-zuul-manifest
+      vars:
+        generate_zuul_manifest_index_links: true
 
     - name: Set zuul-log-path fact
       include_role:
