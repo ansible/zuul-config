@@ -481,11 +481,22 @@
     templates:
       - publish-to-automation-hub
 
-# vmware_rest does not use zuul, but other repos are dependent
-# on it being in the zuul config
 - project:
     name: ansible-collections/vmware.vmware_rest
     default-branch: main
+    templates:
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
+- project:
+    name: ansible-collections/vmware.vmware
+    default-branch: main
+    templates:
+      - publish-to-galaxy
+      - publish-to-automation-hub
+
+# vmware_rest_code_generator does not use zuul, but other repos are dependent
+# on it being in the zuul config
 - project:
     name: ansible-collections/vmware_rest_code_generator
     default-branch: main
