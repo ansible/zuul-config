@@ -12,5 +12,5 @@
 
     - name: Generate version number for ansible collection.
       args:
-        chdir: "{{ zuul.project.src_dir }}"
+        chdir: "{{ zuul.project.src_dir }}/{{ ansible_galaxy_collection_source_path | default(ansible_galaxy_collection_path | default('.')) }}"
       command: "~/{{ zuul.projects['github.com/ansible-network/releases'].src_dir }}/.tox/generate_collection_version/bin/generate-ansible-collection"
